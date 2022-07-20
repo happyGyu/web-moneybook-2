@@ -21,11 +21,16 @@
   "scripts": {
     "build": "webpack",
     "build:prod": "NODE_ENV='production' webpack",
+    "dev": "nodemon server/index.js",
+    "start": "npm run build:prod && NODE_ENV='production' node server/index.js",
     "lint": "eslint --fix ./{server,client}/**/*.js",
     "format": "prettier --write './(server|client)/**/*.js'"
   },
   "dependencies": {
-    "core-js": "^3.23.5"
+    "core-js": "^3.23.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
@@ -38,9 +43,12 @@
     "eslint-config-prettier": "^8.5.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "terser-webpack-plugin": "^5.3.3",
     "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-middleware": "^5.3.3",
+    "webpack-dev-server": "^4.9.3"
   }
 }

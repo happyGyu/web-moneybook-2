@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isProduction ? '[fullhash].js' : '[name].js',
+    publicPath: '/',
     clean: true,
   },
   module: {
@@ -45,5 +46,8 @@ module.exports = {
     },
   },
   devtool: 'source-map',
-  watch: !isProduction,
+  devServer: {
+    static: './dist',
+    historyApiFallback: true,
+  },
 };
