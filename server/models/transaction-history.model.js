@@ -36,7 +36,26 @@ async function update(
   connection.release();
 }
 
+async function findAllInPeriod(startDate, endDate) {
+  const connection = await pool.getConnection();
+  await connection.beginTransaction();
+  const [transactionHistories] = await connection.query(
+    `SELECT T.id, T.title, T.isIncome, T.amount, T.date, T.paymentMethodId, P.title as paymentMethodTitle, T.categoryId, C.title as categoryTitle, C.color as categoryColor
+    FROM TransactionHistory as T
+    INNER JOIN PaymentMethod as P
+    ON T.paymentMethodId = P.id
+    INNER JOIN Category as C
+    ON T.categoryId = C.id
+    WHERE T.date BETWEEN ? AND ?;`,
+    [startDate, endDate],
+  );
+  await connection.commit();
+  connection.release();
+  return transactionHistories;
+}
+
 module.exports = {
   create,
   update,
+  findAllInPeriod,
 };
