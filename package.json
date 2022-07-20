@@ -1,0 +1,54 @@
+{
+  "name": "web-moneybook-2",
+  "version": "1.0.0",
+  "description": "웹 풀스택 3,4주차 가계부 서비스 - 이상림, 황태규",
+  "license": "ISC",
+  "keywords": [
+    "vanillajs",
+    "webpack",
+    "babel",
+    "express"
+  ],
+  "author": "happyGyu <happyboyto.dev@gmail.com>, sangrimlee <contact@sangrim.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woowa-techcamp-2022/web-moneybook-2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/woowa-techcamp-2022/web-moneybook-2/issues"
+  },
+  "homepage": "https://github.com/woowa-techcamp-2022/web-moneybook-2#readme",
+  "scripts": {
+    "build": "webpack",
+    "build:prod": "NODE_ENV='production' webpack",
+    "dev": "nodemon server/index.js",
+    "start": "npm run build:prod && NODE_ENV='production' node server/index.js",
+    "lint": "eslint --fix ./{server,client}/**/*.js",
+    "format": "prettier --write './(server|client)/**/*.js'"
+  },
+  "dependencies": {
+    "core-js": "^3.23.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "terser-webpack-plugin": "^5.3.3",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-middleware": "^5.3.3",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
