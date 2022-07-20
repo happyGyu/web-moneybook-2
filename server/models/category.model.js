@@ -6,6 +6,7 @@ async function findAll() {
         SELECT C.id, C.title, C.color
         FROM Category as C
     `);
+  connection.release();
   return categories;
 }
 
