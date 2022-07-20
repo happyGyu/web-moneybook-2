@@ -12,10 +12,13 @@ async function create({ title }) {
 
 async function findAll() {
   const connection = await pool.getConnection();
+  await connection.beginTransaction();
   const [paymentMethods] = await connection.query(`
           SELECT P.id, P.title
           FROM PaymentMethod as P
       `);
+  await connection.commit();
+  connection.release();
   return paymentMethods;
 }
 
