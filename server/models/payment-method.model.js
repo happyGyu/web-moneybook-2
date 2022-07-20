@@ -13,10 +13,10 @@ async function create({ title }) {
 async function update({ id, title }) {
   const connection = await pool.getConnection();
   await connection.beginTransaction();
-  await connection.query(
-    `UPDATE PaymentMethod SET title = ( ? ) WHERE ID = ( ? )`,
-    [title, id],
-  );
+  await connection.query(`UPDATE PaymentMethod SET title = ? WHERE ID = ?`, [
+    title,
+    id,
+  ]);
   await connection.commit();
   connection.release();
 }
@@ -24,7 +24,7 @@ async function update({ id, title }) {
 async function remove({ id }) {
   const connection = await pool.getConnection();
   await connection.beginTransaction();
-  await connection.query(`DELETE FROM PaymentMethod WHERE ID = ( ? )`, [id]);
+  await connection.query(`DELETE FROM PaymentMethod WHERE ID = ?`, [id]);
   await connection.commit();
   connection.release();
 }
