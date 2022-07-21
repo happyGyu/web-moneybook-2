@@ -1,6 +1,6 @@
 import pool from '../db';
 
-const paymentMethodService = {
+const paymentMethodModel = {
   async create({ title }) {
     const connection = await pool.getConnection();
     await connection.beginTransaction();
@@ -55,4 +55,4 @@ const paymentMethodService = {
   },
 };
 
-export default paymentMethodService;
+export default paymentMethodModel;
