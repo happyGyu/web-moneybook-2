@@ -1,54 +1,31 @@
 import { Router as router } from 'express';
+import transactionHistoryController from '../controllers/transaction-history.controller';
 
 const transactionHistoryRouter = router();
 
-transactionHistoryRouter.get('/', (req, res) => {
-  const { year, month } = req.query;
+transactionHistoryRouter.get(
+  '/',
+  transactionHistoryController.getTranscationHistoriesByMonth,
+);
 
-  res.status(200).json({
-    statusCode: 200,
-    year,
-    month,
-  });
-});
+transactionHistoryRouter.get(
+  '/category',
+  transactionHistoryController.getTransactionHistoriesByCategory,
+);
 
-transactionHistoryRouter.get('/category', (req, res) => {
-  const { startDate, endDate, categoryId } = req.query;
-  res.status(200).json({
-    statusCode: 200,
-    startDate,
-    endDate,
-    categoryId,
-  });
-});
+transactionHistoryRouter.post(
+  '/',
+  transactionHistoryController.createTransactionHistory,
+);
 
-transactionHistoryRouter.post('/', (req, res) => {
-  const createTransactionHistoryDto = req.body;
+transactionHistoryRouter.patch(
+  '/:id',
+  transactionHistoryController.updateTransactionHistory,
+);
 
-  res.status(200).json({
-    statusCode: 200,
-    createTransactionHistoryDto,
-  });
-});
-
-transactionHistoryRouter.patch('/:id', (req, res) => {
-  const { id: transactionHistoryId } = req.params;
-  const updateTransactionHistoryDto = req.body;
-
-  res.status(201).json({
-    statusCode: 201,
-    transactionHistoryId,
-    updateTransactionHistoryDto,
-  });
-});
-
-transactionHistoryRouter.delete('/:id', (req, res) => {
-  const { id: transactionHistoryId } = req.params;
-
-  res.status(201).json({
-    statusCode: 201,
-    transactionHistoryId,
-  });
-});
+transactionHistoryRouter.delete(
+  '/:id',
+  transactionHistoryController.removeTransactionHistroy,
+);
 
 export default transactionHistoryRouter;

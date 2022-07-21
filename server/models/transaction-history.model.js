@@ -30,6 +30,14 @@ const transactionHistoryModel = {
     connection.release();
   },
 
+  async remove(id) {
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+    await connection.query(`DELETE FROM TransactionHistory WHERE ID = ?`, id);
+    await connection.commit();
+    connection.release();
+  },
+
   async findById(id) {
     const connection = await pool.getConnection();
     await connection.beginTransaction();
