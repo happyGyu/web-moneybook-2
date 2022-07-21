@@ -1,10 +1,10 @@
-const CustomException = require('../common/custom-exception');
-const transactionHistoryModel = require('../models/transaction-history.model');
-const {
+import CustomException from '../common/custom-exception';
+import transactionHistoryModel from '../models/transaction-history.model';
+import {
   convertDateString,
   getFirstDayOfMonth,
   getLastDayOfMonth,
-} = require('../utils/date.util');
+} from '../utils/date.util';
 
 async function createTransactionHistory(createTransactionHistoryDto) {
   await transactionHistoryModel.create(createTransactionHistoryDto);
@@ -58,7 +58,7 @@ async function getTranscationHistoriesByCategory(
   );
 }
 
-module.exports = {
+export default {
   createTransactionHistory,
   updateTransactionHistory,
   removeTransactionHistory,

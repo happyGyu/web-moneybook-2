@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function create({
   title,
@@ -66,7 +66,7 @@ async function findAllInPeriod(startDate, endDate) {
   return transactionHistories;
 }
 
-module.exports = {
+export default {
   create,
   update,
   findById,

@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function create({ title }) {
   const connection = await pool.getConnection();
@@ -53,7 +53,7 @@ async function findAll() {
   return paymentMethods;
 }
 
-module.exports = {
+export default {
   create,
   update,
   remove,
