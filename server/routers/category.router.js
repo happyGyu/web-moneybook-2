@@ -1,11 +1,8 @@
 import { Router as router } from 'express';
+import categoryController from '../controllers/category.controller';
 
 const categoryRouter = router();
 
-categoryRouter.get('/', (req, res) => {
-  res.status(200).json({
-    statusCode: 200,
-  });
-});
+categoryRouter.get('/', categoryController.getAllCategories);
 
 export default categoryRouter;
