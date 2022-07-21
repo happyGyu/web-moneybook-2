@@ -29,6 +29,18 @@ async function remove({ id }) {
   connection.release();
 }
 
+async function findById(id) {
+  const connection = await pool.getConnection();
+  await connection.beginTransaction();
+  const [paymentMethod] = await connection.query(
+    `SELECT * FROM PaymentMethod WHERE ID = ?`,
+    [id],
+  );
+  await connection.commit();
+  connection.release();
+  return 0 < paymentMethod.length ? paymentMethod[0] : null;
+}
+
 async function findAll() {
   const connection = await pool.getConnection();
   await connection.beginTransaction();
@@ -46,4 +58,5 @@ module.exports = {
   update,
   remove,
   findAll,
+  findById,
 };

@@ -36,6 +36,18 @@ async function update(
   connection.release();
 }
 
+async function findById(id) {
+  const connection = await pool.getConnection();
+  await connection.beginTransaction();
+  const [transactionHistory] = await connection.query(
+    `SELECT * FROM TransactionHistory WHERE ID = ?`,
+    [id],
+  );
+  await connection.commit();
+  connection.release();
+  return 0 < transactionHistory.length ? transactionHistory[0] : null;
+}
+
 async function findAllInPeriod(startDate, endDate) {
   const connection = await pool.getConnection();
   await connection.beginTransaction();
@@ -57,5 +69,6 @@ async function findAllInPeriod(startDate, endDate) {
 module.exports = {
   create,
   update,
+  findById,
   findAllInPeriod,
 };
