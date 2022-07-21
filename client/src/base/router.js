@@ -5,19 +5,30 @@ export default class Router {
     if (Router.#instance) {
       return Router.#instance;
     }
-
     this.routes = new Map(Object.entries(routes));
     this.render(location.pathname);
     this.onPopState();
     Router.#instance = this;
   }
 
-  render(pathname) {
-    if (this.routes.has(pathname)) {
-      this.routes.get(pathname)();
-    } else {
-      this.routes.get('/404')();
+  removePage() {
+    if (this.currentPage) {
+      this.currentPage.currentNode.remove();
     }
+  }
+
+  // TODO: Ternary Operator
+  renderPage(pathname) {
+    if (this.routes.has(pathname)) {
+      this.currentPage = this.routes.get(pathname)();
+    } else {
+      this.currentPage = this.routes.get('*')();
+    }
+  }
+
+  render(pathname) {
+    this.removePage();
+    this.renderPage(pathname);
   }
 
   onPopState() {
