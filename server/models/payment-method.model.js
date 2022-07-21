@@ -11,7 +11,7 @@ const paymentMethodModel = {
     connection.release();
   },
 
-  async update({ id, title }) {
+  async update(id, { title }) {
     const connection = await pool.getConnection();
     await connection.beginTransaction();
     await connection.query(`UPDATE PaymentMethod SET title = ? WHERE ID = ?`, [
@@ -22,7 +22,7 @@ const paymentMethodModel = {
     connection.release();
   },
 
-  async remove({ id }) {
+  async remove(id) {
     const connection = await pool.getConnection();
     await connection.beginTransaction();
     await connection.query(`DELETE FROM PaymentMethod WHERE ID = ?`, [id]);
