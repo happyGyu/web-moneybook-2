@@ -1,10 +1,6 @@
-const categoryModel = require('../models/category.model');
+import categoryModel from '../models/category.model';
 
-async function getAllCategories() {
+export async function getAllCategories() {
   const categories = await categoryModel.findAll();
   return categories;
 }
-
-module.exports = {
-  getAllCategories,
-};

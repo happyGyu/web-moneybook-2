@@ -1,5 +1,5 @@
-const CustomException = require('../common/custom-exception');
-const paymentMethodModel = require('../models/payment-method.model');
+import CustomException from '../common/custom-exception';
+import paymentMethodModel from '../models/payment-method.model';
 
 async function getAllPaymentMethods() {
   const paymentMethods = await paymentMethodModel.findAll();
@@ -26,7 +26,7 @@ async function removePaymentMethod(paymentMethodId) {
   await paymentMethodModel.remove(paymentMethodId);
 }
 
-module.exports = {
+export default {
   getAllPaymentMethods,
   createPaymentMethod,
   updatePaymentMethod,

@@ -1,9 +1,9 @@
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const config = require('../../webpack.config');
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import config from '../../webpack.config';
 
 const webpackMiddleware = webpackDevMiddleware(webpack(config), {
   publicPath: config.output.publicPath,
 });
 
-module.exports = webpackMiddleware;
+export default webpackMiddleware;

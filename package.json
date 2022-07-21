@@ -21,8 +21,9 @@
   "scripts": {
     "build": "webpack",
     "build:prod": "NODE_ENV='production' webpack",
-    "dev": "nodemon server/index.js",
-    "start": "npm run build:prod && NODE_ENV='production' node server/index.js",
+    "start": " babel-node server/index.js",
+    "start:prod": "npm run build:prod && NODE_ENV='production' npm run start",
+    "dev": "nodemon --exec npm run start",
     "lint": "eslint --fix ./{server,client}/**/*.js",
     "format": "prettier --write './(server|client)/**/*.js'"
   },
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
+    "@babel/node": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",

@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function findAll() {
   const connection = await pool.getConnection();
@@ -12,6 +12,6 @@ async function findAll() {
   return categories;
 }
 
-module.exports = {
+export default {
   findAll,
 };
