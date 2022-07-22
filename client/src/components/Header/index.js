@@ -1,6 +1,6 @@
-import './index.css';
 import Router from '@/base/router';
 import Component from '@/base/component';
+import Logo from './Logo';
 import Navigation from './Navigation';
 
 export default class Header extends Component {
@@ -9,8 +9,7 @@ export default class Header extends Component {
   }
 
   render() {
-    // new Logo(this.currentNode);
-    // new HeaderCalendar(this.currentNode);
+    new Logo(this.currentNode);
     new Navigation(this.currentNode);
   }
 
