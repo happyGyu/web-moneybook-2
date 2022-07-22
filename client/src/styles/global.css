@@ -21,6 +21,11 @@
 html,
 body,
 #app {
+  font-family: 'Noto Sans KR', sans-serif;
   color: var(--colors-text-active);
   background-color: var(--colors-off-white);
+}
+
+.font-dohyeon {
+  font-family: 'BMDOHYEON';
 }

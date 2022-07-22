@@ -1,4 +1,5 @@
 import '@/styles/normalize.css';
+import '@/styles/fonts.css';
 import '@/styles/global.css';
 import Router from './base/router';
 import Header from './components/Header';
