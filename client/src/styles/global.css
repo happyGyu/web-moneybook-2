@@ -61,3 +61,21 @@ button {
 .font-dohyeon {
   font-family: 'BMDOHYEON';
 }
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+}

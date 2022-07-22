@@ -1,0 +1,31 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rem;
+  color: var(--colors-off-white);
+  background-color: var(--colors-primary);
+}
+
+.header__container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-size: 1.5rem;
+}
+
+.header__navigation {
+  display: flex;
+}
+
+.header__navigation--link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+}
