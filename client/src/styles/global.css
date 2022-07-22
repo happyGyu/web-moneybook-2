@@ -26,6 +26,38 @@ body,
   background-color: var(--colors-off-white);
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--colors-placeholder);
+}
+
+button {
+  color: inherit;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
 .font-dohyeon {
   font-family: 'BMDOHYEON';
 }

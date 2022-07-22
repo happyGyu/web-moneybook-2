@@ -12,6 +12,7 @@ Use a better box model (opinionated).
 *,
 ::before,
 ::after {
+  margin: 0;
   box-sizing: border-box;
 }
 
