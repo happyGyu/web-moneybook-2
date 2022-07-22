@@ -16,6 +16,14 @@ export default class Component {
     );
   }
 
+  addEvent(eventType, selector, callback) {
+    this.currentNode.addEventListener(eventType, (event) => {
+      if (event.target.closest(selector)) {
+        callback(event);
+      }
+    });
+  }
+
   activate() {}
 
   render() {}
