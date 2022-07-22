@@ -1,4 +1,4 @@
-import Observable from './observable';
+import Observable from '@/base/observable';
 import { MODEL_KEYS } from '@/constants/keys';
 
 export default class Model extends Observable {

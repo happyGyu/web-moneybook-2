@@ -1,4 +1,4 @@
-import Component from '../base/component';
+import Component from '@/base/component';
 
 export default class CalendarPage extends Component {
   constructor(parentNode) {
