@@ -17,17 +17,21 @@ const paymentMethodController = {
     });
   },
 
-  async updatePaymentMethod(req, res) {
-    const { id: paymentMethodId } = req.params;
-    const updatePaymentMethodDto = req.body;
+  async updatePaymentMethod(req, res, next) {
+    try {
+      const { id: paymentMethodId } = req.params;
+      const updatePaymentMethodDto = req.body;
 
-    await paymentMethodService.updatePaymentMethod(
-      paymentMethodId,
-      updatePaymentMethodDto,
-    );
-    res.status(201).json({
-      statusCode: 201,
-    });
+      await paymentMethodService.updatePaymentMethod(
+        paymentMethodId,
+        updatePaymentMethodDto,
+      );
+      res.status(201).json({
+        statusCode: 201,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
   async removePaymentMethod(req, res) {

@@ -1,4 +1,6 @@
 import CustomException from '../common/custom-exception';
+import { STATUS_CODE } from '../constants/status-code.constant';
+import { ERROR_MESSAGES } from '../constants/error-message.constant';
 import paymentMethodModel from '../models/payment-method.model';
 
 const paymentMethodService = {
@@ -14,7 +16,10 @@ const paymentMethodService = {
   async updatePaymentMethod(paymentMethodId, updatePaymentMethodDto) {
     const isExist = await paymentMethodModel.findById(paymentMethodId);
     if (!isExist) {
-      throw new CustomException(404, '결제 방식을 찾을 수 없습니다.');
+      throw new CustomException(
+        STATUS_CODE.NOT_FOUND,
+        ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND,
+      );
     }
     await paymentMethodModel.update(paymentMethodId, updatePaymentMethodDto);
   },
@@ -22,7 +27,10 @@ const paymentMethodService = {
   async removePaymentMethod(paymentMethodId) {
     const isExist = await paymentMethodModel.findById(paymentMethodId);
     if (!isExist) {
-      throw new CustomException(404, '결제 방식을 찾을 수 없습니다.');
+      throw new CustomException(
+        STATUS_CODE.NOT_FOUND,
+        ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND,
+      );
     }
     await paymentMethodModel.remove(paymentMethodId);
   },
