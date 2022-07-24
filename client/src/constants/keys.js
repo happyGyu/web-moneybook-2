@@ -1,5 +1,5 @@
 export const MODEL_KEYS = {
-  CURRENT_YEAR_AND_MONTH: 'currentYearAndMonth',
+  CURRENT_HEADER_DATE: 'currentHeaderDate',
   TRANSACTION_HISTORIES: 'transactionHistories',
   CATEGORIES: 'categories',
   PAYMENT_METHODS: 'paymentMethods',

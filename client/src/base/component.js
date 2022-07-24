@@ -1,3 +1,5 @@
+import store from '@/store';
+
 export default class Component {
   constructor(parentNode, tagName, attrs) {
     this.parentNode = parentNode;
@@ -21,6 +23,13 @@ export default class Component {
       if (event.target.closest(selector)) {
         callback(event);
       }
+    });
+  }
+
+  subscribe(key) {
+    store.subscribe(key, {
+      node: this.currentNode,
+      callback: this.render.bind(this),
     });
   }
 
