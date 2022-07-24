@@ -33,7 +33,7 @@ const transactionHistoryController = {
         data: transactionHistories,
       });
     } catch (error) {
-      next(erro);
+      next(error);
     }
   },
 

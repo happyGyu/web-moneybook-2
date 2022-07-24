@@ -16,9 +16,7 @@ const categoryService = {
   },
 
   async getAllCategories() {
-    const categories = await categoryModel.findAll({
-      attributes: ['id', 'title', 'color'],
-    });
+    const categories = await categoryModel.findAll();
     return categories;
   },
 };
