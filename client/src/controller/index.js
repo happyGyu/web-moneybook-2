@@ -1,12 +1,12 @@
 import store from '@/store';
-import { MODEL_KEYS } from '@/constants/keys';
+import { STORE_KEYS } from '@/constants/keys';
 
 function changeHeaderMonth(increment) {
-  const currDate = store.getData(MODEL_KEYS.CURRENT_HEADER_DATE);
+  const currDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
   const changedDate = new Date(
     currDate.setMonth(currDate.getMonth() + increment),
   );
-  store.setData(MODEL_KEYS.CURRENT_HEADER_DATE, changedDate);
+  store.setData(STORE_KEYS.CURRENT_HEADER_DATE, changedDate);
 }
 
 const controller = {

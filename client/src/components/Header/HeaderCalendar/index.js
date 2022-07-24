@@ -1,5 +1,5 @@
 import Component from '@/base/component';
-import { MODEL_KEYS } from '@/constants/keys';
+import { STORE_KEYS } from '@/constants/keys';
 import controller from '@/controller';
 import dateUtil from '@/utils/date-util';
 export default class HeaderCalendar extends Component {
@@ -21,7 +21,7 @@ export default class HeaderCalendar extends Component {
   }
 
   activate() {
-    this.subscribe(MODEL_KEYS.CURRENT_HEADER_DATE);
+    this.subscribe(STORE_KEYS.CURRENT_HEADER_DATE);
     this.addEvents();
   }
 

@@ -1,4 +1,4 @@
-export const MODEL_KEYS = {
+export const STORE_KEYS = {
   CURRENT_HEADER_DATE: 'currentHeaderDate',
   TRANSACTION_HISTORIES: 'transactionHistories',
   CATEGORIES: 'categories',
