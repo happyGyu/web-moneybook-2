@@ -1,13 +1,18 @@
 import categoryService from '../services/category.service';
+import { STATUS_CODE } from '../constants/status-code.constant';
 
 const categoryController = {
   async getAllCategories(req, res) {
-    const categories = await categoryService.getAllCategories();
+    try {
+      const categories = await categoryService.getAllCategories();
 
-    res.status(200).json({
-      statusCode: 200,
-      data: categories,
-    });
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+        data: categories,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 };
 
