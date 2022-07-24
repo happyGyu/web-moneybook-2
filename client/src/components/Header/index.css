@@ -42,6 +42,18 @@
   font-size: 1.5rem;
 }
 
+.header-calendar__button--prev > svg,
+.header-calendar__button--next > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.header-calendar__button--prev:hover,
+.header-calendar__button--next:hover {
+  opacity: 0.75;
+}
+
 .header__navigation {
   display: flex;
 }
