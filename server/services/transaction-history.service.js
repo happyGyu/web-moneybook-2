@@ -1,5 +1,9 @@
 import CustomException from '../common/custom-exception';
+import categoryService from './category.service';
+import paymentMethodService from './payment-method.service';
 import transactionHistoryModel from '../models/transaction-history.model';
+import { STATUS_CODE } from '../constants/status-code.constant';
+import { ERROR_MESSAGES } from '../constants/error-message.constant';
 import {
   convertDateString,
   getFirstDayOfMonth,
@@ -7,7 +11,26 @@ import {
 } from '../utils/date.util';
 
 const transactionHistoryService = {
+  async findByIdOrFail(transactionHistoryId) {
+    const transactionHistory = await transactionHistoryModel.findById(
+      transactionHistoryId,
+    );
+    if (!transactionHistory) {
+      throw new CustomException(
+        STATUS_CODE.NOT_FOUND,
+        ERROR_MESSAGES.TRANSACTION_HISTORTY_NOT_FOUND,
+      );
+    }
+    return transactionHistory;
+  },
+
   async createTransactionHistory(createTransactionHistoryDto) {
+    await paymentMethodService.findByIdOrFail(
+      createTransactionHistoryDto.paymentMethodId,
+    );
+    await categoryService.findByIdOrFail(
+      createTransactionHistoryDto.categoryId,
+    );
     await transactionHistoryModel.create(createTransactionHistoryDto);
   },
 
@@ -15,25 +38,23 @@ const transactionHistoryService = {
     transactionHistoryId,
     updateTransactionHistoryDto,
   ) {
-    const isExist = await transactionHistoryModel.findById(
-      transactionHistoryId,
+    const transcationHistory = await this.findByIdOrFail(transactionHistoryId);
+    const updatedTransactionHistory = {
+      ...transcationHistory,
+      ...updateTransactionHistoryDto,
+    };
+    await paymentMethodService.findByIdOrFail(
+      updatedTransactionHistory.paymentMethodId,
     );
-    if (!isExist) {
-      throw new CustomException(404, '수입/지출 내역을 찾을 수 없습니다.');
-    }
+    await categoryService.findByIdOrFail(updatedTransactionHistory.categoryId);
     await transactionHistoryModel.update(
       transactionHistoryId,
-      updateTransactionHistoryDto,
+      updatedTransactionHistory,
     );
   },
 
   async removeTransactionHistory(transactionHistoryId) {
-    const isExist = await transactionHistoryModel.findById(
-      transactionHistoryId,
-    );
-    if (!isExist) {
-      throw new CustomException(404, '결제 방식을 찾을 수 없습니다.');
-    }
+    await this.findByIdOrFail(transactionHistoryId);
     await transactionHistoryModel.remove(transactionHistoryId);
   },
 

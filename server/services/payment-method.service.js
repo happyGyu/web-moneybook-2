@@ -1,7 +1,7 @@
 import CustomException from '../common/custom-exception';
+import paymentMethodModel from '../models/payment-method.model';
 import { STATUS_CODE } from '../constants/status-code.constant';
 import { ERROR_MESSAGES } from '../constants/error-message.constant';
-import paymentMethodModel from '../models/payment-method.model';
 
 const paymentMethodService = {
   async findByIdOrFail(paymentMethodId) {
