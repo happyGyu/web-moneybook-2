@@ -4,6 +4,21 @@ import { ERROR_MESSAGES } from '../constants/error-message.constant';
 import paymentMethodModel from '../models/payment-method.model';
 
 const paymentMethodService = {
+  async findByIdOrFail(paymentMethodId) {
+    const paymentMethod = await paymentMethodModel.findOneBy({
+      where: {
+        id: paymentMethodId,
+      },
+    });
+    if (!paymentMethod) {
+      throw new CustomException(
+        STATUS_CODE.NOT_FOUND,
+        ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND,
+      );
+    }
+    return paymentMethod;
+  },
+
   async getAllPaymentMethods() {
     const paymentMethods = await paymentMethodModel.findAll();
     return paymentMethods;
@@ -14,24 +29,15 @@ const paymentMethodService = {
   },
 
   async updatePaymentMethod(paymentMethodId, updatePaymentMethodDto) {
-    const isExist = await paymentMethodModel.findById(paymentMethodId);
-    if (!isExist) {
-      throw new CustomException(
-        STATUS_CODE.NOT_FOUND,
-        ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND,
-      );
-    }
-    await paymentMethodModel.update(paymentMethodId, updatePaymentMethodDto);
+    const paymentMethod = await this.findByIdOrFail(paymentMethodId);
+    await paymentMethodModel.update(paymentMethodId, {
+      ...paymentMethod,
+      ...updatePaymentMethodDto,
+    });
   },
 
   async removePaymentMethod(paymentMethodId) {
-    const isExist = await paymentMethodModel.findById(paymentMethodId);
-    if (!isExist) {
-      throw new CustomException(
-        STATUS_CODE.NOT_FOUND,
-        ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND,
-      );
-    }
+    await this.findByIdOrFail(paymentMethodId);
     await paymentMethodModel.remove(paymentMethodId);
   },
 };
