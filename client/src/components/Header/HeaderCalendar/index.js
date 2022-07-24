@@ -13,8 +13,8 @@ export default class HeaderCalendar extends Component {
     this.currentNode.innerHTML = `
         <button class='header-calendar__button--prev'><</button>
         <div class='header-calendar__container'>
-          <span class='header-calendar__month'>${month}월</span>
-          <span class='header-calendar__year'>${year}</span>
+          <div class='header-calendar__month font-dohyeon'>${month}월</div>
+          <div class='header-calendar__year font-dohyeon'>${year}</div>
         </div>
         <button class='header-calendar__button--next'>></button>
     `;

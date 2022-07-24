@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 8rem;
+  height: 12.125rem;
   color: var(--colors-off-white);
   background-color: var(--colors-primary);
 }
@@ -16,6 +16,29 @@
 }
 
 .header__logo {
+  font-size: 1.5rem;
+}
+
+.header-calendar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3.25rem;
+}
+
+.header-calendar__container {
+  width: 6.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-calendar__month {
+  font-size: 3rem;
+}
+
+.header-calendar__year {
   font-size: 1.5rem;
 }
 
