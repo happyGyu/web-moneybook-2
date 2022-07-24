@@ -32,10 +32,10 @@ async function initStore() {
     request.getPaymentMethods(),
   ]);
   const inputBarData = {
-    title: '',
+    title: null,
     date: new Date(),
-    categoryId: null,
-    paymentMethodId: null,
+    category: null,
+    paymentMethod: null,
     isIncome: false,
     amount: null,
   };
