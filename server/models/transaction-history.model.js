@@ -1,59 +1,44 @@
-import pool from '../db';
+import query from '../db/query';
 
 const transactionHistoryModel = {
   async create({ title, date, isIncome, amount, categoryId, paymentMethodId }) {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    await connection.query(
+    await query(
       `INSERT INTO TransactionHistory
       ( title, date, isIncome, amount, categoryId, paymentMethodId)
       VALUES ( ?, ?, ?, ?, ?, ? )`,
       [title, date, isIncome, amount, categoryId, paymentMethodId],
     );
-    await connection.commit();
-    connection.release();
   },
 
   async update(
     id,
     { title, date, isIncome, amount, categoryId, paymentMethodId },
   ) {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    await connection.query(
+    await query(
       `UPDATE TransactionHistory
       SET title = ?, date = ?, isIncome = ?, amount = ?, categoryId = ?, paymentMethodId = ?
-      WHERE ID =  ? `,
+      WHERE ID =  ?`,
       [title, date, isIncome, amount, categoryId, paymentMethodId, +id],
     );
-    await connection.commit();
-    connection.release();
   },
 
   async remove(id) {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    await connection.query(`DELETE FROM TransactionHistory WHERE ID = ?`, id);
-    await connection.commit();
-    connection.release();
+    await query(`DELETE FROM TransactionHistory WHERE ID = ?`, id);
   },
 
   async findById(id) {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    const [transactionHistory] = await connection.query(
-      `SELECT * FROM TransactionHistory WHERE ID = ?`,
+    const [transactionHistory] = await query(
+      `SELECT *
+      FROM TransactionHistory
+      WHERE ID = ?
+      LIMIT = 1;`,
       [id],
     );
-    await connection.commit();
-    connection.release();
-    return 0 < transactionHistory.length ? transactionHistory[0] : null;
+    return transactionHistory[0] ?? null;
   },
 
   async findAllInPeriod(startDate, endDate) {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    const [transactionHistories] = await connection.query(
+    const [transactionHistories] = await query(
       `SELECT T.id, T.title, T.isIncome, T.amount, T.date, T.paymentMethodId, P.title as paymentMethodTitle, T.categoryId, C.title as categoryTitle, C.color as categoryColor
       FROM TransactionHistory as T
       INNER JOIN PaymentMethod as P
@@ -63,8 +48,6 @@ const transactionHistoryModel = {
       WHERE T.date BETWEEN ? AND ?;`,
       [startDate, endDate],
     );
-    await connection.commit();
-    connection.release();
     return transactionHistories;
   },
 };
