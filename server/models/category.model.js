@@ -1,17 +1,14 @@
 import query from '../db/query';
 
 const categoryModel = {
-  async findOneBy({ where, or }) {
-    const whereCondition = `WHERE 
-      ${Object.entries(where)
-        .map(([col, value]) => `${col} = '${value}'`)
-        .join(or ? 'OR' : 'AND')}`;
-    const [category] = await query(`
-      SELECT id, title, color
+  async findById(categoryId) {
+    const [category] = await query(
+      `SELECT id, title, color
       FROM Category
-      ${whereCondition}
-      LIMIT 1;
-    `);
+      WHERE id = ?
+      LIMIT 1;`,
+      [categoryId],
+    );
     return category[0] ?? null;
   },
 
