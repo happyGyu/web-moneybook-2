@@ -5,11 +5,7 @@ import paymentMethodModel from '../models/payment-method.model';
 
 const paymentMethodService = {
   async findByIdOrFail(paymentMethodId) {
-    const paymentMethod = await paymentMethodModel.findOneBy({
-      where: {
-        id: paymentMethodId,
-      },
-    });
+    const paymentMethod = await paymentMethodModel.findById(paymentMethodId);
     if (!paymentMethod) {
       throw new CustomException(
         STATUS_CODE.NOT_FOUND,

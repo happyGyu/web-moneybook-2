@@ -1,25 +1,22 @@
 import query from '../db/query';
 
 const paymentMethodModel = {
-  async findOneBy({ where, or }) {
-    const whereCondition = `WHERE 
-      ${Object.entries(where)
-        .map(([col, value]) => `${col} = '${value}'`)
-        .join(or ? 'OR' : 'AND')}`;
-    const [paymentMethod] = await query(`
-      SELECT id, title
+  async findById(paymentMethodId) {
+    const [paymentMethod] = await query(
+      `SELECT id, title
       FROM PaymentMethod
-      ${whereCondition}
-      LIMIT 1;
-    `);
+      WHERE ID = ?
+      LIMIT 1;`,
+      [paymentMethodId],
+    );
     return paymentMethod[0] ?? null;
   },
 
   async findAll() {
-    const [paymentMethods] = await query(`
-      SELECT id, title
-      FROM PaymentMethod
-    `);
+    const [paymentMethods] = await query(
+      `SELECT id, title
+      FROM PaymentMethod`,
+    );
     return paymentMethods;
   },
 
