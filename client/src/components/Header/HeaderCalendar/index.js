@@ -5,6 +5,7 @@ import dateUtil from '@/utils/date-util';
 export default class HeaderCalendar extends Component {
   constructor(parentNode) {
     super(parentNode, 'div', { class: 'header-calendar' });
+    this.activate();
   }
 
   render(currentHeaderDate) {
