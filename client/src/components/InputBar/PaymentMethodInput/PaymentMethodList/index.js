@@ -36,9 +36,10 @@ export default class PaymentMethodInput extends Component {
     this.addEvent('click', '.payment-method__delete-btn', (event) =>
       this.openModal(ACTIONS.DELETE_PAYMENT_METHOD, event),
     );
-    this.addEvent('click', '.payment-method__add-btn', (event) =>
-      this.openModal(ACTIONS.ADD_PAYMENT_METHOD, event),
-    );
+    this.addEvent('click', '.payment-method__add-btn', (event) => {
+      console.log('add');
+      this.openModal(ACTIONS.ADD_PAYMENT_METHOD, event);
+    });
   }
 
   setPaymentMethod(event) {
@@ -55,6 +56,7 @@ export default class PaymentMethodInput extends Component {
       actionType === ACTIONS.DELETE_PAYMENT_METHOD
         ? async () => controller.deletePaymentMethod(id)
         : async (value) => controller.addPaymentMethod(value);
+    console.log(modalData, onSubmit);
     new Modal(modalData, onSubmit);
   }
 
