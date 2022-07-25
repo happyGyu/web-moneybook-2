@@ -21,15 +21,26 @@ const paymentMethodModel = {
   },
 
   async create({ title }) {
-    await query(`INSERT INTO PaymentMethod ( title ) VALUES ( ? )`, [title]);
+    const [results] = await query(
+      `INSERT INTO PaymentMethod ( title ) VALUES ( ? )`,
+      [title],
+    );
+    return results;
   },
 
   async update(id, { title }) {
-    await query(`UPDATE PaymentMethod SET title = ? WHERE ID = ?`, [title, id]);
+    const [results] = await query(
+      `UPDATE PaymentMethod SET title = ? WHERE ID = ?`,
+      [title, id],
+    );
+    return results;
   },
 
   async remove(id) {
-    await query(`DELETE FROM PaymentMethod WHERE ID = ?`, [id]);
+    const [results] = await query(`DELETE FROM PaymentMethod WHERE ID = ?`, [
+      id,
+    ]);
+    return results;
   },
 };
 
