@@ -22,7 +22,7 @@ export default class DateInput extends Component {
 
     this.currentNode.innerHTML = `
       <h4 class="input__title">일자</h4>
-      <input draggable="false" class="input input__date" name="date" type="date" min="${firstDateString}" max="${lastDateString}" value="${dateString}">
+      <input class="input input__date" name="date" type="date" min="${firstDateString}" max="${lastDateString}" value="${dateString}">
     `;
   }
 
