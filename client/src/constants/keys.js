@@ -6,6 +6,7 @@ export const STORE_KEYS = {
   INPUT_BAR_DATA: 'inputBarData',
   INPUT_BAR_STATE: 'inputBarState',
   IS_INPUT_BAR_VALID: 'isInputBarValid',
+  FILTER_OPTIONS: 'filterOptions',
 };
 
 export const INPUT_BAR_KEYS = {

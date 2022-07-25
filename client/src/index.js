@@ -41,6 +41,7 @@ async function initStore() {
   };
   const inputBarState = 'CREATE';
   const isInputBarValid = false;
+  const filterOptions = { income: true, spent: true };
 
   const initialData = {
     currentHeaderDate,
@@ -50,6 +51,7 @@ async function initStore() {
     inputBarData,
     inputBarState,
     isInputBarValid,
+    filterOptions,
   };
   store.initStore(initialData);
 }

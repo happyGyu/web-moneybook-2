@@ -95,6 +95,13 @@ function setInputBarEditMode(historyData) {
   store.setData(STORE_KEYS.INPUT_BAR_STATE, 'EDIT');
 }
 
+function changeFilterOptions(type, isFiltered) {
+  const currFilterOptions = store.getData(STORE_KEYS.FILTER_OPTIONS);
+  const updatedFilterOptions = { ...currFilterOptions };
+  updatedFilterOptions[type] = isFiltered;
+  store.setData(STORE_KEYS.FILTER_OPTIONS, updatedFilterOptions);
+}
+
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
@@ -103,6 +110,7 @@ const controller = {
   addPaymentMethod,
   deletePaymentMethod,
   setInputBarEditMode,
+  changeFilterOptions,
 };
 
 export default controller;
