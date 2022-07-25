@@ -27,8 +27,10 @@ export default class MoneyInput extends Component {
   }
 
   activate() {
-    this.addEvent('change', '.input__money-amount', (event) =>
-      controller.changeInputData(INPUT_BAR_KEYS.AMOUNT, event.target.value),
+    this.addEvent('input', '.input__money-amount', (event) =>
+      controller.changeInputData(INPUT_BAR_KEYS.AMOUNT, event.target.value, {
+        rerender: false,
+      }),
     );
     this.addEvent('click', '.input__money-sign', (event) =>
       controller.changeInputData(

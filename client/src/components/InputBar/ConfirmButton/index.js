@@ -1,27 +1,23 @@
 import Component from '@/base/component';
 import controller from '@/controller';
+import { STORE_KEYS } from '@/constants/keys';
 
 export default class ConfirmButton extends Component {
-  constructor(parentNode, inputData) {
-    super(parentNode, 'div', { class: 'confirm-button-container' }, inputData);
+  constructor(parentNode) {
+    super(parentNode, 'div', { class: 'confirm-button-container' });
     this.activate();
   }
 
-  render(inputData) {
-    const doseAllInputFilled = this.checkAllInputFilled(inputData);
+  render(isInputBarValid) {
     this.currentNode.innerHTML = `
       <button class="confirm-button" ${
-        doseAllInputFilled ? '' : 'disabled'
+        isInputBarValid ? '' : 'disabled'
       }>버튼</button>
     `;
   }
 
-  checkAllInputFilled(inputData) {
-    const inputValues = Object.values(inputData);
-    return inputValues.every((value) => value !== null);
-  }
-
   activate() {
+    this.subscribe(STORE_KEYS.IS_INPUT_BAR_VALID);
     this.addEvent(
       'click',
       '.confirm-button',

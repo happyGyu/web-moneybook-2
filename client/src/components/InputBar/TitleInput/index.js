@@ -17,8 +17,10 @@ export default class TitleInput extends Component {
   }
 
   activate() {
-    this.addEvent('change', '.input__content', (event) =>
-      controller.changeInputData(INPUT_BAR_KEYS.TITLE, event.target.value),
+    this.addEvent('input', '.input__content', (event) =>
+      controller.changeInputData(INPUT_BAR_KEYS.TITLE, event.target.value, {
+        rerender: false,
+      }),
     );
   }
 }

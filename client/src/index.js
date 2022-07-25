@@ -40,6 +40,7 @@ async function initStore() {
     amount: null,
   };
   const inputBarState = 'CREATE';
+  const isInputBarValid = false;
 
   const initialData = {
     currentHeaderDate,
@@ -48,6 +49,7 @@ async function initStore() {
     paymentMethods,
     inputBarData,
     inputBarState,
+    isInputBarValid,
   };
   store.initStore(initialData);
 }

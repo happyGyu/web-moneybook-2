@@ -103,6 +103,10 @@ input[type='date']::-webkit-calendar-picker-indicator {
   right: 1rem;
 }
 
+.confirm-button:disabled {
+  opacity: 0.25;
+}
+
 .closed {
   visibility: hidden;
 }

@@ -11,11 +11,17 @@ function changeHeaderMonth(increment) {
   store.setData(STORE_KEYS.CURRENT_HEADER_DATE, changedDate);
 }
 
-function changeInputData(dataKey, data) {
+function changeInputData(dataKey, data, options) {
   const currInputData = store.getData(STORE_KEYS.INPUT_BAR_DATA);
   const updatedData = { ...currInputData };
   updatedData[dataKey] = data;
-  store.setData(STORE_KEYS.INPUT_BAR_DATA, updatedData);
+  store.setData(STORE_KEYS.INPUT_BAR_DATA, updatedData, options);
+  const isInputBarValid = checkInputBarDataValidity(updatedData);
+  store.setData(STORE_KEYS.IS_INPUT_BAR_VALID, isInputBarValid);
+}
+
+function checkInputBarDataValidity(inputBarData) {
+  return Object.values(inputBarData).every((value) => value !== null);
 }
 
 async function createNewTransactionHistory(event) {
@@ -50,7 +56,7 @@ function clearInputBar() {
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
-  changeInputData: (key, data) => changeInputData(key, data),
+  changeInputData: (key, data, options) => changeInputData(key, data, options),
   createNewTransactionHistory,
 };
 

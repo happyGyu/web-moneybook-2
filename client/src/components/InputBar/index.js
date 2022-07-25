@@ -19,7 +19,7 @@ export default class InputBar extends Component {
     const { date, title, category, paymentMethod, isIncome, amount } =
       inputBarData;
     this.currentNode.innerHTML = '';
-    new ConfirmButton(this.currentNode, inputBarData);
+    new ConfirmButton(this.currentNode);
     new DateInput(this.currentNode, date);
     new CategoryInput(this.currentNode, category);
     new TitleInput(this.currentNode, title);
