@@ -189,12 +189,35 @@ input[type='date']::-webkit-calendar-picker-indicator {
   height: 1.25rem;
 }
 
-.confirm-button-container {
+.submit-button-container {
   flex-shrink: 0;
 }
 
-.confirm-button:disabled {
-  opacity: 0.25;
+.submit-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-off-white);
+  background-color: var(--colors-primary);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: var(--colors-secondary);
+}
+
+.submit-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  background-color: var(--colors-placeholder);
+}
+
+.submit-button > svg {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .closed {
