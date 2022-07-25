@@ -57,6 +57,10 @@ const transactionHistoryService = {
       transactionHistoryId,
       updatedTransactionHistory,
     );
+    const transactionHistory = await transactionHistoryModel.findByIdWithDetail(
+      transactionHistoryId,
+    );
+    return transactionHistory;
   },
 
   async removeTransactionHistory(transactionHistoryId) {

@@ -57,12 +57,14 @@ const transactionHistoryController = {
     try {
       const { id: transactionHistoryId } = req.params;
       const updateTransactionHistoryDto = req.body;
-      await transactionHistoryService.updateTransactionHistory(
-        transactionHistoryId,
-        updateTransactionHistoryDto,
-      );
+      const transactionHistory =
+        await transactionHistoryService.updateTransactionHistory(
+          transactionHistoryId,
+          updateTransactionHistoryDto,
+        );
       res.status(STATUS_CODE.OK).json({
         statusCode: STATUS_CODE.OK,
+        data: transactionHistory,
       });
     } catch (error) {
       next(error);
