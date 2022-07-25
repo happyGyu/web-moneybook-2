@@ -21,7 +21,11 @@ const paymentMethodService = {
   },
 
   async createPaymentMethod(createPaymentMethodDto) {
-    await paymentMethodModel.create(createPaymentMethodDto);
+    const { insertId } = await paymentMethodModel.create(
+      createPaymentMethodDto,
+    );
+    const paymentMethod = await paymentMethodModel.findById(insertId);
+    return paymentMethod;
   },
 
   async updatePaymentMethod(paymentMethodId, updatePaymentMethodDto) {

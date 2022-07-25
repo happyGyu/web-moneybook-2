@@ -17,9 +17,12 @@ const paymentMethodController = {
   async createPaymentMethod(req, res, next) {
     try {
       const createPaymentMethodDto = req.body;
-      await paymentMethodService.createPaymentMethod(createPaymentMethodDto);
+      const paymentMethod = await paymentMethodService.createPaymentMethod(
+        createPaymentMethodDto,
+      );
       res.status(STATUS_CODE.CREATED).json({
         statusCode: STATUS_CODE.CREATED,
+        data: paymentMethod,
       });
     } catch (error) {
       next(error);
