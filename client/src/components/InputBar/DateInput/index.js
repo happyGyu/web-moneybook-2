@@ -1,7 +1,11 @@
 import Component from '@/base/component';
-import dateUtil from '@/utils/date-util';
 import controller from '@/controller';
 import { INPUT_BAR_KEYS } from '@/constants/keys';
+import {
+  convertDateString,
+  getFirstDateOfMonth,
+  getLastDateOfMonth,
+} from '@/utils/date-util';
 
 export default class DateInput extends Component {
   constructor(parentNode, dateInputData) {
@@ -10,11 +14,11 @@ export default class DateInput extends Component {
   }
 
   render(dateInputData) {
-    const dateString = dateUtil.convertDateString(dateInputData);
-    const firstDateOfMonth = dateUtil.getFirstDateOfMonth(dateInputData);
-    const firstDateString = dateUtil.convertDateString(firstDateOfMonth);
-    const lastDateOfMonth = dateUtil.getLastDateOfMonth(dateInputData);
-    const lastDateString = dateUtil.convertDateString(lastDateOfMonth);
+    const dateString = convertDateString(dateInputData);
+    const firstDateString = convertDateString(
+      getFirstDateOfMonth(dateInputData),
+    );
+    const lastDateString = convertDateString(getLastDateOfMonth(dateInputData));
 
     this.currentNode.innerHTML = `
       <h4 class="input__title">일자</h4>

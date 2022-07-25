@@ -1,7 +1,7 @@
 import store from '@/store';
 import { STORE_KEYS } from '@/constants/keys';
 import request from '@/utils/api-util';
-import dateUtil from '@/utils/date-util';
+import { convertDateString } from '@/utils/date-util';
 
 function changeHeaderMonth(increment) {
   const currDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
@@ -29,7 +29,7 @@ async function createNewTransactionHistory(event) {
   const currInputData = store.getData(STORE_KEYS.INPUT_BAR_DATA);
   const { title, date, category, paymentMethod, isIncome, amount } =
     currInputData;
-  const formattedDate = dateUtil.convertDateString(date);
+  const formattedDate = convertDateString(date);
   await request.createTransactionHistory(
     title,
     formattedDate,
