@@ -1,11 +1,12 @@
 import Component from '@/base/component';
-
+import InputBar from '@/components/InputBar';
+import './page.css';
 export default class MainPage extends Component {
   constructor(parentNode) {
     super(parentNode, 'main');
   }
 
   render() {
-    this.currentNode.innerHTML = '<h2>MainPage</h2>';
+    new InputBar(this.currentNode);
   }
 }

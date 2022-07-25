@@ -8,6 +8,7 @@ import HeaderCalendar from './HeaderCalendar';
 export default class Header extends Component {
   constructor(parentNode) {
     super(parentNode, 'header', { class: 'header' });
+    this.activate();
   }
 
   render() {

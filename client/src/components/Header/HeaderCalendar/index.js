@@ -1,15 +1,16 @@
 import Component from '@/base/component';
 import { STORE_KEYS } from '@/constants/keys';
 import controller from '@/controller';
-import dateUtil from '@/utils/date-util';
+import { getYearAndMonth } from '@/utils/date-util';
 export default class HeaderCalendar extends Component {
   constructor(parentNode) {
     super(parentNode, 'div', { class: 'header-calendar' });
+    this.activate();
   }
 
   render(currentHeaderDate) {
     if (!currentHeaderDate) return;
-    const { year, month } = dateUtil.getYearAndMonth(currentHeaderDate);
+    const { year, month } = getYearAndMonth(currentHeaderDate);
     this.currentNode.innerHTML = `
         <button class='header-calendar__button--prev'><</button>
         <div class='header-calendar__container'>
