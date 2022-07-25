@@ -8,7 +8,7 @@ export default class Logo extends Component {
   render() {
     this.currentNode.innerHTML = `
       <a class="link font-dohyeon" href="/">
-        우아우아한 가계부
+        우아한 가계부
       </a>
     `;
   }

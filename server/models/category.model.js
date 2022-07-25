@@ -1,15 +1,22 @@
-import pool from '../db';
+import query from '../db/query';
 
 const categoryModel = {
+  async findById(categoryId) {
+    const [[category]] = await query(
+      `SELECT id, title, color
+      FROM Category
+      WHERE id = ?
+      LIMIT 1;`,
+      [categoryId],
+    );
+    return category ?? null;
+  },
+
   async findAll() {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-    const [categories] = await connection.query(`
-          SELECT C.id, C.title, C.color
-          FROM Category as C
-      `);
-    await connection.commit();
-    connection.release();
+    const [categories] = await query(`
+      SELECT id, title, color
+      FROM Category;
+    `);
     return categories;
   },
 };

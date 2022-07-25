@@ -57,9 +57,9 @@ const store = (function () {
     return data.get(key);
   }
 
-  function setData(key, newData) {
+  function setData(key, newData, options = { rerender: true }) {
     data.set(key, newData);
-    notify(key);
+    if (options.rerender) notify(key);
   }
 
   return {
