@@ -26,10 +26,8 @@ export default class Dropdown extends Component {
 
   activate() {
     this.subscribe(this.storeKey);
-    this.addEvent(
-      'click',
-      '.dropdown__item',
-      this.handleDropdownItemClick.bind(this),
+    this.addEvent('click', '.dropdown__item', (event) =>
+      this.handleDropdownItemClick(event),
     );
   }
 

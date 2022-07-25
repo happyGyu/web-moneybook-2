@@ -27,7 +27,9 @@ export default class DateInput extends Component {
   }
 
   activate() {
-    this.addEvent('input', '.input__date', this.handleDateInput.bind(this));
+    this.addEvent('input', '.input__date', (event) =>
+      this.handleDateInput(event),
+    );
   }
 
   handleDateInput(event) {
