@@ -53,11 +53,32 @@ function clearInputBar() {
   store.setData(STORE_KEYS.INPUT_BAR_DATA, clearedInputBarData);
 }
 
+async function addPaymentMethod(title) {
+  await request.createPaymentMethods(title);
+  const currPaymentMethods = store.getData(STORE_KEYS.PAYMENT_METHODS);
+  const updatedPaymentMethods = [
+    ...currPaymentMethods,
+    { id: new Date(), title },
+  ];
+  store.setData(STORE_KEYS.PAYMENT_METHODS, updatedPaymentMethods);
+}
+
+async function deletePaymentMethod(targetId) {
+  await request.removePaymentMethod(targetId);
+  const currPaymentMethods = store.getData(STORE_KEYS.PAYMENT_METHODS);
+  const updatedPaymentMethods = currPaymentMethods.filter(
+    (paymentMethod) => paymentMethod.id !== parseInt(targetId),
+  );
+  store.setData(STORE_KEYS.PAYMENT_METHODS, updatedPaymentMethods);
+}
+
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
   changeInputData: (key, data, options) => changeInputData(key, data, options),
   createNewTransactionHistory,
+  addPaymentMethod,
+  deletePaymentMethod,
 };
 
 export default controller;

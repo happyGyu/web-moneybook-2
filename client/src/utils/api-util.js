@@ -63,7 +63,8 @@ const request = {
   },
 
   async removePaymentMethod(id) {
-    await fetch(`/api/payment-method/${id}`);
+    const requestMessage = makeRequestMessage('DELETE');
+    await fetch(`/api/payment-method/${id}`, requestMessage);
   },
 
   async getCategories() {
