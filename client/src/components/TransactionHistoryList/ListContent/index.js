@@ -1,36 +1,49 @@
 import Component from '@/base/component';
 import ListItem from './ListItem';
 import { convertDateString } from '@/utils/date-util';
+import { STORE_KEYS } from '@/constants/keys';
 
 export default class ListContent extends Component {
   constructor(parentNode, transactionHistories) {
-    super(
-      parentNode,
-      'ul',
-      { class: 'transaction-history-list' },
+    super(parentNode, 'ul', { class: 'transaction-history-list' }, null, {
       transactionHistories,
-    );
+    });
     this.activate();
   }
 
-  render(transactionHistories) {
-    const sortedListItemData =
-      this.makSortedTransactionHistoryGroupbyDate(transactionHistories);
+  render(filterOptions) {
+    if (!filterOptions) return;
+    const { transactionHistories } = this.props;
+    const sortedListItemData = this.makSortedTransactionHistoryGroupbyDate(
+      transactionHistories,
+      filterOptions,
+    );
+    this.currentNode.innerHTML = '';
     sortedListItemData.forEach(
       (listItemData) => new ListItem(this.currentNode, listItemData),
     );
   }
 
-  makeTransactionHistoryGroupByDate(transactionHistories) {
+  activate() {
+    this.subscribe(STORE_KEYS.FILTER_OPTIONS);
+  }
+
+  makeTransactionHistoryGroupByDate(transactionHistories, filterOptions) {
     const groupMap = new Map();
     transactionHistories.forEach((history) => {
       const dateString = convertDateString(new Date(history.date));
+      if (!this.doesHistoryPassFilter(history, filterOptions)) return;
       if (!groupMap.has(dateString)) {
         groupMap.set(dateString, []);
       }
       groupMap.get(dateString).push(history);
     });
     return groupMap;
+  }
+
+  doesHistoryPassFilter(history, filterOptions) {
+    const type = history.isIncome ? 'income' : 'spent';
+    return filterOptions[type];
   }
 
   sortGroup(groupMap) {
@@ -41,9 +54,11 @@ export default class ListContent extends Component {
     return sortedGroupArr;
   }
 
-  makSortedTransactionHistoryGroupbyDate(transactionHistories) {
-    const groupMap =
-      this.makeTransactionHistoryGroupByDate(transactionHistories);
+  makSortedTransactionHistoryGroupbyDate(transactionHistories, filterOptions) {
+    const groupMap = this.makeTransactionHistoryGroupByDate(
+      transactionHistories,
+      filterOptions,
+    );
     const sortedGroupArr = this.sortGroup(groupMap);
     return sortedGroupArr;
   }

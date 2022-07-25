@@ -10,19 +10,22 @@ export default class ListItemCell extends Component {
         class: 'transaction-history-item__cell',
         'data-id': transactionHistory.id,
       },
-      transactionHistory,
+      null,
+      { transactionHistory },
     );
     this.activate();
   }
-  render(transactionHistory) {
+  render() {
     const {
-      categoryTitle,
-      categoryColor,
-      title,
-      paymentMethodTitle,
-      isIncome,
-      amount,
-    } = transactionHistory;
+      transactionHistory: {
+        categoryTitle,
+        categoryColor,
+        title,
+        paymentMethodTitle,
+        isIncome,
+        amount,
+      },
+    } = this.props;
     this.currentNode.innerHTML = `
       <div class="transaction-history-item__category" style="background: ${categoryColor}">${categoryTitle}</div>
       <span class="transaction-history-item__title">${title}</span>
@@ -35,7 +38,7 @@ export default class ListItemCell extends Component {
 
   activate() {
     this.addEvent('click', '.transaction-history-item__cell', () =>
-      controller.setInputBarEditMode(this.transactionHistory),
+      controller.setInputBarEditMode(this.props.transactionHistory),
     );
   }
 }
