@@ -14,7 +14,7 @@ export default class CategoryList extends Component {
       ${categoryListData
         .map(
           ({ id, title }) =>
-            `<li class="dropdown__item category__item" data-id=${id} data-title=${title}>${title}</li>`,
+            `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`,
         )
         .join('')}
     `;

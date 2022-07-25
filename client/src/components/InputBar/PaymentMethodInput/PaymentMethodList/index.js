@@ -18,7 +18,7 @@ export default class PaymentMethodInput extends Component {
       ${paymentMethodData
         .map(
           ({ id, title }) =>
-            `<li class="dropdown__item payment-method__item" data-id=${id} data-title=${title}>
+            `<li class="dropdown__item payment-method__item" data-id="${id}" data-title="${title}">
                 ${title}
                 <button class="payment-method__delete-btn">${deleteIcon}</button>
             </li>`,
