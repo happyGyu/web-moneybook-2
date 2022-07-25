@@ -120,8 +120,8 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .dropdown__list {
   position: relative;
+  border: 1px solid var(--colors-line);
   border-radius: 0.625rem;
-  padding: 0.25rem 1.5rem;
   background-color: var(--colors-off-white);
   z-index: var(--z-index-dropdown);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
@@ -137,13 +137,30 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .dropdown__item {
-  width: 6.25rem;
-  padding: 1rem 0.25rem;
-  border-bottom: 1px solid var(--colors-line);
+  position: relative;
+  width: 100%;
+  padding: 1.25rem 1.25rem;
+  border-radius: 0.625rem;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-.dropdown__item:last-child {
-  border: 0;
+.dropdown__item:hover {
+  background-color: var(--colors-background);
+}
+
+.dropdown__item::after {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--colors-line);
+}
+
+.dropdown__item:last-child:after {
+  content: none;
 }
 
 .confirm-button-container {
