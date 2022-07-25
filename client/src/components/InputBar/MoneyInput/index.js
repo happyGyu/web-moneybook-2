@@ -1,6 +1,8 @@
 import Component from '@/base/component';
 import controller from '@/controller';
 import { INPUT_BAR_KEYS } from '@/constants/keys';
+import plusIcon from '@/assets/plus.svg';
+import minusIcon from '@/assets/minus.svg';
 
 export default class MoneyInput extends Component {
   constructor(parentNode, moneyData) {
@@ -15,15 +17,14 @@ export default class MoneyInput extends Component {
     this.currentNode.innerHTML = `
       <h4 class="input__title">금액</h4>
       <div class="input__money-container">
-        <span class="input input__money-sign" name="money-sign" type="text" data-isincome=${isIncome}>${
-      isIncome ? '+' : '-'
-    }</span>
-        <input class="input input__money-amount" name="amount" type="number" placeholder='입력하세요' value="${
-          amount || ''
-        }">
+        <span class="input__money-sign" name="money-sign" type="text" data-isincome=${isIncome}>
+          ${isIncome ? plusIcon : minusIcon}
+        </span>
+        <input class="input input__money-amount" name="amount" type="number" placeholder='입력하세요'
+          value="${amount || ''}">
         <span>원</span>
       </div>
-      `;
+    `;
   }
 
   activate() {
