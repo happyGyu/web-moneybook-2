@@ -2,7 +2,7 @@ import Component from '@/base/component';
 
 export default class Dropdown extends Component {
   constructor(parentNode, ListComponent) {
-    super(parentNode, 'div', { class: 'dropdown shadow closed' }, null, {
+    super(parentNode, 'div', { class: 'dropdown closed' }, null, {
       ListComponent,
     });
     this.activate();
