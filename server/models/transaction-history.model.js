@@ -55,16 +55,21 @@ const transactionHistoryModel = {
     id,
     { title, date, isIncome, amount, categoryId, paymentMethodId },
   ) {
-    await query(
+    const [results] = await query(
       `UPDATE TransactionHistory
       SET title = ?, date = ?, isIncome = ?, amount = ?, categoryId = ?, paymentMethodId = ?
       WHERE ID =  ?`,
       [title, date, isIncome, amount, categoryId, paymentMethodId, +id],
     );
+    return results;
   },
 
   async remove(id) {
-    await query(`DELETE FROM TransactionHistory WHERE ID = ?`, id);
+    const [results] = await query(
+      `DELETE FROM TransactionHistory WHERE ID = ?`,
+      id,
+    );
+    return results;
   },
 };
 
