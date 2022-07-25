@@ -1,63 +1,84 @@
 import transactionHistoryService from '../services/transaction-history.service';
+import { STATUS_CODE } from '../constants/status-code.constant';
 
 const transactionHistoryController = {
-  async getTranscationHistoriesByMonth(req, res) {
-    const { year, month } = req.query;
-    const transactionHistories =
-      await transactionHistoryService.getTranscationHistoriesByMonth(
-        year,
-        month,
+  async getTranscationHistoriesByMonth(req, res, next) {
+    try {
+      const { year, month } = req.query;
+      const transactionHistories =
+        await transactionHistoryService.getTranscationHistoriesByMonth(
+          year,
+          month,
+        );
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+        data: transactionHistories,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getTransactionHistoriesByCategory(req, res, next) {
+    try {
+      const { startDate, endDate, categoryId } = req.query;
+      const transactionHistories =
+        await transactionHistoryService.getTranscationHistoriesByCategory(
+          startDate,
+          endDate,
+          categoryId,
+        );
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+        data: transactionHistories,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async createTransactionHistory(req, res, next) {
+    try {
+      const createTransactionHistoryDto = req.body;
+      await transactionHistoryService.createTransactionHistory(
+        createTransactionHistoryDto,
       );
-    res.status(200).json({
-      statusCode: 200,
-      data: transactionHistories,
-    });
+      res.status(STATUS_CODE.CREATED).json({
+        statusCode: STATUS_CODE.CREATED,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
-  async getTransactionHistoriesByCategory(req, res) {
-    const { startDate, endDate, categoryId } = req.query;
-    const transactionHistories =
-      await transactionHistoryService.getTranscationHistoriesByCategory(
-        startDate,
-        endDate,
-        categoryId,
+  async updateTransactionHistory(req, res, next) {
+    try {
+      const { id: transactionHistoryId } = req.params;
+      const updateTransactionHistoryDto = req.body;
+      await transactionHistoryService.updateTransactionHistory(
+        transactionHistoryId,
+        updateTransactionHistoryDto,
       );
-    res.status(200).json({
-      statusCode: 200,
-      data: transactionHistories,
-    });
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
-  async createTransactionHistory(req, res) {
-    const createTransactionHistoryDto = req.body;
-    await transactionHistoryService.createTransactionHistory(
-      createTransactionHistoryDto,
-    );
-    res.status(201).json({
-      statusCode: 201,
-    });
-  },
-
-  async updateTransactionHistory(req, res) {
-    const { id: transactionHistoryId } = req.params;
-    const updateTransactionHistoryDto = req.body;
-    await transactionHistoryService.updateTransactionHistory(
-      transactionHistoryId,
-      updateTransactionHistoryDto,
-    );
-    res.status(201).json({
-      statusCode: 201,
-    });
-  },
-
-  async removeTransactionHistroy(req, res) {
-    const { id: transactionHistoryId } = req.params;
-    await transactionHistoryService.removeTransactionHistory(
-      transactionHistoryId,
-    );
-    res.status(201).json({
-      statusCode: 201,
-    });
+  async removeTransactionHistroy(req, res, next) {
+    try {
+      const { id: transactionHistoryId } = req.params;
+      await transactionHistoryService.removeTransactionHistory(
+        transactionHistoryId,
+      );
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 };
 

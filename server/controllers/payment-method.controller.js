@@ -1,42 +1,59 @@
+import { STATUS_CODE } from '../constants/status-code.constant';
 import paymentMethodService from '../services/payment-method.service';
 
 const paymentMethodController = {
-  async getAllPaymentMethod(req, res) {
-    const paymentMethods = await paymentMethodService.getAllPaymentMethods();
-    res.status(200).json({
-      statusCode: 200,
-      data: paymentMethods,
-    });
+  async getAllPaymentMethod(req, res, next) {
+    try {
+      const paymentMethods = await paymentMethodService.getAllPaymentMethods();
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+        data: paymentMethods,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
-  async createPaymentMethod(req, res) {
-    const createPaymentMethodDto = req.body;
-    await paymentMethodService.createPaymentMethod(createPaymentMethodDto);
-    res.status(200).json({
-      statusCode: 200,
-    });
+  async createPaymentMethod(req, res, next) {
+    try {
+      const createPaymentMethodDto = req.body;
+      await paymentMethodService.createPaymentMethod(createPaymentMethodDto);
+      res.status(STATUS_CODE.CREATED).json({
+        statusCode: STATUS_CODE.CREATED,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
-  async updatePaymentMethod(req, res) {
-    const { id: paymentMethodId } = req.params;
-    const updatePaymentMethodDto = req.body;
+  async updatePaymentMethod(req, res, next) {
+    try {
+      const { id: paymentMethodId } = req.params;
+      const updatePaymentMethodDto = req.body;
 
-    await paymentMethodService.updatePaymentMethod(
-      paymentMethodId,
-      updatePaymentMethodDto,
-    );
-    res.status(201).json({
-      statusCode: 201,
-    });
+      await paymentMethodService.updatePaymentMethod(
+        paymentMethodId,
+        updatePaymentMethodDto,
+      );
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 
-  async removePaymentMethod(req, res) {
-    const { id: paymentMethodId } = req.params;
-    await paymentMethodService.removePaymentMethod(paymentMethodId);
+  async removePaymentMethod(req, res, next) {
+    try {
+      const { id: paymentMethodId } = req.params;
+      await paymentMethodService.removePaymentMethod(paymentMethodId);
 
-    res.status(201).json({
-      statusCode: 201,
-    });
+      res.status(STATUS_CODE.OK).json({
+        statusCode: STATUS_CODE.OK,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 };
 
