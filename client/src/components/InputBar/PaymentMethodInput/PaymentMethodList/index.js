@@ -4,6 +4,8 @@ import Modal from '@/components/Modal';
 import { ACTIONS } from '@/constants/actions';
 import { MESSAGES } from '@/constants/messages';
 import { STORE_KEYS, INPUT_BAR_KEYS } from '@/constants/keys';
+import deleteIcon from '@/assets/delete.svg';
+
 export default class PaymentMethodInput extends Component {
   constructor(parentNode) {
     super(parentNode, 'ul', { class: 'dropdown__list' });
@@ -18,7 +20,7 @@ export default class PaymentMethodInput extends Component {
           ({ id, title }) =>
             `<li class="dropdown__item payment-method__item" data-id=${id} data-title=${title}>
                 ${title}
-                <button class="payment-method__delete-btn">X</button>
+                <button class="payment-method__delete-btn">${deleteIcon}</button>
             </li>`,
         )
         .join('')}
