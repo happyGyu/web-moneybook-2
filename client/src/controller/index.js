@@ -72,6 +72,29 @@ async function deletePaymentMethod(targetId) {
   store.setData(STORE_KEYS.PAYMENT_METHODS, updatedPaymentMethods);
 }
 
+function setInputBarEditMode(historyData) {
+  const {
+    title,
+    date: dateString,
+    categoryId,
+    categoryTitle,
+    paymentMethodId,
+    paymentMethodTitle,
+    isIncome,
+    amount,
+  } = historyData;
+  const newInputBarData = {
+    title,
+    amount,
+    isIncome,
+    date: new Date(dateString),
+    category: { id: categoryId, title: categoryTitle },
+    paymentMethod: { id: paymentMethodId, title: paymentMethodTitle },
+  };
+  store.setData(STORE_KEYS.INPUT_BAR_DATA, newInputBarData);
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, 'EDIT');
+}
+
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
@@ -79,6 +102,7 @@ const controller = {
   createNewTransactionHistory,
   addPaymentMethod,
   deletePaymentMethod,
+  setInputBarEditMode,
 };
 
 export default controller;
