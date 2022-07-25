@@ -17,9 +17,12 @@ const paymentMethodController = {
   async createPaymentMethod(req, res, next) {
     try {
       const createPaymentMethodDto = req.body;
-      await paymentMethodService.createPaymentMethod(createPaymentMethodDto);
+      const paymentMethod = await paymentMethodService.createPaymentMethod(
+        createPaymentMethodDto,
+      );
       res.status(STATUS_CODE.CREATED).json({
         statusCode: STATUS_CODE.CREATED,
+        data: paymentMethod,
       });
     } catch (error) {
       next(error);
@@ -30,13 +33,13 @@ const paymentMethodController = {
     try {
       const { id: paymentMethodId } = req.params;
       const updatePaymentMethodDto = req.body;
-
-      await paymentMethodService.updatePaymentMethod(
+      const paymentMethod = await paymentMethodService.updatePaymentMethod(
         paymentMethodId,
         updatePaymentMethodDto,
       );
       res.status(STATUS_CODE.OK).json({
         statusCode: STATUS_CODE.OK,
+        data: paymentMethod,
       });
     } catch (error) {
       next(error);
