@@ -53,6 +53,7 @@ function clearInputBar() {
     amount: null,
   };
   store.setData(STORE_KEYS.INPUT_BAR_DATA, clearedInputBarData);
+  store.setData(STORE_KEYS.IS_INPUT_BAR_VALID, false);
 }
 
 async function addPaymentMethod(title) {
