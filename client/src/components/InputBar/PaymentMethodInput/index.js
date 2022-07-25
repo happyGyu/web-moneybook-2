@@ -10,7 +10,7 @@ export default class PaymentMethodInput extends Component {
 
   render(paymentMethodInputData) {
     this.currentNode.innerHTML = `
-        <h4 class="input__title">분류</h4>
+        <h4 class="input__title">결제수단</h4>
         <input readonly class="input input__payment-methods" name="category" type="text" placeholder="선택하세요" value="${
           paymentMethodInputData?.title || ''
         }">        
