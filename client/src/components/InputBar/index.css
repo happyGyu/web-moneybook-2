@@ -82,9 +82,23 @@ input[type='date']::-webkit-calendar-picker-indicator {
   position: absolute;
   left: 0;
   top: 4.25rem;
-  background-color: var(--colors-off-white);
+}
+
+.dropdown__list {
+  position: relative;
   border-radius: 0.625rem;
   padding: 0 1.5rem;
+  background-color: var(--colors-off-white);
+  z-index: var(--z-index-dropdown);
+}
+
+.dropdown__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--z-index-dropdown) - 10);
 }
 
 .dropdown__item {

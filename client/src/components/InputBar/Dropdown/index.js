@@ -12,6 +12,7 @@ export default class Dropdown extends Component {
   render(dropdownItemData) {
     if (!dropdownItemData) return;
     this.currentNode.innerHTML = `
+      <div class="dropdown__backdrop"></div>
       <ul class="dropdown__list">
         ${dropdownItemData
           .map(
