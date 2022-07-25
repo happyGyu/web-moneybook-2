@@ -1,4 +1,7 @@
 import Component from '@/base/component';
+import fileIcon from '@/assets/file.svg';
+import calendarIcon from '@/assets/calendar.svg';
+import statisticsIcon from '@/assets/statistics.svg';
 
 export default class Navigation extends Component {
   constructor(parentNode) {
@@ -7,9 +10,9 @@ export default class Navigation extends Component {
 
   render() {
     this.currentNode.innerHTML = `
-      <a class="header__navigation--link link" href="/">메인</a>
-      <a class="header__navigation--link link" href="/calendar">달력</a>
-      <a class="header__navigation--link link" href="/statistics">통계</a>
+      <a class="header__navigation--link link" href="/">${fileIcon}</a>
+      <a class="header__navigation--link link" href="/calendar">${calendarIcon}</a>
+      <a class="header__navigation--link link" href="/statistics">${statisticsIcon}</a>
     `;
   }
 }

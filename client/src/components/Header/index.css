@@ -9,6 +9,7 @@
 }
 
 .header__container {
+  position: relative;
   height: 100%;
   display: flex;
   align-items: center;
@@ -20,18 +21,20 @@
 }
 
 .header-calendar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 3.25rem;
+  column-gap: 3rem;
 }
 
 .header-calendar__container {
-  width: 6.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  row-gap: 1rem;
 }
 
 .header-calendar__month {
@@ -42,6 +45,18 @@
   font-size: 1.5rem;
 }
 
+.header-calendar__button--prev > svg,
+.header-calendar__button--next > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.header-calendar__button--prev:hover,
+.header-calendar__button--next:hover {
+  opacity: 0.75;
+}
+
 .header__navigation {
   display: flex;
 }
@@ -50,5 +65,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.625rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.header__navigation--link > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.header__navigation--link:hover {
+  opacity: 0.75;
 }
