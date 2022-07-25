@@ -72,10 +72,33 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type='date']::-webkit-inner-spin-button,
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type='date'] {
+  position: relative;
+  color: var(--colors-text-active);
+}
+
+input[type='date']::-webkit-datetime-edit-text,
+input[type='date']::-webkit-datetime-edit-month-field,
+input[type='date']::-webkit-datetime-edit-day-field,
+input[type='date']::-webkit-datetime-edit-year-field {
+  color: var(--colors-text-active);
+}
+
+input[type='date']::-webkit-clear-button,
+input[type='date']::-webkit-inner-spin-button {
   display: none;
-  -webkit-appearance: none;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  width: 100%;
 }
 
 .dropdown {

@@ -16,8 +16,8 @@ export default class Modal extends Component {
 
   render(modalData) {
     const { modalTitle, actionType, value } = modalData;
-    const inputReadOnly =
-      actionType === ACTIONS.ADD_PAYMENT_METHOD ? '' : 'readonly';
+    const inputDisabled =
+      actionType === ACTIONS.ADD_PAYMENT_METHOD ? '' : 'disabled';
     const addBtnTemplate = `<button class="modal__submit-btn modal__add-btn">등록</button>`;
     const deleteBtnTemplate = `<button class="modal__submit-btn modal__delete-btn">삭제</button>`;
 
@@ -27,7 +27,7 @@ export default class Modal extends Component {
         <h3>${modalTitle}</h3>
         <input value='${
           value || ''
-        }' placeholder="입력하세요." ${inputReadOnly}/>
+        }' placeholder="입력하세요." ${inputDisabled}/>
         <div class="modal__button-conatiner">
             <button class="modal__cancel-btn">취소</button>
             ${

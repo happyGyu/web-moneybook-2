@@ -19,10 +19,12 @@ export default class CategoryInput extends Component {
   }
 
   activate() {
-    this.addEvent('click', '.input__category', () => this.toggleDropDown());
+    this.addEvent('click', '.input__category', (event) =>
+      this.toggleDropDown(event),
+    );
   }
 
-  toggleDropDown() {
+  toggleDropDown(event) {
     const dropdown = this.currentNode.querySelector('.dropdown');
     dropdown.classList.toggle('closed');
   }
