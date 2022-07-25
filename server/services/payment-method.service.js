@@ -34,6 +34,10 @@ const paymentMethodService = {
       ...paymentMethod,
       ...updatePaymentMethodDto,
     });
+    const updatedPaymentMethod = await paymentMethodModel.findById(
+      paymentMethodId,
+    );
+    return updatedPaymentMethod;
   },
 
   async removePaymentMethod(paymentMethodId) {

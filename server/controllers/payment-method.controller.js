@@ -33,13 +33,13 @@ const paymentMethodController = {
     try {
       const { id: paymentMethodId } = req.params;
       const updatePaymentMethodDto = req.body;
-
-      await paymentMethodService.updatePaymentMethod(
+      const paymentMethod = await paymentMethodService.updatePaymentMethod(
         paymentMethodId,
         updatePaymentMethodDto,
       );
       res.status(STATUS_CODE.OK).json({
         statusCode: STATUS_CODE.OK,
+        data: paymentMethod,
       });
     } catch (error) {
       next(error);
