@@ -40,11 +40,13 @@ const transactionHistoryController = {
   async createTransactionHistory(req, res, next) {
     try {
       const createTransactionHistoryDto = req.body;
-      await transactionHistoryService.createTransactionHistory(
-        createTransactionHistoryDto,
-      );
+      const transactionHistory =
+        await transactionHistoryService.createTransactionHistory(
+          createTransactionHistoryDto,
+        );
       res.status(STATUS_CODE.CREATED).json({
         statusCode: STATUS_CODE.CREATED,
+        data: transactionHistory,
       });
     } catch (error) {
       next(error);

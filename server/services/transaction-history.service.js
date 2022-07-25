@@ -31,7 +31,13 @@ const transactionHistoryService = {
     await categoryService.findByIdOrFail(
       createTransactionHistoryDto.categoryId,
     );
-    await transactionHistoryModel.create(createTransactionHistoryDto);
+    const { insertId } = await transactionHistoryModel.create(
+      createTransactionHistoryDto,
+    );
+    const transactionHistory = await transactionHistoryModel.findByIdWithDetail(
+      insertId,
+    );
+    return transactionHistory;
   },
 
   async updateTransactionHistory(
