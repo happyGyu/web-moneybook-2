@@ -1,6 +1,6 @@
 import Component from '@/base/component';
 import Dropdown from '../Dropdown';
-import { STORE_KEYS, INPUT_BAR_KEYS } from '@/constants/keys';
+import PaymentMethodList from './PaymentMethodList';
 
 export default class PaymentMethodInput extends Component {
   constructor(parentNode, paymentMethodInputData) {
@@ -14,12 +14,8 @@ export default class PaymentMethodInput extends Component {
         <input readonly class="input input__payment-methods" name="category" type="text" placeholder="선택하세요" value="${
           paymentMethodInputData?.title || ''
         }">        
-        `;
-    new Dropdown(
-      this.currentNode,
-      STORE_KEYS.PAYMENT_METHODS,
-      INPUT_BAR_KEYS.PAYMENT_METHOD,
-    );
+      `;
+    new Dropdown(this.currentNode, PaymentMethodList);
   }
 
   activate() {

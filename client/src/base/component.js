@@ -1,11 +1,11 @@
 import store from '@/store';
 
 export default class Component {
-  constructor(parentNode, tagName, attrs, initialData) {
+  constructor(parentNode, tagName, attrs, initialData, props) {
     this.parentNode = parentNode;
     this.currentNode = document.createElement(tagName);
     this.setAttributes(attrs);
-
+    this.props = props;
     this.render(initialData);
     this.parentNode.appendChild(this.currentNode);
   }

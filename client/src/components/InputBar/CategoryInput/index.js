@@ -1,6 +1,6 @@
 import Component from '@/base/component';
 import Dropdown from '../Dropdown';
-import { STORE_KEYS, INPUT_BAR_KEYS } from '@/constants/keys';
+import CategoryList from './CategoryList';
 
 export default class CategoryInput extends Component {
   constructor(parentNode, categoryInputData) {
@@ -15,11 +15,7 @@ export default class CategoryInput extends Component {
           categoryInputData?.title || ''
         }">        
         `;
-    new Dropdown(
-      this.currentNode,
-      STORE_KEYS.CATEGORIES,
-      INPUT_BAR_KEYS.CATEGORY,
-    );
+    new Dropdown(this.currentNode, CategoryList);
   }
 
   activate() {
