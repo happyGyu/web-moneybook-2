@@ -2,14 +2,14 @@ import query from '../db/query';
 
 const paymentMethodModel = {
   async findById(paymentMethodId) {
-    const [paymentMethod] = await query(
+    const [[paymentMethod]] = await query(
       `SELECT id, title
       FROM PaymentMethod
       WHERE ID = ?
       LIMIT 1;`,
       [paymentMethodId],
     );
-    return paymentMethod[0] ?? null;
+    return paymentMethod ?? null;
   },
 
   async findAll() {

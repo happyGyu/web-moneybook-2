@@ -2,14 +2,14 @@ import query from '../db/query';
 
 const transactionHistoryModel = {
   async findById(transactionHistoryId) {
-    const [transactionHistory] = await query(
+    const [[transactionHistory]] = await query(
       `SELECT *
       FROM TransactionHistory
       WHERE ID = ?
       LIMIT 1;`,
       [transactionHistoryId],
     );
-    return transactionHistory[0] ?? null;
+    return transactionHistory ?? null;
   },
 
   async findAllInPeriod(startDate, endDate) {
