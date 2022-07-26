@@ -1,16 +1,15 @@
-.calendar {
-  background-color: red;
+table.calendar {
+  display: flex;
+  flex-direction: column;
 }
 
 .calendar-header {
-  position: absolute;
-  top: -2rem;
-  left: 0;
-  right: 0;
+  margin-top: -2rem;
 }
 
 .calendar-header__weekdays {
   height: 3rem;
+  padding: 0;
   border: 1px solid var(--colors-line);
   border-radius: 0.625rem;
   display: flex;
@@ -21,8 +20,65 @@
 }
 
 .calendar-header__weekday {
+  padding: 0;
   flex: 1;
   display: flex;
   justify-content: center;
+  font-weight: 400;
   color: var(--colors-label);
+}
+
+.calendar-body {
+  margin-top: 1rem;
+  border-radius: 0.625rem;
+  background-color: var(--colors-off-white);
+  box-shadow: var(--shadow-default), inset 0 0 0 1px var(--colors-line);
+  overflow: hidden;
+}
+
+.calendar-body__week {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--colors-line);
+}
+
+.calendar-body__week:last-child {
+  border-bottom: 0;
+}
+
+.calendar-body__day {
+  position: relative;
+  padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+  aspect-ratio: 1 / 1;
+  font-size: 0.75rem;
+  border-right: 1px solid var(--colors-line);
+}
+
+.calendar-body__day:last-child {
+  border-right: 0;
+}
+
+.calendar-body__day.today {
+  background-color: var(--colors-background);
+}
+
+.calendar-day__date {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--colors-label);
+}
+
+.calendar-day__income {
+  color: var(--colors-tertiary);
+}
+
+.calendar-day__spent {
+  color: var(--colors-error);
 }
