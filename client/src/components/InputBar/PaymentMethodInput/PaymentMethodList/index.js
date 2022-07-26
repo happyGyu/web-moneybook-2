@@ -46,7 +46,10 @@ export default class PaymentMethodInput extends Component {
   setPaymentMethod(event) {
     event.stopPropagation();
     const { id, title } = event.target.dataset;
-    controller.changeInputData(INPUT_BAR_KEYS.PAYMENT_METHOD, { id, title });
+    controller.changeInputData([
+      { dataKey: INPUT_BAR_KEYS.PAYMENT_METHOD_ID, value: id },
+      { dataKey: INPUT_BAR_KEYS.PAYMENT_METHOD_TITLE, value: title },
+    ]);
   }
 
   openModal(actionType, event) {

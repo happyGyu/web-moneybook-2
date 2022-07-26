@@ -1,6 +1,6 @@
 import Component from '@/base/component';
 import ListItemHeader from './ListItemHeader';
-import { calTotalIncomeAndSpent } from '@/utils/transaction-history-util';
+import { calculateTotalAmount } from '@/utils/transaction-history-util';
 import ListItemCell from './ListItemCell';
 
 export default class ListItem extends Component {
@@ -14,7 +14,7 @@ export default class ListItem extends Component {
   }
   render(listItemData) {
     const [dateString, transactionHistories] = listItemData;
-    const totalIncomeAndSpent = calTotalIncomeAndSpent(transactionHistories);
+    const totalIncomeAndSpent = calculateTotalAmount(transactionHistories);
     const listItemHeaderData = { dateString, ...totalIncomeAndSpent };
     new ListItemHeader(this.currentNode, listItemHeaderData);
     transactionHistories.forEach(

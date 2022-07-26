@@ -14,7 +14,6 @@ export default class EditingOverlay extends Component {
   }
 
   makeOverlayTemplate(inputBarState) {
-    console.log(inputBarState);
     if (!inputBarState?.isEditing) return '';
     const { top, left } = this.calLayerPosition(inputBarState);
     return `

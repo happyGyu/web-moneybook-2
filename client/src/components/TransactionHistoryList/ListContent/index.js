@@ -1,8 +1,9 @@
 import Component from '@/base/component';
 import ListItem from './ListItem';
-import { convertDateString } from '@/utils/date-util';
-import { STORE_KEYS } from '@/constants/keys';
 import EditingOverlay from './EditingOverlay';
+// import { convertDateString } from '@/utils/date-util';
+import { makeSortedTransactionHistoryGroupbyDate } from '@/utils/transaction-history-util';
+import { STORE_KEYS } from '@/constants/keys';
 
 export default class ListContent extends Component {
   constructor(parentNode, transactionHistories) {
@@ -15,7 +16,7 @@ export default class ListContent extends Component {
   render(filterOptions) {
     if (!filterOptions) return;
     const { transactionHistories } = this.props;
-    const sortedListItemData = this.makSortedTransactionHistoryGroupbyDate(
+    const sortedListItemData = makeSortedTransactionHistoryGroupbyDate(
       transactionHistories,
       filterOptions,
     );
@@ -30,38 +31,38 @@ export default class ListContent extends Component {
     this.subscribe(STORE_KEYS.FILTER_OPTIONS);
   }
 
-  makeTransactionHistoryGroupByDate(transactionHistories, filterOptions) {
-    const groupMap = new Map();
-    transactionHistories.forEach((history) => {
-      const dateString = convertDateString(new Date(history.date));
-      if (!this.doesHistoryPassFilter(history, filterOptions)) return;
-      if (!groupMap.has(dateString)) {
-        groupMap.set(dateString, []);
-      }
-      groupMap.get(dateString).push(history);
-    });
-    return groupMap;
-  }
+  // makeTransactionHistoryGroupByDate(transactionHistories, filterOptions) {
+  //   const groupMap = new Map();
+  //   transactionHistories.forEach((history) => {
+  //     const dateString = convertDateString(new Date(history.date));
+  //     if (!this.doesHistoryPassFilter(history, filterOptions)) return;
+  //     if (!groupMap.has(dateString)) {
+  //       groupMap.set(dateString, []);
+  //     }
+  //     groupMap.get(dateString).push(history);
+  //   });
+  //   return groupMap;
+  // }
 
-  doesHistoryPassFilter(history, filterOptions) {
-    const type = history.isIncome ? 'income' : 'spent';
-    return filterOptions[type];
-  }
+  // doesHistoryPassFilter(history, filterOptions) {
+  //   const type = history.isIncome ? 'income' : 'spent';
+  //   return filterOptions[type];
+  // }
 
-  sortGroup(groupMap) {
-    const groupArr = [...groupMap];
-    const sortedGroupArr = groupArr.sort(
-      (group1, group2) => new Date(group2[0]) - new Date(group1[0]),
-    );
-    return sortedGroupArr;
-  }
+  // sortGroup(groupMap) {
+  //   const groupArr = [...groupMap];
+  //   const sortedGroupArr = groupArr.sort(
+  //     (group1, group2) => new Date(group2[0]) - new Date(group1[0]),
+  //   );
+  //   return sortedGroupArr;
+  // }
 
-  makSortedTransactionHistoryGroupbyDate(transactionHistories, filterOptions) {
-    const groupMap = this.makeTransactionHistoryGroupByDate(
-      transactionHistories,
-      filterOptions,
-    );
-    const sortedGroupArr = this.sortGroup(groupMap);
-    return sortedGroupArr;
-  }
+  // makSortedTransactionHistoryGroupbyDate(transactionHistories, filterOptions) {
+  //   const groupMap = this.makeTransactionHistoryGroupByDate(
+  //     transactionHistories,
+  //     filterOptions,
+  //   );
+  //   const sortedGroupArr = this.sortGroup(groupMap);
+  //   return sortedGroupArr;
+  // }
 }

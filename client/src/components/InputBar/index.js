@@ -16,13 +16,13 @@ export default class InputBar extends Component {
 
   render(inputBarData) {
     if (!inputBarData) return;
-    const { date, title, category, paymentMethod, isIncome, amount } =
+    const { date, title, categoryTitle, paymentMethodTitle, isIncome, amount } =
       inputBarData;
     this.currentNode.innerHTML = '';
     new DateInput(this.currentNode, date);
-    new CategoryInput(this.currentNode, category);
+    new CategoryInput(this.currentNode, categoryTitle);
     new TitleInput(this.currentNode, title);
-    new PaymentMethodInput(this.currentNode, paymentMethod);
+    new PaymentMethodInput(this.currentNode, paymentMethodTitle);
     new MoneyInput(this.currentNode, { isIncome, amount });
     new SubmitButton(this.currentNode);
   }

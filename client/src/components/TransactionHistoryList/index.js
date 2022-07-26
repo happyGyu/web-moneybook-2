@@ -3,7 +3,7 @@ import ListHeader from './ListHeader';
 import { STORE_KEYS } from '@/constants/keys';
 import './index.css';
 import ListContent from './ListContent';
-import { calTotalIncomeAndSpent } from '@/utils/transaction-history-util';
+import { calculateTotalAmount } from '@/utils/transaction-history-util';
 
 export default class TransactionHistoryList extends Component {
   constructor(parentNode) {
@@ -16,7 +16,7 @@ export default class TransactionHistoryList extends Component {
   render(transactionHistories) {
     if (!transactionHistories) return;
     this.currentNode.innerHTML = '';
-    const listHeaderData = calTotalIncomeAndSpent(transactionHistories);
+    const listHeaderData = calculateTotalAmount(transactionHistories);
     new ListHeader(this.currentNode, listHeaderData);
     new ListContent(this.currentNode, transactionHistories);
   }

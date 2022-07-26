@@ -11,8 +11,10 @@ export const STORE_KEYS = {
 
 export const INPUT_BAR_KEYS = {
   DATE: 'date',
-  CATEGORY: 'category',
-  PAYMENT_METHOD: 'paymentMethod',
+  CATEGORY_ID: 'categoryId',
+  CATEGORY_TITLE: 'categoryTitle',
+  PAYMENT_METHOD_ID: 'paymentMethodId',
+  PAYMENT_METHOD_TITLE: 'paymentMethodTitle',
   IS_INCOME: 'isIncome',
   AMOUNT: 'amount',
   TITLE: 'title',

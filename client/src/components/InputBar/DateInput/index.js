@@ -14,11 +14,10 @@ export default class DateInput extends Component {
   }
 
   render(dateInputData) {
-    const dateString = convertDateString(dateInputData);
-    const firstDateString = convertDateString(
-      getFirstDateOfMonth(dateInputData),
-    );
-    const lastDateString = convertDateString(getLastDateOfMonth(dateInputData));
+    const dateObj = new Date(dateInputData);
+    const dateString = convertDateString(dateObj);
+    const firstDateString = convertDateString(getFirstDateOfMonth(dateObj));
+    const lastDateString = convertDateString(getLastDateOfMonth(dateObj));
 
     this.currentNode.innerHTML = `
       <label for="inputbar-date" class="input__label">일자</label>
@@ -36,6 +35,11 @@ export default class DateInput extends Component {
   handleDateInput(event) {
     const inputValue = event.target.value;
     if (!inputValue) return;
-    controller.changeInputData(INPUT_BAR_KEYS.DATE, new Date(inputValue));
+    controller.changeInputData([
+      {
+        dataKey: INPUT_BAR_KEYS.DATE,
+        value: new Date(inputValue),
+      },
+    ]);
   }
 }

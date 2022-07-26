@@ -11,14 +11,14 @@ const request = {
     return data;
   },
 
-  async createTransactionHistory(
+  async createTransactionHistory({
     title,
     date,
     categoryId,
     paymentMethodId,
     isIncome,
     amount,
-  ) {
+  }) {
     const requestMessage = makeRequestMessage('POST', {
       title,
       date,
@@ -33,7 +33,7 @@ const request = {
     return data;
   },
 
-  async updateTransactionHistory(
+  async updateTransactionHistory({
     id,
     title,
     date,
@@ -41,7 +41,7 @@ const request = {
     paymentMethodId,
     isIncome,
     amount,
-  ) {
+  }) {
     const requestMessage = makeRequestMessage('PATCH', {
       title,
       date,

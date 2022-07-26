@@ -9,6 +9,11 @@ import CalendarPage from '@/pages/CalendarPage';
 import StatisticsPage from '@/pages/StatisticsPage';
 import store from '@/store';
 import request from '@/utils/api-util';
+import {
+  DEFAULT_INPUT_BAR_DATA,
+  DEFAULT_INPUT_BAR_STATE,
+  DEFAULT_FILTER_OPTIONS,
+} from '@/constants/data';
 
 (async function () {
   const app = document.getElementById('app');
@@ -31,17 +36,10 @@ async function initStore() {
     request.getCategories(),
     request.getPaymentMethods(),
   ]);
-  const inputBarData = {
-    title: null,
-    date: new Date(),
-    category: null,
-    paymentMethod: null,
-    isIncome: false,
-    amount: null,
-  };
-  const inputBarState = { isEditing: false, editingId: null };
+  const inputBarData = DEFAULT_INPUT_BAR_DATA;
+  const inputBarState = DEFAULT_INPUT_BAR_STATE;
   const isInputBarValid = false;
-  const filterOptions = { income: true, spent: true };
+  const filterOptions = DEFAULT_FILTER_OPTIONS;
 
   const initialData = {
     currentHeaderDate,
