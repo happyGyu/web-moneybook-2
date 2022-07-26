@@ -29,7 +29,7 @@ table.calendar {
 }
 
 .calendar-body {
-  margin-top: 1rem;
+  margin-top: 2rem;
   border-radius: 0.625rem;
   background-color: var(--colors-off-white);
   box-shadow: var(--shadow-default), inset 0 0 0 1px var(--colors-line);
@@ -81,4 +81,25 @@ table.calendar {
 
 .calendar-day__spent {
   color: var(--colors-error);
+}
+
+.calendar-footer {
+  margin-top: 2rem;
+  padding: 0 0.625rem;
+  display: flex;
+  column-gap: 1rem;
+}
+
+.calendar-footer__income,
+.calendar-footer__spent,
+.calendar-footer__total {
+  font-size: 0.875rem;
+  color: var(--colors-body);
+  display: flex;
+  column-gap: 0.25rem;
+}
+
+.calendar-footer__total {
+  flex: 1;
+  justify-content: flex-end;
 }
