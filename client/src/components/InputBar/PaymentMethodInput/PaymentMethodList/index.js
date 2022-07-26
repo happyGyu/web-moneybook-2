@@ -2,8 +2,10 @@ import controller from '@/controller';
 import Component from '@/base/component';
 import Modal from '@/components/Modal';
 import { ACTIONS } from '@/constants/actions';
-import { MESSAGES } from '@/constants/messages';
+import { MODAL_MESSAGES } from '@/constants/messages';
 import { STORE_KEYS, INPUT_BAR_KEYS } from '@/constants/keys';
+import deleteIcon from '@/assets/delete.svg';
+
 export default class PaymentMethodInput extends Component {
   constructor(parentNode) {
     super(parentNode, 'ul', { class: 'dropdown__list' });
@@ -16,9 +18,11 @@ export default class PaymentMethodInput extends Component {
       ${paymentMethodData
         .map(
           ({ id, title }) =>
-            `<li class="dropdown__item payment-method__item" data-id=${id} data-title=${title}>
-                ${title}
-                <button class="payment-method__delete-btn">X</button>
+            `<li class="dropdown__item payment-method__item" data-id="${id}" data-title="${title}">
+              ${title}
+              <button class="payment-method__delete-btn" type="button">
+                ${deleteIcon}
+              </button>
             </li>`,
         )
         .join('')}
@@ -48,7 +52,6 @@ export default class PaymentMethodInput extends Component {
   openModal(actionType, event) {
     const paymentMethodItem = event.target.closest('li');
     const { id, title: paymentMethodtitle } = paymentMethodItem.dataset;
-
     const modalData = this.makeModalData(actionType, paymentMethodtitle);
     const onSubmit =
       actionType === ACTIONS.DELETE_PAYMENT_METHOD
@@ -58,9 +61,9 @@ export default class PaymentMethodInput extends Component {
   }
 
   makeModalData(actionType, paymentMethodtitle) {
-    const modalTitle = MESSAGES[actionType];
+    const modalMessage = MODAL_MESSAGES[actionType];
     const value =
       actionType === ACTIONS.DELETE_PAYMENT_METHOD ? paymentMethodtitle : null;
-    return { actionType, modalTitle, value };
+    return { actionType, modalMessage, value };
   }
 }

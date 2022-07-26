@@ -9,7 +9,7 @@ import {
 
 export default class DateInput extends Component {
   constructor(parentNode, dateInputData) {
-    super(parentNode, 'label', { class: 'input-box' }, dateInputData);
+    super(parentNode, 'div', { class: 'input-box' }, dateInputData);
     this.activate();
   }
 
@@ -21,8 +21,9 @@ export default class DateInput extends Component {
     const lastDateString = convertDateString(getLastDateOfMonth(dateInputData));
 
     this.currentNode.innerHTML = `
-      <h4 class="input__title">일자</h4>
-      <input class="input input__date" name="date" type="date" min="${firstDateString}" max="${lastDateString}" value="${dateString}">
+      <label for="inputbar-date" class="input__label">일자</label>
+      <input id="inputbar-date" class="input input__date" name="date" type="date"
+        min="${firstDateString}" max="${lastDateString}" value="${dateString}"/>
     `;
   }
 

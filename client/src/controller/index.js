@@ -21,7 +21,9 @@ function changeInputData(dataKey, data, options) {
 }
 
 function checkInputBarDataValidity(inputBarData) {
-  return Object.values(inputBarData).every((value) => value !== null);
+  return Object.values(inputBarData).every(
+    (value) => value !== null && value !== '',
+  );
 }
 
 async function createNewTransactionHistory(event) {
@@ -51,6 +53,7 @@ function clearInputBar() {
     amount: null,
   };
   store.setData(STORE_KEYS.INPUT_BAR_DATA, clearedInputBarData);
+  store.setData(STORE_KEYS.IS_INPUT_BAR_VALID, false);
 }
 
 async function addPaymentMethod(title) {

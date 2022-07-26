@@ -1,18 +1,21 @@
 import Component from '@/base/component';
 import controller from '@/controller';
 import { STORE_KEYS } from '@/constants/keys';
+import checkIcon from '@/assets/check.svg';
 
-export default class ConfirmButton extends Component {
+export default class SubmitButton extends Component {
   constructor(parentNode) {
-    super(parentNode, 'div', { class: 'confirm-button-container' });
+    super(parentNode, 'div', { class: 'submit-button-container' });
     this.activate();
   }
 
   render(isInputBarValid) {
     this.currentNode.innerHTML = `
-      <button class="confirm-button" ${
+      <button type="submit" class="submit-button" ${
         isInputBarValid ? '' : 'disabled'
-      }>버튼</button>
+      }>
+        ${checkIcon}
+      </button>
     `;
   }
 
@@ -20,7 +23,7 @@ export default class ConfirmButton extends Component {
     this.subscribe(STORE_KEYS.IS_INPUT_BAR_VALID);
     this.addEvent(
       'click',
-      '.confirm-button',
+      '.submit-button',
       controller.createNewTransactionHistory,
     );
   }
