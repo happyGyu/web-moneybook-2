@@ -1,11 +1,11 @@
-import Component from '@/base/component';
 import './index.css';
+import Component from '@/base/component';
 import DateInput from './DateInput';
 import TitleInput from './TitleInput';
 import CategoryInput from './CategoryInput';
 import PaymentMethodInput from './PaymentMethodInput';
 import MoneyInput from './MoneyInput';
-import ConfirmButton from './ConfirmButton';
+import SubmitButton from './SubmitButton';
 import { STORE_KEYS } from '@/constants/keys';
 
 export default class InputBar extends Component {
@@ -16,15 +16,15 @@ export default class InputBar extends Component {
 
   render(inputBarData) {
     if (!inputBarData) return;
-    const { date, title, category, paymentMethod, isIncome, amount } =
+    const { date, title, categoryTitle, paymentMethodTitle, isIncome, amount } =
       inputBarData;
     this.currentNode.innerHTML = '';
-    new ConfirmButton(this.currentNode);
     new DateInput(this.currentNode, date);
-    new CategoryInput(this.currentNode, category);
+    new CategoryInput(this.currentNode, categoryTitle);
     new TitleInput(this.currentNode, title);
-    new PaymentMethodInput(this.currentNode, paymentMethod);
+    new PaymentMethodInput(this.currentNode, paymentMethodTitle);
     new MoneyInput(this.currentNode, { isIncome, amount });
+    new SubmitButton(this.currentNode);
   }
 
   activate() {
