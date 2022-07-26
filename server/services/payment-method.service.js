@@ -21,7 +21,11 @@ const paymentMethodService = {
   },
 
   async createPaymentMethod(createPaymentMethodDto) {
-    await paymentMethodModel.create(createPaymentMethodDto);
+    const { insertId } = await paymentMethodModel.create(
+      createPaymentMethodDto,
+    );
+    const paymentMethod = await paymentMethodModel.findById(insertId);
+    return paymentMethod;
   },
 
   async updatePaymentMethod(paymentMethodId, updatePaymentMethodDto) {
@@ -30,6 +34,10 @@ const paymentMethodService = {
       ...paymentMethod,
       ...updatePaymentMethodDto,
     });
+    const updatedPaymentMethod = await paymentMethodModel.findById(
+      paymentMethodId,
+    );
+    return updatedPaymentMethod;
   },
 
   async removePaymentMethod(paymentMethodId) {

@@ -40,11 +40,13 @@ const transactionHistoryController = {
   async createTransactionHistory(req, res, next) {
     try {
       const createTransactionHistoryDto = req.body;
-      await transactionHistoryService.createTransactionHistory(
-        createTransactionHistoryDto,
-      );
+      const transactionHistory =
+        await transactionHistoryService.createTransactionHistory(
+          createTransactionHistoryDto,
+        );
       res.status(STATUS_CODE.CREATED).json({
         statusCode: STATUS_CODE.CREATED,
+        data: transactionHistory,
       });
     } catch (error) {
       next(error);
@@ -55,12 +57,14 @@ const transactionHistoryController = {
     try {
       const { id: transactionHistoryId } = req.params;
       const updateTransactionHistoryDto = req.body;
-      await transactionHistoryService.updateTransactionHistory(
-        transactionHistoryId,
-        updateTransactionHistoryDto,
-      );
+      const transactionHistory =
+        await transactionHistoryService.updateTransactionHistory(
+          transactionHistoryId,
+          updateTransactionHistoryDto,
+        );
       res.status(STATUS_CODE.OK).json({
         statusCode: STATUS_CODE.OK,
+        data: transactionHistory,
       });
     } catch (error) {
       next(error);
