@@ -19,6 +19,7 @@ export default class Calendar extends Component {
   }
 
   render(transactionHistories) {
+    this.currentNode.innerHTML = '';
     if (!transactionHistories) return;
     const { totalIncomeAmount, totalSpentAmount } =
       calculateTotalAmount(transactionHistories);
