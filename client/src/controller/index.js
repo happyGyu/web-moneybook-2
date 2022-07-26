@@ -2,13 +2,21 @@ import store from '@/store';
 import { STORE_KEYS } from '@/constants/keys';
 import request from '@/utils/api-util';
 import { convertDateString } from '@/utils/date-util';
+import { INPUT_BAR_KEYS } from '../constants/keys';
 
 function changeHeaderMonth(increment) {
-  const currDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
-  const changedDate = new Date(
-    currDate.setMonth(currDate.getMonth() + increment),
+  const headerDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  headerDate.setMonth(headerDate.getMonth() + increment);
+  store.setData(STORE_KEYS.CURRENT_HEADER_DATE, headerDate);
+  setCurrentMonthTransactionHistories(headerDate);
+  changeInputData(INPUT_BAR_KEYS.DATE, headerDate);
+}
+
+async function setCurrentMonthTransactionHistories(currDate) {
+  const newTransactionHistories = await request.getTranscationHistoriesByMonth(
+    currDate,
   );
-  store.setData(STORE_KEYS.CURRENT_HEADER_DATE, changedDate);
+  store.setData(STORE_KEYS.TRANSACTION_HISTORIES, newTransactionHistories);
 }
 
 function changeInputData(dataKey, data, options) {
