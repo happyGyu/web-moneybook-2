@@ -24,14 +24,4 @@ export default class TransactionHistoryList extends Component {
   activate() {
     this.subscribe(STORE_KEYS.TRANSACTION_HISTORIES);
   }
-
-  countIncomeAndSpent(transactionHistories) {
-    transactionHistories.reduce(
-      (counts, history) => {
-        history.isIncome ? counts.incomeCnt++ : counts.spentCnt++;
-        return counts;
-      },
-      { incomeCnt, spentCnt },
-    );
-  }
 }

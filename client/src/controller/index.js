@@ -175,10 +175,12 @@ function unsetInputBarEditMode() {
   clearInputBar();
 }
 
-function changeFilterOptions(type, isFiltered) {
+function changeFilterOptions(filterOption, isFiltered) {
   const currFilterOptions = store.getData(STORE_KEYS.FILTER_OPTIONS);
-  const updatedFilterOptions = { ...currFilterOptions };
-  updatedFilterOptions[type] = isFiltered;
+  const updatedFilterOptions = {
+    ...currFilterOptions,
+    [filterOption]: isFiltered,
+  };
   store.setData(STORE_KEYS.FILTER_OPTIONS, updatedFilterOptions);
 }
 
