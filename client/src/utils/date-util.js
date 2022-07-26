@@ -1,3 +1,5 @@
+import { DAY_NAMES } from '../constants/data';
+
 export function getYearAndMonthAndDate(dateObj) {
   return {
     year: dateObj.getFullYear(),
@@ -7,8 +9,7 @@ export function getYearAndMonthAndDate(dateObj) {
 }
 
 export function getDayName(dateObj) {
-  const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
-  return dayArr[dateObj.getDay()];
+  return DAY_NAMES[dateObj.getDay()];
 }
 
 export function convertDateString(dateObj) {

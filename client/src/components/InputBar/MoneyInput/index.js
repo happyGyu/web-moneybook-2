@@ -29,15 +29,17 @@ export default class MoneyInput extends Component {
 
   activate() {
     this.addEvent('input', '.input__money-amount', (event) =>
-      controller.changeInputData(INPUT_BAR_KEYS.AMOUNT, event.target.value, {
-        rerender: false,
-      }),
+      controller.changeInputData(
+        [{ dataKey: INPUT_BAR_KEYS.AMOUNT, value: event.target.value }],
+        {
+          rerender: false,
+        },
+      ),
     );
     this.addEvent('click', '.input__money-sign', (event) =>
-      controller.changeInputData(
-        INPUT_BAR_KEYS.IS_INCOME,
-        !this.moneyData.isIncome,
-      ),
+      controller.changeInputData([
+        { dataKey: INPUT_BAR_KEYS.IS_INCOME, value: !this.moneyData.isIncome },
+      ]),
     );
   }
 }

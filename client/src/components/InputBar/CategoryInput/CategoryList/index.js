@@ -30,6 +30,9 @@ export default class CategoryList extends Component {
   setCategory(event) {
     event.stopPropagation();
     const { id, title } = event.target.dataset;
-    controller.changeInputData(INPUT_BAR_KEYS.CATEGORY, { id, title });
+    controller.changeInputData([
+      { dataKey: INPUT_BAR_KEYS.CATEGORY_ID, value: id },
+      { dataKey: INPUT_BAR_KEYS.CATEGORY_TITLE, value: title },
+    ]);
   }
 }
