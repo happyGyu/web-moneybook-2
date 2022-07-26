@@ -15,16 +15,23 @@ export default class TransactionHistoryList extends Component {
 
   render(transactionHistories) {
     if (!transactionHistories) return;
-    const totalIncomeAndSpent = calTotalIncomeAndSpent(transactionHistories);
-    const listHeaderData = {
-      totalCnt: transactionHistories.length,
-      ...totalIncomeAndSpent,
-    };
+    const listHeaderData = calTotalIncomeAndSpent(transactionHistories);
+    console.log(listHeaderData);
     new ListHeader(this.currentNode, listHeaderData);
     new ListContent(this.currentNode, transactionHistories);
   }
 
   activate() {
     this.subscribe(STORE_KEYS.TRANSACTION_HISTORIES);
+  }
+
+  countIncomeAndSpent(transactionHistories) {
+    transactionHistories.reduce(
+      (counts, history) => {
+        history.isIncome ? counts.incomeCnt++ : counts.spentCnt++;
+        return counts;
+      },
+      { incomeCnt, spentCnt },
+    );
   }
 }

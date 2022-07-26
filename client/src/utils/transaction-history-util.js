@@ -2,13 +2,20 @@ export function calTotalIncomeAndSpent(transactionHistories) {
   const totalSum = transactionHistories.reduce(
     (sum, history) => {
       if (history.isIncome) {
-        sum.totalIncome += history.amount;
+        sum.incomeHistoryCnt++;
+        sum.totalIncomeAmount += history.amount;
       } else {
-        sum.totalSpent += history.amount;
+        sum.spentHistoryCnt++;
+        sum.totalSpentAmount += history.amount;
       }
       return sum;
     },
-    { totalIncome: 0, totalSpent: 0 },
+    {
+      totalIncomeAmount: 0,
+      incomeHistoryCnt: 0,
+      totalSpentAmount: 0,
+      spentHistoryCnt: 0,
+    },
   );
   return totalSum;
 }

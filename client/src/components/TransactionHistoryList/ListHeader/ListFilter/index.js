@@ -1,35 +1,36 @@
 import Component from '@/base/component';
 import controller from '@/controller';
-import { STORE_KEYS } from '@/constants/keys';
 
 export default class ListFilter extends Component {
-  constructor(parentNode, { totalIncome, totalSpent }) {
+  constructor(
+    parentNode,
+    filterOptions,
+    { totalIncomeAmount, totalSpentAmount },
+  ) {
     super(
       parentNode,
       'div',
       { class: 'transaction-history-list__filter-container' },
-      null,
-      { totalIncome, totalSpent },
+      filterOptions,
+      { totalIncomeAmount, totalSpentAmount },
     );
     this.activate();
   }
   render(filterOptions) {
-    if (!filterOptions) return;
-    const { totalIncome, totalSpent } = this.props;
+    const { totalIncomeAmount, totalSpentAmount } = this.props;
     this.currentNode.innerHTML = `
       <input type="checkbox" id="income-checkbox" ${
         filterOptions.income ? 'checked' : ''
       }>
-      <label for="income-checkbox" class="transaction-history-list__filter-income">수입 ${totalIncome.toLocaleString()}</label>
+      <label for="income-checkbox" class="transaction-history-list__filter-income">수입 ${totalIncomeAmount.toLocaleString()}</label>
       <input type="checkbox" id="spent-checkbox" ${
         filterOptions.spent ? 'checked' : ''
       }>
-      <label for="spent-checkbox" class="transaction-history-list__filter-spending">지출 ${totalSpent.toLocaleString()}</label>
+      <label for="spent-checkbox" class="transaction-history-list__filter-spending">지출 ${totalSpentAmount.toLocaleString()}</label>
     `;
   }
 
   activate() {
-    this.subscribe(STORE_KEYS.FILTER_OPTIONS);
     this.addEvent('click', '#income-checkbox', (event) =>
       controller.changeFilterOptions('income', event.target.checked),
     );

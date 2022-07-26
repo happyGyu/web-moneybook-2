@@ -12,11 +12,12 @@ export default class ListItemHeader extends Component {
     this.activate();
   }
   render(listItemHeaderData) {
-    const { dateString, totalIncome, totalSpent } = listItemHeaderData;
+    const { dateString, totalIncomeAmount, totalSpentAmount } =
+      listItemHeaderData;
     const dateTemplate = this.getDateTemplate(new Date(dateString));
     const totalAmountTemplate = this.getTotalAmountTemplate(
-      totalIncome,
-      totalSpent,
+      totalIncomeAmount,
+      totalSpentAmount,
     );
     this.currentNode.innerHTML = dateTemplate + totalAmountTemplate;
   }
@@ -32,12 +33,12 @@ export default class ListItemHeader extends Component {
     `;
   }
 
-  getTotalAmountTemplate(totalIncome, totalSpent) {
-    const totalIncomeText = totalIncome
-      ? `수입 ${totalIncome.toLocaleString()}`
+  getTotalAmountTemplate(totalIncomeAmount, totalSpentAmount) {
+    const totalIncomeText = totalIncomeAmount
+      ? `수입 ${totalIncomeAmount.toLocaleString()}`
       : '';
-    const totalSpentText = totalSpent
-      ? `지출 ${totalSpent.toLocaleString()}`
+    const totalSpentText = totalSpentAmount
+      ? `지출 ${totalSpentAmount.toLocaleString()}`
       : '';
     return `<span class="transaction-history-item__total-amount">${
       totalIncomeText + totalSpentText
