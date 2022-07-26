@@ -4,7 +4,6 @@ import CalendarHeader from './CalendarHeader';
 import CalendarBody from './CalendarBody';
 import CalendarFooter from './CalendarFooter';
 import { STORE_KEYS } from '@/constants/keys';
-import { calculateTotalAmount } from '@/utils/transaction-history-util';
 
 export default class Calendar extends Component {
   constructor(parentNode) {
@@ -15,19 +14,14 @@ export default class Calendar extends Component {
   }
 
   activate() {
-    this.subscribe(STORE_KEYS.TRANSACTION_HISTORIES);
+    this.subscribe(STORE_KEYS.CURRENT_HEADER_DATE);
   }
 
-  render(transactionHistories) {
+  render(currentDate) {
     this.currentNode.innerHTML = '';
-    if (!transactionHistories) return;
-    const { totalIncomeAmount, totalSpentAmount } =
-      calculateTotalAmount(transactionHistories);
+    if (!currentDate) return;
     new CalendarHeader(this.currentNode);
-    new CalendarBody(this.currentNode);
-    new CalendarFooter(this.currentNode, {
-      totalIncomeAmount,
-      totalSpentAmount,
-    });
+    new CalendarBody(this.currentNode, { currentDate });
+    new CalendarFooter(this.currentNode);
   }
 }
