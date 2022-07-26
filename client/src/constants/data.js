@@ -10,6 +10,6 @@ export const DEFAULT_INPUT_BAR_DATA = {
   isIncome: false,
   amount: null,
 };
-
 export const DEFAULT_INPUT_BAR_STATE = { isEditing: false, editingId: null };
 export const DEFAULT_FILTER_OPTIONS = { income: true, spent: true };
+export const DAY_NAMES = ['일', '월', '화', '수', '목', '금', '토'];

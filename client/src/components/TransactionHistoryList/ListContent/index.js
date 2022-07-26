@@ -1,7 +1,6 @@
 import Component from '@/base/component';
 import ListItem from './ListItem';
 import EditingOverlay from './EditingOverlay';
-// import { convertDateString } from '@/utils/date-util';
 import { makeSortedTransactionHistoryGroupbyDate } from '@/utils/transaction-history-util';
 import { STORE_KEYS } from '@/constants/keys';
 
