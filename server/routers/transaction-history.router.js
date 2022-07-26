@@ -10,7 +10,7 @@ transactionHistoryRouter.get(
 
 transactionHistoryRouter.get(
   '/category',
-  transactionHistoryController.getTransactionHistoriesByCategory,
+  transactionHistoryController.getTotalAmountByCategory,
 );
 
 transactionHistoryRouter.post(

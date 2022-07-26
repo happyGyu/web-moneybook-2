@@ -41,6 +41,37 @@ const transactionHistoryModel = {
     return transactionHistories;
   },
 
+  async getTotalAmountByCategoryInPeriod(currentDate, range, category) {
+    console.log(currentDate, range, category);
+    const [totalAmountByCategory] = await query(
+      `
+      SELECT B.currentDate as date, IFNULL(A.totalAmount, 0)as totalAmount
+      FROM (
+        SELECT DATE_FORMAT(T.date, '%Y-%m') AS historyDate, SUM(T.amount) AS totalAmount
+        FROM TransactionHistory as T
+        INNER JOIN Category as C
+        ON T.categoryId = C.id
+        WHERE T.isIncome = 0 AND C.title = ?
+        GROUP BY historyDate
+        ) as A
+      RIGHT JOIN (
+          WITH RECURSIVE CTE AS (
+              SELECT DATE_SUB('${currentDate}', INTERVAL ? MONTH) AS DT
+                UNION ALL 
+            SELECT DT + INTERVAL 1 MONTH
+                  FROM CTE
+                  WHERE DT + INTERVAL 1 MONTH <= '${currentDate}'
+            )
+            SELECT DT, DATE_FORMAT(DT, '%Y-%m') AS currentDate
+            FROM CTE) as B
+      ON A.historyDate = B.currentDate
+      ORDER BY B.currentDate ASC;
+    `,
+      [category, range - 1],
+    );
+    return totalAmountByCategory;
+  },
+
   async create({ title, date, isIncome, amount, categoryId, paymentMethodId }) {
     const [results] = await query(
       `INSERT INTO TransactionHistory
