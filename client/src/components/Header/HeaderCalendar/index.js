@@ -3,8 +3,7 @@ import { STORE_KEYS } from '@/constants/keys';
 import controller from '@/controller';
 import chevronLeftIcon from '@/assets/chevron-left.svg';
 import chevronRightIcon from '@/assets/chevron-right.svg';
-import { getYearAndMonth } from '@/utils/date-util';
-
+import { getYearAndMonthAndDate } from '@/utils/date-util';
 
 export default class HeaderCalendar extends Component {
   constructor(parentNode) {
@@ -14,7 +13,7 @@ export default class HeaderCalendar extends Component {
 
   render(currentHeaderDate) {
     if (!currentHeaderDate) return;
-    const { year, month } = getYearAndMonth(currentHeaderDate);
+    const { year, month } = getYearAndMonthAndDate(currentHeaderDate);
     this.currentNode.innerHTML = `
         <button class='header-calendar__button--prev'>${chevronLeftIcon}</button>
         <div class='header-calendar__container'>

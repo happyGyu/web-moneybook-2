@@ -26,13 +26,23 @@ function checkInputBarDataValidity(inputBarData) {
   );
 }
 
-async function createNewTransactionHistory(event) {
+async function updateTransactionHistories(event) {
   event.preventDefault();
   const currInputData = store.getData(STORE_KEYS.INPUT_BAR_DATA);
+  const inputBarState = store.getData(STORE_KEYS.INPUT_BAR_STATE);
+
+  const updatedTransactionHistories = inputBarState.isEditing
+    ? await editTransactionHistory(currInputData)
+    : await addNewTransactionHistory(currInputData);
+  store.setData(STORE_KEYS.TRANSACTION_HISTORIES, updatedTransactionHistories);
+  clearInputBar();
+}
+
+async function addNewTransactionHistory(currInputData) {
   const { title, date, category, paymentMethod, isIncome, amount } =
     currInputData;
   const formattedDate = convertDateString(date);
-  await request.createTransactionHistory(
+  const createdData = await request.createTransactionHistory(
     title,
     formattedDate,
     category.id,
@@ -40,7 +50,56 @@ async function createNewTransactionHistory(event) {
     isIncome,
     amount,
   );
-  clearInputBar();
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = [
+    ...currentTransactionHistories,
+    createdData,
+  ];
+  return updatedTransactionHistories;
+}
+
+async function editTransactionHistory(currInputData) {
+  const { id, title, date, category, paymentMethod, isIncome, amount } =
+    currInputData;
+  const formattedDate = convertDateString(date);
+  const editedData = await request.updateTransactionHistory(
+    id,
+    title,
+    formattedDate,
+    category.id,
+    paymentMethod.id,
+    isIncome,
+    amount,
+  );
+  // 수정 요청에 성공하면 다시 기본값인 create로 변경
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, {
+    isEditing: false,
+    editingId: null,
+  });
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = currentTransactionHistories.map(
+    (history) => {
+      return history.id === id ? editedData : history;
+    },
+  );
+  return updatedTransactionHistories;
+}
+
+async function deleteTransactionHistory() {
+  const targetId = store.getData(STORE_KEYS.INPUT_BAR_STATE).editingId;
+  await request.removeTransactionHistory(targetId);
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = currentTransactionHistories.filter(
+    (history) => history.id !== parseInt(targetId),
+  );
+  unsetInputBarEditMode();
+  store.setData(STORE_KEYS.TRANSACTION_HISTORIES, updatedTransactionHistories);
 }
 
 function clearInputBar() {
@@ -75,13 +134,57 @@ async function deletePaymentMethod(targetId) {
   store.setData(STORE_KEYS.PAYMENT_METHODS, updatedPaymentMethods);
 }
 
+function setInputBarEditMode(historyData) {
+  const {
+    id,
+    title,
+    date: dateString,
+    categoryId,
+    categoryTitle,
+    paymentMethodId,
+    paymentMethodTitle,
+    isIncome,
+    amount,
+  } = historyData;
+  const newInputBarData = {
+    id,
+    title,
+    amount,
+    isIncome,
+    date: new Date(dateString),
+    category: { id: categoryId, title: categoryTitle },
+    paymentMethod: { id: paymentMethodId, title: paymentMethodTitle },
+  };
+  store.setData(STORE_KEYS.INPUT_BAR_DATA, newInputBarData);
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, { isEditing: true, editingId: id });
+}
+
+function unsetInputBarEditMode() {
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, {
+    isEditing: false,
+    editingId: null,
+  });
+  clearInputBar();
+}
+
+function changeFilterOptions(type, isFiltered) {
+  const currFilterOptions = store.getData(STORE_KEYS.FILTER_OPTIONS);
+  const updatedFilterOptions = { ...currFilterOptions };
+  updatedFilterOptions[type] = isFiltered;
+  store.setData(STORE_KEYS.FILTER_OPTIONS, updatedFilterOptions);
+}
+
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
   changeInputData: (key, data, options) => changeInputData(key, data, options),
-  createNewTransactionHistory,
+  updateTransactionHistories,
+  deleteTransactionHistory,
   addPaymentMethod,
   deletePaymentMethod,
+  setInputBarEditMode,
+  unsetInputBarEditMode,
+  changeFilterOptions,
 };
 
 export default controller;
