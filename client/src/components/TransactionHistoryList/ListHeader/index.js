@@ -36,7 +36,7 @@ export default class ListHeader extends Component {
     let totalCnt = 0;
     if (filterOptions.income) totalCnt += incomeHistoryCnt;
     if (filterOptions.spent) totalCnt += spentHistoryCnt;
-
+    console.log(totalCnt);
     return `
       <h1 class="transaction-history-list__title">전체내역 ${totalCnt}건</h1>
     `;

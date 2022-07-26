@@ -27,7 +27,10 @@ const request = {
       isIncome,
       amount,
     });
-    await fetch(`/api/transaction-history`, requestMessage);
+    const { data } = await (
+      await fetch(`/api/transaction-history`, requestMessage)
+    ).json();
+    return data;
   },
 
   async updateTransactionHistory(
@@ -47,7 +50,10 @@ const request = {
       isIncome,
       amount,
     });
-    await fetch(`/api/transaction-history/${id}`, requestMessage);
+    const { data } = await (
+      await fetch(`/api/transaction-history/${id}`, requestMessage)
+    ).json();
+    return data;
   },
 
   async getPaymentMethods() {
@@ -59,7 +65,10 @@ const request = {
     const requestMessage = makeRequestMessage('POST', {
       title,
     });
-    await fetch(`/api/payment-method`, requestMessage);
+    const { data } = await (
+      await fetch(`/api/payment-method`, requestMessage)
+    ).json();
+    return data;
   },
 
   async removePaymentMethod(id) {

@@ -24,7 +24,7 @@ export default class SubmitButton extends Component {
     this.addEvent(
       'click',
       '.submit-button',
-      controller.createNewTransactionHistory,
+      controller.updateTransactionHistories,
     );
   }
 }

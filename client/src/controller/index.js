@@ -26,13 +26,24 @@ function checkInputBarDataValidity(inputBarData) {
   );
 }
 
-async function createNewTransactionHistory(event) {
+async function updateTransactionHistories(event) {
   event.preventDefault();
   const currInputData = store.getData(STORE_KEYS.INPUT_BAR_DATA);
+  const inputBarState = store.getData(STORE_KEYS.INPUT_BAR_STATE);
+
+  const updatedTransactionHistories =
+    inputBarState === 'CREATE'
+      ? await addNewTransactionHistory(currInputData)
+      : await editTransactionHistory(currInputData);
+  store.setData(STORE_KEYS.TRANSACTION_HISTORIES, updatedTransactionHistories);
+  clearInputBar();
+}
+
+async function addNewTransactionHistory(currInputData) {
   const { title, date, category, paymentMethod, isIncome, amount } =
     currInputData;
   const formattedDate = convertDateString(date);
-  await request.createTransactionHistory(
+  const createdData = await request.createTransactionHistory(
     title,
     formattedDate,
     category.id,
@@ -40,7 +51,40 @@ async function createNewTransactionHistory(event) {
     isIncome,
     amount,
   );
-  clearInputBar();
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = [
+    ...currentTransactionHistories,
+    createdData,
+  ];
+  return updatedTransactionHistories;
+}
+
+async function editTransactionHistory(currInputData) {
+  const { id, title, date, category, paymentMethod, isIncome, amount } =
+    currInputData;
+  const formattedDate = convertDateString(date);
+  const editedData = await request.updateTransactionHistory(
+    id,
+    title,
+    formattedDate,
+    category.id,
+    paymentMethod.id,
+    isIncome,
+    amount,
+  );
+  // 수정 요청에 성공하면 다시 기본값인 create로 변경
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, 'CREATE');
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = currentTransactionHistories.map(
+    (history) => {
+      return history.id === id ? editedData : history;
+    },
+  );
+  return updatedTransactionHistories;
 }
 
 function clearInputBar() {
@@ -77,6 +121,7 @@ async function deletePaymentMethod(targetId) {
 
 function setInputBarEditMode(historyData) {
   const {
+    id,
     title,
     date: dateString,
     categoryId,
@@ -87,6 +132,7 @@ function setInputBarEditMode(historyData) {
     amount,
   } = historyData;
   const newInputBarData = {
+    id,
     title,
     amount,
     isIncome,
@@ -109,7 +155,7 @@ const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
   changeInputData: (key, data, options) => changeInputData(key, data, options),
-  createNewTransactionHistory,
+  updateTransactionHistories,
   addPaymentMethod,
   deletePaymentMethod,
   setInputBarEditMode,

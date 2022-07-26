@@ -15,8 +15,8 @@ export default class TransactionHistoryList extends Component {
 
   render(transactionHistories) {
     if (!transactionHistories) return;
+    this.currentNode.innerHTML = '';
     const listHeaderData = calTotalIncomeAndSpent(transactionHistories);
-    console.log(listHeaderData);
     new ListHeader(this.currentNode, listHeaderData);
     new ListContent(this.currentNode, transactionHistories);
   }
