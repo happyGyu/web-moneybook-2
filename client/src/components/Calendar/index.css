@@ -1,0 +1,28 @@
+.calendar {
+  background-color: red;
+}
+
+.calendar-header {
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  right: 0;
+}
+
+.calendar-header__weekdays {
+  height: 3rem;
+  border: 1px solid var(--colors-line);
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--colors-off-white);
+  box-shadow: var(--shadow-default);
+}
+
+.calendar-header__weekday {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  color: var(--colors-label);
+}
