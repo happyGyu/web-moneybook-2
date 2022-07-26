@@ -19,8 +19,10 @@ export default class PaymentMethodInput extends Component {
         .map(
           ({ id, title }) =>
             `<li class="dropdown__item payment-method__item" data-id="${id}" data-title="${title}">
-                ${title}
-                <button class="payment-method__delete-btn">${deleteIcon}</button>
+              ${title}
+              <button class="payment-method__delete-btn" type="button">
+                ${deleteIcon}
+              </button>
             </li>`,
         )
         .join('')}
