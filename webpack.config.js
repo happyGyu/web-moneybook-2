@@ -53,5 +53,8 @@ module.exports = {
   devServer: {
     static: './dist',
     historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
   },
 };
