@@ -80,16 +80,16 @@ const transactionHistoryService = {
     return transactionHistories;
   },
 
-  async getTotalAmountByCategory(date, range, category) {
+  async getTotalSpentByCategory(date, range, category) {
     const { year, month } = getAllDateInfo(new Date(date));
     const currentDate = convertDateString(getFirstDayOfMonth(year, month));
-    const transactionHistories =
-      await transactionHistoryModel.getTotalAmountByCategoryInPeriod(
+    const totalSpentByCatgory =
+      await transactionHistoryModel.getTotalSpentByCategoryInPeriod(
         currentDate,
         range,
         category,
       );
-    return transactionHistories;
+    return totalSpentByCatgory;
   },
 };
 

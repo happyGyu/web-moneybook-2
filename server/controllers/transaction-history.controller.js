@@ -19,11 +19,11 @@ const transactionHistoryController = {
     }
   },
 
-  async getTotalAmountByCategory(req, res, next) {
+  async getTotalSpentByCategory(req, res, next) {
     try {
       const { date, range, category } = req.query;
-      const transactionHistories =
-        await transactionHistoryService.getTotalAmountByCategory(
+      const totalSpentByCatgory =
+        await transactionHistoryService.getTotalSpentByCategory(
           date,
           range,
           category,
@@ -32,7 +32,7 @@ const transactionHistoryController = {
         statusCode: STATUS_CODE.OK,
         data: {
           category,
-          data: transactionHistories,
+          data: totalSpentByCatgory,
         },
       });
     } catch (error) {

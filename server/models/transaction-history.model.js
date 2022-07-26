@@ -41,13 +41,13 @@ const transactionHistoryModel = {
     return transactionHistories;
   },
 
-  async getTotalAmountByCategoryInPeriod(currentDate, range, category) {
+  async getTotalSpentByCategoryInPeriod(currentDate, range, category) {
     console.log(currentDate, range, category);
-    const [totalAmountByCategory] = await query(
+    const [totalSpentByCategory] = await query(
       `
-      SELECT B.currentDate as date, IFNULL(A.totalAmount, 0)as totalAmount
+      SELECT B.currentDate as date, IFNULL(A.totalSpent, 0) as totalSpent
       FROM (
-        SELECT DATE_FORMAT(T.date, '%Y-%m') AS historyDate, SUM(T.amount) AS totalAmount
+        SELECT DATE_FORMAT(T.date, '%Y-%m') AS historyDate, SUM(T.amount) AS totalSpent
         FROM TransactionHistory as T
         INNER JOIN Category as C
         ON T.categoryId = C.id
@@ -69,7 +69,7 @@ const transactionHistoryModel = {
     `,
       [category, range - 1],
     );
-    return totalAmountByCategory;
+    return totalSpentByCategory;
   },
 
   async create({ title, date, isIncome, amount, categoryId, paymentMethodId }) {
