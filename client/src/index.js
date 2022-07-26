@@ -39,7 +39,7 @@ async function initStore() {
     isIncome: false,
     amount: null,
   };
-  const inputBarState = 'CREATE';
+  const inputBarState = { isEditing: false, editingId: null };
   const isInputBarValid = false;
   const filterOptions = { income: true, spent: true };
 

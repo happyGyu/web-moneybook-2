@@ -31,10 +31,9 @@ async function updateTransactionHistories(event) {
   const currInputData = store.getData(STORE_KEYS.INPUT_BAR_DATA);
   const inputBarState = store.getData(STORE_KEYS.INPUT_BAR_STATE);
 
-  const updatedTransactionHistories =
-    inputBarState === 'CREATE'
-      ? await addNewTransactionHistory(currInputData)
-      : await editTransactionHistory(currInputData);
+  const updatedTransactionHistories = inputBarState.isEditing
+    ? await editTransactionHistory(currInputData)
+    : await addNewTransactionHistory(currInputData);
   store.setData(STORE_KEYS.TRANSACTION_HISTORIES, updatedTransactionHistories);
   clearInputBar();
 }
@@ -75,7 +74,10 @@ async function editTransactionHistory(currInputData) {
     amount,
   );
   // 수정 요청에 성공하면 다시 기본값인 create로 변경
-  store.setData(STORE_KEYS.INPUT_BAR_STATE, 'CREATE');
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, {
+    isEditing: false,
+    editingId: null,
+  });
   const currentTransactionHistories = store.getData(
     STORE_KEYS.TRANSACTION_HISTORIES,
   );
@@ -85,6 +87,19 @@ async function editTransactionHistory(currInputData) {
     },
   );
   return updatedTransactionHistories;
+}
+
+async function deleteTransactionHistory() {
+  const targetId = store.getData(STORE_KEYS.INPUT_BAR_STATE).editingId;
+  await request.removeTransactionHistory(targetId);
+  const currentTransactionHistories = store.getData(
+    STORE_KEYS.TRANSACTION_HISTORIES,
+  );
+  const updatedTransactionHistories = currentTransactionHistories.filter(
+    (history) => history.id !== parseInt(targetId),
+  );
+  unsetInputBarEditMode();
+  store.setData(STORE_KEYS.TRANSACTION_HISTORIES, updatedTransactionHistories);
 }
 
 function clearInputBar() {
@@ -141,7 +156,15 @@ function setInputBarEditMode(historyData) {
     paymentMethod: { id: paymentMethodId, title: paymentMethodTitle },
   };
   store.setData(STORE_KEYS.INPUT_BAR_DATA, newInputBarData);
-  store.setData(STORE_KEYS.INPUT_BAR_STATE, 'EDIT');
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, { isEditing: true, editingId: id });
+}
+
+function unsetInputBarEditMode() {
+  store.setData(STORE_KEYS.INPUT_BAR_STATE, {
+    isEditing: false,
+    editingId: null,
+  });
+  clearInputBar();
 }
 
 function changeFilterOptions(type, isFiltered) {
@@ -156,9 +179,11 @@ const controller = {
   increaseMonth: () => changeHeaderMonth(1),
   changeInputData: (key, data, options) => changeInputData(key, data, options),
   updateTransactionHistories,
+  deleteTransactionHistory,
   addPaymentMethod,
   deletePaymentMethod,
   setInputBarEditMode,
+  unsetInputBarEditMode,
   changeFilterOptions,
 };
 

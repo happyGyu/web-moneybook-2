@@ -2,6 +2,7 @@ import Component from '@/base/component';
 import ListItem from './ListItem';
 import { convertDateString } from '@/utils/date-util';
 import { STORE_KEYS } from '@/constants/keys';
+import EditingOverlay from './EditingOverlay';
 
 export default class ListContent extends Component {
   constructor(parentNode, transactionHistories) {
@@ -22,6 +23,7 @@ export default class ListContent extends Component {
     sortedListItemData.forEach(
       (listItemData) => new ListItem(this.currentNode, listItemData),
     );
+    new EditingOverlay(this.currentNode);
   }
 
   activate() {

@@ -56,6 +56,11 @@ const request = {
     return data;
   },
 
+  async removeTransactionHistory(id) {
+    const requestMessage = makeRequestMessage('DELETE');
+    await fetch(`/api/transaction-history/${id}`, requestMessage);
+  },
+
   async getPaymentMethods() {
     const { data } = await (await fetch(`/api/payment-method`)).json();
     return data;
