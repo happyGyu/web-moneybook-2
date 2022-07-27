@@ -16,6 +16,9 @@
   --z-index-fixed: 1020;
   --z-index-modal-backdrop: 1030;
   --z-index-modal: 1040;
+
+  --shadow-default: 0px 4px 4px rgba(0, 0, 0, 0.1),
+    0px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 html,
@@ -23,7 +26,7 @@ body,
 #app {
   font-family: 'Noto Sans KR', sans-serif;
   color: var(--colors-text-active);
-  background-color: var(--colors-off-white);
+  background-color: var(--colors-background);
 }
 
 ul {
@@ -63,6 +66,7 @@ button {
 }
 
 .container {
+  width: 100%;
   max-width: 58rem;
   margin: 0 auto;
   padding: 0 1.25rem;

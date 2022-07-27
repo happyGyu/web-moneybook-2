@@ -28,3 +28,37 @@ export function getLastDateOfMonth(dateObj) {
   const { year, month } = getYearAndMonthAndDate(dateObj);
   return new Date(year, month, 0);
 }
+
+export function splitByWeek(dateArr) {
+  const totalLength = Math.ceil(dateArr.length / 7);
+  const splitedDateArr = new Array(totalLength).fill(undefined).map(() => []);
+  dateArr.forEach((value, index) => {
+    const splitedIndex = Math.floor(index / 7);
+    splitedDateArr[splitedIndex].push(value);
+  });
+  return splitedDateArr;
+}
+
+function getFirstDateOfCalendar(dateObj) {
+  const firstDate = getFirstDateOfMonth(dateObj);
+  firstDate.setDate(firstDate.getDate() - firstDate.getDay());
+  return firstDate;
+}
+
+export function getAllDatesForCalendar(dateObj) {
+  const calendarDates = [];
+  const currentDate = getFirstDateOfCalendar(dateObj);
+  while (
+    currentDate.getMonth() <= dateObj.getMonth() ||
+    calendarDates.length % 7 !== 0
+  ) {
+    calendarDates.push({
+      date: new Date(currentDate.valueOf()),
+      dateString: convertDateString(currentDate),
+      isCurrentMonth: currentDate.getMonth() === dateObj.getMonth(),
+    });
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return calendarDates;
+}
