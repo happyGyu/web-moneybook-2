@@ -23,9 +23,13 @@ export function calculateTotalAmount(data) {
 }
 
 export function makeSortedTransactionHistoryGroupbyDate(data, filterOptions) {
-  return sortGroup(
+  return sortGroupByDate(
     makeGroupByDate(filterByTransactionType(data, filterOptions)),
   );
+}
+
+export function makeTransactionHistoryGroupbyCategory(data, filterOptions) {
+  return makeGroupByCategory(filterByTransactionType(data, filterOptions));
 }
 
 export function makeGroupByDate(data) {
@@ -40,6 +44,18 @@ export function makeGroupByDate(data) {
   return groupMap;
 }
 
+function makeGroupByCategory(data) {
+  const groupMap = new Map();
+  data.forEach((value) => {
+    const { categoryId } = value;
+    if (!groupMap.has(categoryId)) {
+      groupMap.set(categoryId, []);
+    }
+    groupMap.get(categoryId).push(value);
+  });
+  return groupMap;
+}
+
 function filterByTransactionType(data, filterOptions) {
   return data.filter((value) => doesHistoryPassFilter(value, filterOptions));
 }
@@ -49,7 +65,7 @@ function doesHistoryPassFilter(value, filterOptions) {
   return filterOptions[type];
 }
 
-function sortGroup(groupMap) {
+function sortGroupByDate(groupMap) {
   const groupArr = [...groupMap];
   const sortedGroupArr = groupArr.sort(
     (group1, group2) => new Date(group2[0]) - new Date(group1[0]),

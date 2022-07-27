@@ -15,6 +15,44 @@
 }
 
 .spent-list {
+  /* 1로 바꿔야함 */
+  flex: 0.5;
+}
+
+.spent-list__title {
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.spent-list-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  font-size: 1.125rem;
+  padding: 1.25rem 0.75rem;
+  color: var(--colors-text-active);
+  border-bottom: 1px solid var(--colors-placeholder);
+}
+
+.spent-list-item__category {
+  color: #fff;
+  width: 5.75rem;
+  height: 1.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3rem;
+  font-size: 0.875rem;
+}
+
+.spent-list-item__ratio {
   flex: 1;
-  background-color: cyan;
+  text-align: left;
+}
+
+.spent-list-item__spent {
+  font-size: 1.125rem;
+  font-weight: 500;
 }

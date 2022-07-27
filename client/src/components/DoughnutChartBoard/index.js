@@ -1,6 +1,6 @@
 import './index.css';
 import Component from '@/base/component';
-import DoughnutChart from './DoughnutChart';
+// import DoughnutChart from './DoughnutChart';
 import SpentList from './SpentList';
 
 export default class DoughnutChartBoard extends Component {
@@ -10,7 +10,7 @@ export default class DoughnutChartBoard extends Component {
   }
 
   render() {
-    new DoughnutChart(this.currentNode);
+    // new DoughnutChart(this.currentNode);
     new SpentList(this.currentNode);
   }
 
