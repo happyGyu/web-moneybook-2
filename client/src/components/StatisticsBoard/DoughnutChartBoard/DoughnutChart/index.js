@@ -29,4 +29,11 @@ export default class DoughnutChart extends Chart {
     this.context.clearRect(x - radius, y - radius, radius * 2, radius * 2);
     this.context.restore();
   }
+
+  getTotalValue() {
+    return this.dataset.reduce(
+      (prev, data) => prev + this.getData(data, 'value'),
+      0,
+    );
+  }
 }

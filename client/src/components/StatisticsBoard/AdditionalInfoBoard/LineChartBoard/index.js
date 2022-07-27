@@ -13,10 +13,16 @@ export default class LineChartBoard extends Component {
   }
 
   render(categoryChartData) {
-    const { category: categoryTitle, data } = categoryChartData;
+    const { category: categoryTitle, data: monthAndSpents } = categoryChartData;
     this.currentNode.innerHTML = `
-        <h3 class="line-chart__title">${categoryTitle} 카테고리 소비 추이</h3>
+      <h3 class="line-chart__title">${categoryTitle} 카테고리 소비 추이</h3>
+      <canvas class="line-chart" width="750"></canvas>
     `;
-    new LineChart(this.currentNode, data);
+    const lineChart = this.currentNode.querySelector('.line-chart');
+    new LineChart(lineChart, monthAndSpents, {
+      aspectRatio: 0.5,
+      cellPerUnit: 3,
+      chartAreaRatio: 0.88,
+    }).startDraw(0.025);
   }
 }

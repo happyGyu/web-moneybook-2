@@ -29,13 +29,6 @@ export default class Chart {
     return key ? data[key] : data;
   }
 
-  getTotalValue() {
-    return this.dataset.reduce(
-      (prev, data) => prev + this.getData(data, 'value'),
-      0,
-    );
-  }
-
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
@@ -50,6 +43,8 @@ export default class Chart {
         this.draw(Math.min(1, func(t)));
         if (t < 1) {
           requestAnimationFrame(animation);
+        } else {
+          this.draw(1);
         }
       };
       return animation;

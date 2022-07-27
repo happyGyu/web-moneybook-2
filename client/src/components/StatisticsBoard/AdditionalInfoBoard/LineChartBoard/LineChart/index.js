@@ -1,95 +1,100 @@
-import Component from '@/base/component';
-
-export default class LineChart extends Component {
-  constructor(parentNode, categoryChartData) {
-    super(
-      parentNode,
-      'canvas',
-      { class: 'line-chart', width: '750px', height: '300px' },
-      categoryChartData,
-    );
+import Chart from '@/base/chart';
+export default class LineChart extends Chart {
+  constructor(canvas, dataset, options) {
+    super(canvas, dataset, options);
+    this.init();
   }
 
-  render(categoryChartData) {
-    // fetch 받아와서 정제한 데이터
-    this.data = categoryChartData;
-    const totalSpents = this.data.map((value) => parseInt(value.totalSpent));
+  init() {
+    this.context.font = '1rem sans-serif';
+    this.cellSize = this.calculateCellSize();
+    this.chartHeight = this.options.chartAreaRatio * this.canvas.height;
+    this.dateDatas = this.dataset.map((value) => new Date(value.date));
+    this.spentDatas = this.dataset.map((value) => parseInt(value.totalSpent));
+  }
 
-    this.chart = this.currentNode;
-    this.chartWidth = this.chart.width;
-    this.chartHeight = this.chart.height;
-    this.ctx = this.currentNode.getContext('2d');
-    this.cellSize = this.calculateCellSize(this.data.length * 2);
-    const vertices = this.convertDataToVertices(totalSpents);
-    const lineChartDrawingFunc = this.drawLineChart.bind(this, vertices);
-    this.startDraw(1 / 30, lineChartDrawingFunc);
+  calculateCellSize() {
+    const cellNum = this.dataset.length * this.options.cellPerUnit;
+    return { x: this.canvas.width / cellNum, y: this.canvas.height / cellNum };
+  }
+
+  draw(t) {
+    this.clear();
+    const vertices = this.getVertices();
     this.drawGrid();
+    this.drawLineChart(vertices, t);
+    this.drawVertices(vertices, t);
+    this.drawLable();
   }
 
-  calculateCellSize(cellNum) {
-    return this.chart.width / cellNum;
-  }
-
-  convertDataToVertices(data) {
-    const yScaleConstant = (0.9 / Math.max(...data)) * this.chartHeight;
-    const vertices = data.map((value, index) => [
-      (2 * index + 1) * this.cellSize,
+  getVertices() {
+    const yScaleConstant = this.calYScaleContant(0.8);
+    const vertices = this.spentDatas.map((value, index) => [
+      (this.options.cellPerUnit * index + 1) * this.cellSize.x,
       this.chartHeight - yScaleConstant * value,
     ]);
     return vertices;
   }
 
+  calYScaleContant(lengthRatio) {
+    return (lengthRatio / Math.max(...this.spentDatas)) * this.canvas.height;
+  }
+
   drawGrid() {
     const grid = new Path2D();
-    for (let xPos = 0; xPos <= this.chartWidth; xPos += this.cellSize) {
+    for (let xPos = 0; xPos <= this.canvas.width; xPos += this.cellSize.x) {
       grid.moveTo(xPos, 0);
       grid.lineTo(xPos, this.chartHeight);
     }
-    for (let yPos = 0; yPos <= this.chartHeight; yPos += this.cellSize) {
+    for (let yPos = 0; yPos <= this.chartHeight; yPos += this.cellSize.y) {
       grid.moveTo(0, yPos);
-      grid.lineTo(this.chartWidth, yPos);
+      grid.lineTo(this.canvas.width, yPos);
     }
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = '#F5F5F5';
-    this.ctx.stroke(grid);
+    this.context.lineWidth = 1;
+    this.context.strokeStyle = '#f5f5f5';
+    this.context.stroke(grid);
   }
 
-  drawLineChart(vertices, ratio) {
-    this.ctx.clearRect(0, 0, this.chartWidth, this.chartHeight);
+  drawLable() {
+    const unitSize = this.cellSize.x * this.options.cellPerUnit;
+    for (let xPos = 0; xPos < this.canvas.width; xPos += unitSize) {
+      const index = xPos / unitSize;
+      const dateString = `${this.dateDatas[index].getMonth() + 1}월`;
+      const labelXPos = xPos + this.cellSize.x / 2;
+      const labelYPos = this.chartHeight + this.cellSize.y * 2;
+      this.context.fillStyle = '#8d9393';
+      this.context.fillText(dateString, labelXPos, labelYPos);
+    }
+  }
 
-    const lineChart = new Path2D();
-    lineChart.moveTo(...this.convertVertexByRatio(vertices[0], ratio));
+  drawLineChart(vertices, t) {
+    this.context.beginPath();
+    this.context.moveTo(...this.calCurrentPos(vertices[0], t));
+
     for (const vertex of vertices) {
-      const [xPos, yPos] = this.convertVertexByRatio(vertex, ratio);
-      // this.ctx.fillText('Hello world', vertex[0] - 20, vertex[1] - 10);
-      lineChart.arc(xPos, yPos, 2, 0, 2 * Math.PI);
-      lineChart.lineTo(xPos, yPos);
+      const [xPos, yPos] = this.calCurrentPos(vertex, t);
+      // this.context.arc(xPos, yPos, 4, 0, 2 * Math.PI);
+      this.context.lineTo(xPos, yPos);
     }
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeStyle = '#2AC1BC';
-    this.ctx.stroke(lineChart);
+    this.context.lineWidth = 3;
+    this.context.strokeStyle = '#2AC1BC';
+    this.context.stroke();
   }
 
-  convertVertexByRatio(vertex, ratio) {
+  drawVertices(vertices, t) {
+    this.context.beginPath();
+    for (const vertex of vertices) {
+      const [xPos, yPos] = this.calCurrentPos(vertex, t);
+      this.context.moveTo(xPos, yPos);
+      this.context.arc(xPos, yPos, 6, 0, 2 * Math.PI);
+    }
+    this.context.fillStyle = '#2AC1BC';
+    this.context.fill();
+  }
+
+  calCurrentPos(vertex, ratio) {
     const [xPos, yPos] = vertex;
-    const currentYPos = yPos * ratio + (this.chartHeight / 2) * (1 - ratio);
+    const currentYPos = yPos * ratio + (this.canvas.height / 2) * (1 - ratio);
     return [xPos, currentYPos];
-  }
-
-  startDraw(ratio = 1, drawFunc) {
-    const startAnimation = () => {
-      let t = 0;
-      const animation = () => {
-        t += ratio;
-        drawFunc(t);
-        if (t < 1) {
-          requestAnimationFrame(animation);
-        } else {
-          drawFunc(1);
-        }
-      };
-      return animation;
-    };
-    startAnimation()();
   }
 }

@@ -11,6 +11,8 @@
   align-items: center;
   column-gap: 1rem;
   background-color: var(--colors-off-white);
+  border: 1px solid var(--colors-line);
+  box-shadow: var(--shadow-default);
 }
 
 .doughnut-chart-board__chart,
