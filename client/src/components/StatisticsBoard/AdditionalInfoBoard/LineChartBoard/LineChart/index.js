@@ -7,7 +7,6 @@ export default class LineChart extends Chart {
   }
 
   init() {
-    this.context.font = '1rem sans-serif';
     this.cellSize = this.calculateCellSize();
     this.chartHeight = this.options.chartAreaRatio * this.canvas.height;
     this.dateDatas = this.dataset.map((value) => new Date(value.date));
@@ -25,7 +24,10 @@ export default class LineChart extends Chart {
     this.drawGrid();
     this.drawLineChart(vertices, t);
     this.drawVertices(vertices, t);
-    this.drawLable();
+    this.drawAxisLable();
+    if (t >= 1) {
+      this.drawValueLabel(vertices);
+    }
   }
 
   getVertices() {
@@ -38,7 +40,8 @@ export default class LineChart extends Chart {
   }
 
   calYScaleContant(lengthRatio) {
-    return (lengthRatio / Math.max(...this.spentDatas)) * this.canvas.height;
+    const maxSpent = Math.max(...this.spentDatas) || 1;
+    return (lengthRatio / maxSpent) * this.canvas.height;
   }
 
   drawGrid() {
@@ -56,16 +59,32 @@ export default class LineChart extends Chart {
     this.context.stroke(grid);
   }
 
-  drawLable() {
+  drawAxisLable() {
+    this.context.font = '1rem sans-serif';
+    this.context.fillStyle = '#8d9393';
     const unitSize = this.cellSize.x * this.options.cellPerUnit;
     for (let xPos = 0; xPos < this.canvas.width; xPos += unitSize) {
       const index = xPos / unitSize;
       const dateString = `${this.dateDatas[index].getMonth() + 1}월`;
       const labelXPos = xPos + this.cellSize.x * 0.6;
       const labelYPos = this.chartHeight + this.cellSize.y * 2;
-      this.context.fillStyle = '#8d9393';
       this.context.fillText(dateString, labelXPos, labelYPos);
     }
+  }
+
+  drawValueLabel(vertices) {
+    this.context.font = '1.25rem sans-serif';
+    this.context.fillStyle = '#626666';
+    vertices.forEach((vertex, index) => {
+      const [xPos, yPos] = vertex;
+      const valueString = this.spentDatas[index].toLocaleString();
+
+      this.context.fillText(
+        valueString,
+        xPos - this.cellSize.x / 2,
+        yPos - this.cellSize.y / 2,
+      );
+    });
   }
 
   drawLineChart(vertices, t) {
@@ -74,7 +93,6 @@ export default class LineChart extends Chart {
 
     for (const vertex of vertices) {
       const [xPos, yPos] = this.calCurrentPos(vertex, t);
-      // this.context.arc(xPos, yPos, 4, 0, 2 * Math.PI);
       this.context.lineTo(xPos, yPos);
     }
     this.context.lineWidth = 3;
