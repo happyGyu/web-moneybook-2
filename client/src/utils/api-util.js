@@ -85,6 +85,15 @@ const request = {
     const { data } = await (await fetch(`/api/category`)).json();
     return data;
   },
+
+  async getTotalAmountByCategory(categoryTitle, date) {
+    const { data } = await (
+      await fetch(
+        `/api/transaction-history/category?range=6&category=${categoryTitle}&date=${date}`,
+      )
+    ).json();
+    return data;
+  },
 };
 
 function makeRequestMessage(methodType, requestBody) {

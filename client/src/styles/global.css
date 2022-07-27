@@ -36,7 +36,8 @@ main {
   align-items: center;
 }
 
-ul {
+ul,
+li {
   list-style: none;
   padding: 0;
 }

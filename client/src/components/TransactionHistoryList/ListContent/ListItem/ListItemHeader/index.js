@@ -2,16 +2,18 @@ import Component from '@/base/component';
 import { getYearAndMonthAndDate, getDayName } from '@/utils/date-util';
 
 export default class ListItemHeader extends Component {
-  constructor(parentNode, listItemHeaderData) {
+  constructor(parentNode, listItemHeaderData, props) {
     super(
       parentNode,
       'div',
       { class: 'transaction-history-item__header' },
       listItemHeaderData,
+      props,
     );
     this.activate();
   }
   render(listItemHeaderData) {
+    const { isHideIncomeAndSpent } = this.props;
     const { dateString, totalIncomeAmount, totalSpentAmount } =
       listItemHeaderData;
     const dateTemplate = this.getDateTemplate(new Date(dateString));
@@ -19,7 +21,9 @@ export default class ListItemHeader extends Component {
       totalIncomeAmount,
       totalSpentAmount,
     );
-    this.currentNode.innerHTML = dateTemplate + totalAmountTemplate;
+    this.currentNode.innerHTML = isHideIncomeAndSpent
+      ? dateTemplate
+      : dateTemplate + totalAmountTemplate;
   }
 
   getDateTemplate(dateObj) {

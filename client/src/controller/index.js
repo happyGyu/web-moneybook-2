@@ -152,6 +152,15 @@ async function setCurrentMonthTransactionHistories(currDate) {
   store.setData(STORE_KEYS.TRANSACTION_HISTORIES, newTransactionHistories);
 }
 
+async function setChartData(categoryTitle) {
+  const currDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  const categoryChartData = await request.getTotalAmountByCategory(
+    categoryTitle,
+    convertDateString(currDate),
+  );
+  store.setData(STORE_KEYS.CATEGORY_CHART_DATA, categoryChartData);
+}
+
 const controller = {
   decreaseMonth: () => changeHeaderMonth(-1),
   increaseMonth: () => changeHeaderMonth(1),
@@ -163,6 +172,7 @@ const controller = {
   setInputBarEditMode,
   unsetInputBarEditMode,
   changeFilterOptions,
+  setChartData,
 };
 
 export default controller;

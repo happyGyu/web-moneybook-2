@@ -1,6 +1,7 @@
 import './index.css';
 import Component from '@/base/component';
 import DoughnutChartBoard from './DoughnutChartBoard';
+import AdditionalInfoBoard from './AdditionalInfoBoard';
 import { STORE_KEYS } from '@/constants/keys';
 
 export default class StatisticsBoard extends Component {
@@ -13,6 +14,7 @@ export default class StatisticsBoard extends Component {
     if (!transactionHistories) return;
     this.currentNode.innerHTML = '';
     new DoughnutChartBoard(this.currentNode, transactionHistories);
+    new AdditionalInfoBoard(this.currentNode);
   }
 
   activate() {

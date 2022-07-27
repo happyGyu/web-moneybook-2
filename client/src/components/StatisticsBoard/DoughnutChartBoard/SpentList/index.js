@@ -1,16 +1,13 @@
 import Component from '@/base/component';
-// import {
-//   calculateTotalAmount,
-//   makeTransactionHistoryGroupbyCategory,
-// } from '@/utils/transaction-history-util';
+import controller from '@/controller';
 
 export default class SpentList extends Component {
   constructor(parentNode, initialData) {
     super(parentNode, 'ul', { class: 'spent-list' }, initialData);
+    this.activate();
   }
 
   render(totalSpentAmounts) {
-    console.log(totalSpentAmounts);
     const monthTotalSpentAmount = totalSpentAmounts.reduce(
       (prev, { totalSpentAmount }) => prev + totalSpentAmount,
       0,
@@ -29,13 +26,25 @@ export default class SpentList extends Component {
     const { id, title, color, totalSpentAmount } = totalSpentAmountData;
 
     return `
-    <div class="spent-list-item" data-id="${id}" data-title="${title}">
-      <div class="spent-list-item__category" style="background: ${color}">${title}</div>
-      <span class="spent-list-item__ratio">${Math.round(
-        (totalSpentAmount / monthTotalSpentAmount) * 100,
-      )}%</span>
-      <span class="spent-list-item__spent">${totalSpentAmount.toLocaleString()}</span>
-    </div>
+      <li class="spent-list-item" data-id="${id}" data-title="${title}">
+        <div class="spent-list-item__category" style="background: ${color}">${title}</div>
+        <span class="spent-list-item__ratio">${Math.round(
+          (totalSpentAmount / monthTotalSpentAmount) * 100,
+        )}%</span>
+        <span class="spent-list-item__spent">${totalSpentAmount.toLocaleString()}</span>
+      </li>
     `;
+  }
+
+  activate() {
+    this.addEvent('click', '.spent-list-item', (event) =>
+      this.handleCategoryBadgeClick(event),
+    );
+  }
+
+  handleCategoryBadgeClick(event) {
+    const categoryTitle =
+      event.target.closest('.spent-list-item').dataset.title;
+    controller.setChartData(categoryTitle);
   }
 }

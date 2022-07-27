@@ -7,6 +7,7 @@ export const STORE_KEYS = {
   INPUT_BAR_STATE: 'inputBarState',
   IS_INPUT_BAR_VALID: 'isInputBarValid',
   FILTER_OPTIONS: 'filterOptions',
+  CATEGORY_CHART_DATA: 'categoryChartData',
 };
 
 export const INPUT_BAR_KEYS = {
