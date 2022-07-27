@@ -6,6 +6,7 @@ import { STATUS_CODE } from '../constants/status-code.constant';
 import { ERROR_MESSAGES } from '../constants/error-message.constant';
 import {
   convertDateString,
+  getAllDateInfo,
   getFirstDayOfMonth,
   getLastDayOfMonth,
 } from '../utils/date.util';
@@ -79,19 +80,16 @@ const transactionHistoryService = {
     return transactionHistories;
   },
 
-  async getTranscationHistoriesByCategory(
-    startDate,
-    endDate,
-    targetCategoryId,
-  ) {
-    const transactionHistories = await transactionHistoryModel.findAllInPeriod(
-      startDate,
-      endDate,
-    );
-
-    return transactionHistories.filter(
-      ({ categoryId }) => categoryId === parseInt(targetCategoryId),
-    );
+  async getTotalSpentByCategory(date, range, category) {
+    const { year, month } = getAllDateInfo(new Date(date));
+    const currentDate = convertDateString(getFirstDayOfMonth(year, month));
+    const totalSpentByCatgory =
+      await transactionHistoryModel.getTotalSpentByCategoryInPeriod(
+        currentDate,
+        range,
+        category,
+      );
+    return totalSpentByCatgory;
   },
 };
 

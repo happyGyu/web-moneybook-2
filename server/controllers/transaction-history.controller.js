@@ -19,18 +19,21 @@ const transactionHistoryController = {
     }
   },
 
-  async getTransactionHistoriesByCategory(req, res, next) {
+  async getTotalSpentByCategory(req, res, next) {
     try {
-      const { startDate, endDate, categoryId } = req.query;
-      const transactionHistories =
-        await transactionHistoryService.getTranscationHistoriesByCategory(
-          startDate,
-          endDate,
-          categoryId,
+      const { date, range, category } = req.query;
+      const totalSpentByCatgory =
+        await transactionHistoryService.getTotalSpentByCategory(
+          date,
+          range,
+          category,
         );
       res.status(STATUS_CODE.OK).json({
         statusCode: STATUS_CODE.OK,
-        data: transactionHistories,
+        data: {
+          category,
+          data: totalSpentByCatgory,
+        },
       });
     } catch (error) {
       next(error);
