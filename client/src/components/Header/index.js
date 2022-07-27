@@ -23,7 +23,8 @@ export default class Header extends Component {
   activate() {
     this.addEvent('click', '.link', (event) => {
       event.preventDefault();
-      Router.link(event.target.pathname);
+      const anchor = event.target.closest('a.link');
+      Router.link(anchor.pathname);
     });
   }
 }
