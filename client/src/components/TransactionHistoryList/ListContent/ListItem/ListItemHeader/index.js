@@ -2,7 +2,11 @@ import Component from '@/base/component';
 import { getYearAndMonthAndDate, getDayName } from '@/utils/date-util';
 
 export default class ListItemHeader extends Component {
-  constructor(parentNode, listItemHeaderData, props) {
+  constructor(
+    parentNode,
+    listItemHeaderData,
+    props = { isHideIncomeAndSpent: false },
+  ) {
     super(
       parentNode,
       'div',
