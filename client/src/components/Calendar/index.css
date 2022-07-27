@@ -38,7 +38,6 @@ table.calendar {
 
 .calendar-body__week {
   display: flex;
-  flex-wrap: wrap;
   border-bottom: 1px solid var(--colors-line);
 }
 
@@ -73,6 +72,10 @@ table.calendar {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--colors-label);
+}
+
+.calendar-day__date.out-range {
+  color: var(--colors-placeholder);
 }
 
 .calendar-day__income {

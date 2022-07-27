@@ -11,14 +11,14 @@ const request = {
     return data;
   },
 
-  async createTransactionHistory(
+  async createTransactionHistory({
     title,
     date,
     categoryId,
     paymentMethodId,
     isIncome,
     amount,
-  ) {
+  }) {
     const requestMessage = makeRequestMessage('POST', {
       title,
       date,
@@ -27,10 +27,13 @@ const request = {
       isIncome,
       amount,
     });
-    await fetch(`/api/transaction-history`, requestMessage);
+    const { data } = await (
+      await fetch(`/api/transaction-history`, requestMessage)
+    ).json();
+    return data;
   },
 
-  async updateTransactionHistory(
+  async updateTransactionHistory({
     id,
     title,
     date,
@@ -38,7 +41,7 @@ const request = {
     paymentMethodId,
     isIncome,
     amount,
-  ) {
+  }) {
     const requestMessage = makeRequestMessage('PATCH', {
       title,
       date,
@@ -47,6 +50,14 @@ const request = {
       isIncome,
       amount,
     });
+    const { data } = await (
+      await fetch(`/api/transaction-history/${id}`, requestMessage)
+    ).json();
+    return data;
+  },
+
+  async removeTransactionHistory(id) {
+    const requestMessage = makeRequestMessage('DELETE');
     await fetch(`/api/transaction-history/${id}`, requestMessage);
   },
 
@@ -59,7 +70,10 @@ const request = {
     const requestMessage = makeRequestMessage('POST', {
       title,
     });
-    await fetch(`/api/payment-method`, requestMessage);
+    const { data } = await (
+      await fetch(`/api/payment-method`, requestMessage)
+    ).json();
+    return data;
   },
 
   async removePaymentMethod(id) {

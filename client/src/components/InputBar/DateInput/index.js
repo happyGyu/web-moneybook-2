@@ -9,20 +9,20 @@ import {
 
 export default class DateInput extends Component {
   constructor(parentNode, dateInputData) {
-    super(parentNode, 'label', { class: 'input-box' }, dateInputData);
+    super(parentNode, 'div', { class: 'input-box' }, dateInputData);
     this.activate();
   }
 
   render(dateInputData) {
-    const dateString = convertDateString(dateInputData);
-    const firstDateString = convertDateString(
-      getFirstDateOfMonth(dateInputData),
-    );
-    const lastDateString = convertDateString(getLastDateOfMonth(dateInputData));
+    const dateObj = new Date(dateInputData);
+    const dateString = convertDateString(dateObj);
+    const firstDateString = convertDateString(getFirstDateOfMonth(dateObj));
+    const lastDateString = convertDateString(getLastDateOfMonth(dateObj));
 
     this.currentNode.innerHTML = `
-      <h4 class="input__title">일자</h4>
-      <input class="input input__date" name="date" type="date" min="${firstDateString}" max="${lastDateString}" value="${dateString}">
+      <label for="inputbar-date" class="input__label">일자</label>
+      <input id="inputbar-date" class="input input__date" name="date" type="date"
+        min="${firstDateString}" max="${lastDateString}" value="${dateString}"/>
     `;
   }
 
@@ -35,6 +35,11 @@ export default class DateInput extends Component {
   handleDateInput(event) {
     const inputValue = event.target.value;
     if (!inputValue) return;
-    controller.changeInputData(INPUT_BAR_KEYS.DATE, new Date(inputValue));
+    controller.changeInputData([
+      {
+        dataKey: INPUT_BAR_KEYS.DATE,
+        value: new Date(inputValue),
+      },
+    ]);
   }
 }

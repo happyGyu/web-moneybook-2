@@ -14,7 +14,7 @@ export default class CategoryList extends Component {
       ${categoryListData
         .map(
           ({ id, title }) =>
-            `<li class="dropdown__item category__item" data-id=${id} data-title=${title}>${title}</li>`,
+            `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`,
         )
         .join('')}
     `;
@@ -30,6 +30,9 @@ export default class CategoryList extends Component {
   setCategory(event) {
     event.stopPropagation();
     const { id, title } = event.target.dataset;
-    controller.changeInputData(INPUT_BAR_KEYS.CATEGORY, { id, title });
+    controller.changeInputData([
+      { dataKey: INPUT_BAR_KEYS.CATEGORY_ID, value: id },
+      { dataKey: INPUT_BAR_KEYS.CATEGORY_TITLE, value: title },
+    ]);
   }
 }

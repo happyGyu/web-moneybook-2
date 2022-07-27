@@ -13,4 +13,12 @@ export default class Dropdown extends Component {
     this.currentNode.innerHTML = `<div class="dropdown__backdrop"></div>`;
     new ListComponent(this.currentNode);
   }
+
+  activate() {
+    this.addEvent('click', '.dropdown__backdrop', () => this.onCloseDropdown());
+  }
+
+  onCloseDropdown() {
+    this.currentNode.classList.toggle('closed');
+  }
 }

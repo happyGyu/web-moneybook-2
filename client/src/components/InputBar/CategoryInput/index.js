@@ -3,18 +3,18 @@ import Dropdown from '../Dropdown';
 import CategoryList from './CategoryList';
 
 export default class CategoryInput extends Component {
-  constructor(parentNode, categoryInputData) {
-    super(parentNode, 'label', { class: 'input-box' }, categoryInputData);
+  constructor(parentNode, categoryTitle) {
+    super(parentNode, 'div', { class: 'input-box' }, categoryTitle);
     this.activate();
   }
 
-  render(categoryInputData) {
+  render(categoryTitle) {
     this.currentNode.innerHTML = `
-        <h4 class="input__title">분류</h4>
-        <input readonly class="input input__category" name="category" type="text" placeholder="선택하세요" value="${
-          categoryInputData?.title || ''
-        }">        
-        `;
+      <label for="inputbar-category" class="input__label">분류</label>
+      <input id="inputbar-category" class="input input__category"
+        name="category" type="text" placeholder="선택하세요"
+        value="${categoryTitle || ''}" readonly />        
+    `;
     new Dropdown(this.currentNode, CategoryList);
   }
 

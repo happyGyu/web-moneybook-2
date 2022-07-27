@@ -1,0 +1,115 @@
+.transaction-history-list-container {
+  margin-top: 5.75rem;
+  width: 53rem;
+}
+
+.transaction-history-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--colors-primary);
+}
+
+.transaction-history-list__title {
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.transaction-history-list__filter-container {
+  display: flex;
+  gap: 1rem;
+  font-weight: 400;
+  color: var(--colors-primary);
+  font-size: 1.125rem;
+}
+
+.transaction-history-list {
+  width: 100%;
+  position: relative;
+}
+
+.transaction-history-item__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.375rem;
+  padding: 0 0.75rem 1.25rem 0;
+  border-bottom: 1px solid var(--colors-placeholder);
+}
+
+.transaction-history-item__date {
+  color: var(--colors-text-active);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.transaction-history-item__day-name {
+  margin-left: 0.5rem;
+  color: var(--colors-body);
+}
+
+.transaction-history-item__total-amount {
+  color: var(--colors-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.transaction-history-item__cell {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.625rem;
+  align-items: center;
+  font-size: 1.125rem;
+  padding: 1.25rem 0.75rem;
+  color: var(--colors-text-active);
+  border-bottom: 1px solid var(--colors-placeholder);
+}
+
+.transaction-history-item__category {
+  color: #fff;
+  width: 5.75rem;
+  height: 1.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3rem;
+  font-size: 0.875rem;
+}
+
+.transaction-history-item__title {
+  width: 36%;
+  font-weight: 400;
+}
+
+.transaction-history-item__payment-method {
+  flex-grow: 1;
+  font-weight: 400;
+  color: var(--colors-body);
+}
+
+.editing-overlay__highligter {
+  position: absolute;
+  width: 100%;
+  height: 4.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: rgba(160, 225, 224, 0.6);
+}
+
+.overlay__btn {
+  display: inline-flex;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  background-color: var(--colors-off-white);
+  color: var(--colors-placeholder);
+}
+
+.overlay__cancel-editing-btn:hover {
+  color: var(--colors-primary);
+}
+
+.overlay__delete-btn:hover {
+  color: var(--colors-error);
+}

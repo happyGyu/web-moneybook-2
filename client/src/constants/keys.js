@@ -6,12 +6,15 @@ export const STORE_KEYS = {
   INPUT_BAR_DATA: 'inputBarData',
   INPUT_BAR_STATE: 'inputBarState',
   IS_INPUT_BAR_VALID: 'isInputBarValid',
+  FILTER_OPTIONS: 'filterOptions',
 };
 
 export const INPUT_BAR_KEYS = {
   DATE: 'date',
-  CATEGORY: 'category',
-  PAYMENT_METHOD: 'paymentMethod',
+  CATEGORY_ID: 'categoryId',
+  CATEGORY_TITLE: 'categoryTitle',
+  PAYMENT_METHOD_ID: 'paymentMethodId',
+  PAYMENT_METHOD_TITLE: 'paymentMethodTitle',
   IS_INCOME: 'isIncome',
   AMOUNT: 'amount',
   TITLE: 'title',
