@@ -29,14 +29,14 @@ export function getLastDateOfMonth(dateObj) {
   return new Date(year, month, 0);
 }
 
-export function splitByWeek(arr) {
-  const totalLength = Math.ceil(arr.length / 7);
-  const splitedArr = new Array(totalLength).fill(undefined).map(() => []);
-  arr.forEach((value, index) => {
+export function splitByWeek(dateArr) {
+  const totalLength = Math.ceil(dateArr.length / 7);
+  const splitedDateArr = new Array(totalLength).fill(undefined).map(() => []);
+  dateArr.forEach((value, index) => {
     const splitedIndex = Math.floor(index / 7);
-    splitedArr[splitedIndex].push(value);
+    splitedDateArr[splitedIndex].push(value);
   });
-  return splitedArr;
+  return splitedDateArr;
 }
 
 function getFirstDateOfCalendar(dateObj) {
