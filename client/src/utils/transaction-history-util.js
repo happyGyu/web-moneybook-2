@@ -72,3 +72,25 @@ function sortGroupByDate(groupMap) {
   );
   return sortedGroupArr;
 }
+
+export function getTotalSpentAmounts(data, categories) {
+  const totalSpentAmounts = new Map();
+  categories.forEach(({ title }) => {
+    totalSpentAmounts.set(title, 0);
+  });
+
+  data.forEach(({ isIncome, categoryTitle, amount }) => {
+    if (!isIncome) {
+      totalSpentAmounts.set(
+        categoryTitle,
+        totalSpentAmounts.get(categoryTitle) + amount,
+      );
+    }
+  });
+  return categories
+    .map((category) => ({
+      ...category,
+      totalSpentAmount: totalSpentAmounts.get(category.title),
+    }))
+    .sort((a, b) => b.totalSpentAmount - a.totalSpentAmount);
+}

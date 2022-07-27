@@ -1,5 +1,5 @@
 import Component from '@/base/component';
-import DoughnutChartBoard from '@/components/DoughnutChartBoard';
+import StatisticsBoard from '@/components/StatisticsBoard';
 
 export default class StatisticsPage extends Component {
   constructor(parentNode) {
@@ -7,6 +7,6 @@ export default class StatisticsPage extends Component {
   }
 
   render() {
-    new DoughnutChartBoard(this.currentNode);
+    new StatisticsBoard(this.currentNode);
   }
 }
