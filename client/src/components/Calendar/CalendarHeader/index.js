@@ -1,4 +1,5 @@
 import Component from '@/base/component';
+import { DAY_NAMES } from '@/constants/data';
 
 export default class CalendarHeader extends Component {
   constructor(parentNode) {
@@ -6,15 +7,11 @@ export default class CalendarHeader extends Component {
   }
 
   render() {
-    const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
-
     this.currentNode.innerHTML = `
       <tr class="calendar-header__weekdays">
-        ${weekDays
-          .map(
-            (weekDay) => `<th class="calendar-header__weekday">${weekDay}</th>`,
-          )
-          .join('')}
+        ${DAY_NAMES.map(
+          (weekDay) => `<th class="calendar-header__weekday">${weekDay}</th>`,
+        ).join('')}
       </tr>
     `;
   }
