@@ -1,10 +1,14 @@
 import Component from '@/base/component';
 import { STORE_KEYS } from '@/constants/keys';
-import { splitByWeek, getAllDatesForCalendar } from '@/utils/date-util';
 import {
   calculateTotalAmount,
   makeGroupByDate,
 } from '@/utils/transaction-history-util';
+import {
+  splitByWeek,
+  convertDateString,
+  getAllDatesForCalendar,
+} from '@/utils/date-util';
 
 export default class CalendarBody extends Component {
   constructor(parentNode, props) {
@@ -43,21 +47,16 @@ export default class CalendarBody extends Component {
 
   renderDay(calendarInfo, transactionHistoriesByDate) {
     const { date, dateString, isCurrentMonth } = calendarInfo;
-    if (!isCurrentMonth) {
-      return `
-        <td class="calendar-body__day">
-          <span class="calendar-day__date out-range">${date.getDate()}</span>
-        </td>
-      `;
-    }
-
     const transactionHistories =
       transactionHistoriesByDate.get(dateString) || [];
     const { totalIncomeAmount, totalSpentAmount } =
       calculateTotalAmount(transactionHistories);
     const totalAmount = totalIncomeAmount - totalSpentAmount;
+
+    const isOutRange = !isCurrentMonth ? 'out-range' : '';
+    const isToday = convertDateString(new Date()) === dateString ? 'today' : '';
     return `
-      <td class="calendar-body__day">
+      <td class="calendar-body__day ${isToday}">
         ${
           totalIncomeAmount !== 0
             ? `<span class="calendar-day__income">
@@ -79,7 +78,7 @@ export default class CalendarBody extends Component {
             </span>`
             : ''
         }
-        <span class="calendar-day__date">${date.getDate()}</span>
+        <span class="calendar-day__date ${isOutRange}">${date.getDate()}</span>
       </td>
     `;
   }
