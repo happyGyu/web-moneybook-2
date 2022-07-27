@@ -90,6 +90,8 @@ function checkInputBarDataValidity(inputBarData) {
 
 function clearInputBar() {
   const clearedInputBarData = DEFAULT_INPUT_BAR_DATA;
+  const currHeaderDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  clearedInputBarData.date = currHeaderDate;
   store.setData(STORE_KEYS.INPUT_BAR_DATA, clearedInputBarData);
   store.setData(STORE_KEYS.IS_INPUT_BAR_VALID, false);
 }
@@ -139,8 +141,11 @@ function changeFilterOptions(filterOption, isFiltered) {
 
 function changeHeaderMonth(increment) {
   const headerDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  headerDate.setDate(1);
   headerDate.setMonth(headerDate.getMonth() + increment);
   store.setData(STORE_KEYS.CURRENT_HEADER_DATE, headerDate);
+  store.setData(STORE_KEYS.CATEGORY_CHART_DATA, null);
+  changeInputData([{ dataKey: INPUT_BAR_KEYS.DATE, value: headerDate }]);
   setCurrentMonthTransactionHistories(headerDate);
   changeInputData(INPUT_BAR_KEYS.DATE, headerDate);
 }

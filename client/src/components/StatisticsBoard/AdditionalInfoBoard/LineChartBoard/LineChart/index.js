@@ -1,4 +1,5 @@
 import Chart from '@/base/chart';
+
 export default class LineChart extends Chart {
   constructor(canvas, dataset, options) {
     super(canvas, dataset, options);
@@ -60,7 +61,7 @@ export default class LineChart extends Chart {
     for (let xPos = 0; xPos < this.canvas.width; xPos += unitSize) {
       const index = xPos / unitSize;
       const dateString = `${this.dateDatas[index].getMonth() + 1}월`;
-      const labelXPos = xPos + this.cellSize.x / 2;
+      const labelXPos = xPos + this.cellSize.x * 0.6;
       const labelYPos = this.chartHeight + this.cellSize.y * 2;
       this.context.fillStyle = '#8d9393';
       this.context.fillText(dateString, labelXPos, labelYPos);

@@ -4,6 +4,7 @@ import SpentList from './SpentList';
 import DoughnutChart from './DoughnutChart';
 import { STORE_KEYS } from '@/constants/keys';
 import { getTotalSpentAmounts } from '@/utils/transaction-history-util';
+import { easeInOut } from '@/utils/chart-util';
 
 export default class DoughnutChartBoard extends Component {
   constructor(parentNode, initialData) {
@@ -40,7 +41,7 @@ export default class DoughnutChartBoard extends Component {
       key,
       scale: 0.8,
       innerRadius: 0.5,
-    }).startDraw(0.025);
+    }).startDraw(0.025, easeInOut);
     new SpentList(list, totalSpentAmounts);
   }
 }

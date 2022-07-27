@@ -1,6 +1,7 @@
 import './index.css';
 import Component from '@/base/component';
 import LineChart from './LineChart';
+import { easeInOut } from '@/utils/chart-util';
 
 export default class LineChartBoard extends Component {
   constructor(parentNode, categoryChartData) {
@@ -23,6 +24,6 @@ export default class LineChartBoard extends Component {
       aspectRatio: 0.5,
       cellPerUnit: 3,
       chartAreaRatio: 0.88,
-    }).startDraw(0.025);
+    }).startDraw(0.025, easeInOut);
   }
 }
