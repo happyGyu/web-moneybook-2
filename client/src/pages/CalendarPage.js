@@ -1,4 +1,5 @@
 import Component from '@/base/component';
+import Calendar from '../components/Calendar';
 
 export default class CalendarPage extends Component {
   constructor(parentNode) {
@@ -6,6 +7,6 @@ export default class CalendarPage extends Component {
   }
 
   render() {
-    this.currentNode.innerHTML = '<h2>CalendarPage</h2>';
+    new Calendar(this.currentNode);
   }
 }

@@ -28,7 +28,7 @@ export function makeSortedTransactionHistoryGroupbyDate(data, filterOptions) {
   );
 }
 
-function makeGroupByDate(data) {
+export function makeGroupByDate(data) {
   const groupMap = new Map();
   data.forEach((value) => {
     const dateString = convertDateString(new Date(value.date));

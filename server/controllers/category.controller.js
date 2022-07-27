@@ -2,7 +2,7 @@ import categoryService from '../services/category.service';
 import { STATUS_CODE } from '../constants/status-code.constant';
 
 const categoryController = {
-  async getAllCategories(req, res) {
+  async getAllCategories(req, res, next) {
     try {
       const categories = await categoryService.getAllCategories();
 
