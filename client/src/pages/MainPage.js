@@ -1,7 +1,7 @@
 import Component from '@/base/component';
 import InputBar from '@/components/InputBar';
 import TransactionHistoryList from '@/components/TransactionHistoryList';
-import './page.css';
+
 export default class MainPage extends Component {
   constructor(parentNode) {
     super(parentNode, 'main');

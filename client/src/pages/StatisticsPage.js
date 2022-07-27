@@ -1,11 +1,12 @@
 import Component from '@/base/component';
+import DoughnutChartBoard from '@/components/DoughnutChartBoard';
 
 export default class StatisticsPage extends Component {
   constructor(parentNode) {
-    super(parentNode, 'main');
+    super(parentNode, 'main', { class: 'container' });
   }
 
   render() {
-    this.currentNode.innerHTML = '<h2>StatisticsPage</h2>';
+    new DoughnutChartBoard(this.currentNode);
   }
 }
