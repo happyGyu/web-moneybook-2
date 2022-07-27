@@ -25,7 +25,7 @@ export default class CalendarBody extends Component {
     const { currentDate } = this.props;
     const calendarDates = getAllDatesForCalendar(currentDate);
     const transactionHistoriesByDate = makeGroupByDate(transactionHistories);
-    const weeks = splitByWeek(calendarDates, 7);
+    const weeks = splitByWeek(calendarDates);
     this.currentNode.innerHTML = `
       ${weeks
         .map((week) => this.renderWeek(week, transactionHistoriesByDate))
