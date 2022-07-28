@@ -125,7 +125,11 @@ async function addPaymentMethod(title) {
 }
 
 async function deletePaymentMethod(targetId) {
-  await request.removePaymentMethod(targetId);
+  const currHeaderDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  await Promise.all([
+    await request.removePaymentMethod(targetId),
+    await setCurrentMonthTransactionHistories(currHeaderDate),
+  ]);
   const currPaymentMethods = store.getData(STORE_KEYS.PAYMENT_METHODS);
   const updatedPaymentMethods = currPaymentMethods.filter(
     (paymentMethod) => paymentMethod.id !== parseInt(targetId),
