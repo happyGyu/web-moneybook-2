@@ -104,11 +104,15 @@ function setInputBarEditMode(historyData) {
   });
 }
 
-function unsetInputBarEditMode() {
+function resetInputBarState() {
   store.setData(STORE_KEYS.INPUT_BAR_STATE, {
     isEditing: false,
     editingId: null,
   });
+}
+
+function unsetInputBarEditMode() {
+  resetInputBarState();
   clearInputBar();
 }
 
@@ -121,7 +125,11 @@ async function addPaymentMethod(title) {
 }
 
 async function deletePaymentMethod(targetId) {
-  await request.removePaymentMethod(targetId);
+  const currHeaderDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
+  await Promise.all([
+    await request.removePaymentMethod(targetId),
+    await setCurrentMonthTransactionHistories(currHeaderDate),
+  ]);
   const currPaymentMethods = store.getData(STORE_KEYS.PAYMENT_METHODS);
   const updatedPaymentMethods = currPaymentMethods.filter(
     (paymentMethod) => paymentMethod.id !== parseInt(targetId),
@@ -143,9 +151,9 @@ async function changeHeaderMonth(increment) {
   const headerDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
   headerDate.setDate(1);
   headerDate.setMonth(headerDate.getMonth() + increment);
+  store.setData(STORE_KEYS.CATEGORY_CHART_DATA, null);
   await setCurrentMonthTransactionHistories(headerDate);
   store.setData(STORE_KEYS.CURRENT_HEADER_DATE, headerDate);
-  store.setData(STORE_KEYS.CATEGORY_CHART_DATA, null);
   changeInputData([{ dataKey: INPUT_BAR_KEYS.DATE, value: headerDate }]);
   changeInputData(INPUT_BAR_KEYS.DATE, headerDate);
 }

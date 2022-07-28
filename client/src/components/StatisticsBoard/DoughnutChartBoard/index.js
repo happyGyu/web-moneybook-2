@@ -3,7 +3,7 @@ import SpentList from './SpentList';
 import DoughnutChart from './DoughnutChart';
 import { STORE_KEYS } from '@/constants/keys';
 import { getTotalSpentAmounts } from '@/utils/transaction-history-util';
-import { easeInOut } from '@/utils/chart-util';
+import { easeOut } from '@/utils/chart-util';
 
 export default class DoughnutChartBoard extends Component {
   constructor(parentNode, transactionHistories) {
@@ -36,11 +36,13 @@ export default class DoughnutChartBoard extends Component {
     };
     const chart = this.currentNode.querySelector('.doughnut-chart');
     const list = this.currentNode.querySelector('.doughnut-chart-board__list');
+    const doughnutChartStartAngle = Math.random() * 2 * Math.PI;
     new DoughnutChart(chart, totalSpentAmounts, {
       key,
       scale: 0.8,
       innerRadius: 0.5,
-    }).startDraw(0.025, easeInOut);
+      doughnutChartStartAngle,
+    }).startDraw(0.025, easeOut);
     new SpentList(list, totalSpentAmounts);
   }
 

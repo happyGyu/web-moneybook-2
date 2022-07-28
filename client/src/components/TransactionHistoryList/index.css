@@ -113,3 +113,9 @@
 .overlay__delete-btn:hover {
   color: var(--colors-error);
 }
+
+.empty {
+  width: 100%;
+  text-align: center;
+  margin-top: 7rem;
+}
