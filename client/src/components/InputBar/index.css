@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--colors-off-white);
+  box-shadow: var(--shadow-default);
 }
 
 .input-box {
@@ -122,7 +123,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 0.625rem;
   background-color: var(--colors-off-white);
   z-index: var(--z-index-dropdown);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-default);
 }
 
 .dropdown__backdrop {

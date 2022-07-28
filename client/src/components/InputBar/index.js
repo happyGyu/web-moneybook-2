@@ -10,7 +10,7 @@ import { STORE_KEYS } from '@/constants/keys';
 
 export default class InputBar extends Component {
   constructor(parentNode) {
-    super(parentNode, 'form', { class: 'input-bar shadow' });
+    super(parentNode, 'form', { class: 'input-bar' });
     this.activate();
   }
 
