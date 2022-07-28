@@ -15,7 +15,8 @@ const paymentMethodModel = {
   async findAll() {
     const [paymentMethods] = await query(
       `SELECT id, title
-      FROM PaymentMethod`,
+      FROM PaymentMethod
+      ORDER BY id ASC`,
     );
     return paymentMethods;
   },
