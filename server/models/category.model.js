@@ -14,7 +14,7 @@ const categoryModel = {
 
   async findAll() {
     const [categories] = await query(`
-      SELECT id, title, color
+      SELECT id, title, color, isIncome
       FROM Category;
     `);
     return categories;
