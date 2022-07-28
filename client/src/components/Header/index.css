@@ -70,6 +70,7 @@
   padding: 0.75rem;
   border-radius: 0.5rem;
   transition: opacity 0.15s ease-in-out;
+  opacity: 0.5;
 }
 
 .header__navigation--link > svg {
@@ -79,4 +80,8 @@
 
 .header__navigation--link:hover {
   opacity: 0.75;
+}
+
+.header__navigation--link.active {
+  opacity: 1;
 }

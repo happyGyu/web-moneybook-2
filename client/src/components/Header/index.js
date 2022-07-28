@@ -1,5 +1,4 @@
 import './index.css';
-import Router from '@/base/router';
 import Component from '@/base/component';
 import Logo from './Logo';
 import Navigation from './Navigation';
@@ -8,7 +7,6 @@ import HeaderCalendar from './HeaderCalendar';
 export default class Header extends Component {
   constructor(parentNode) {
     super(parentNode, 'header', { class: 'header' });
-    this.activate();
   }
 
   render() {
@@ -18,13 +16,5 @@ export default class Header extends Component {
     new Logo(headerContainer);
     new HeaderCalendar(headerContainer);
     new Navigation(headerContainer);
-  }
-
-  activate() {
-    this.addEvent('click', '.link', (event) => {
-      event.preventDefault();
-      const anchor = event.target.closest('a.link');
-      Router.link(anchor.pathname);
-    });
   }
 }
