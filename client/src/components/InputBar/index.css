@@ -244,7 +244,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .submit-button:disabled {
   opacity: 0.75;
-  cursor: not-allowed;
+  pointer-events: none;
   background-color: var(--colors-placeholder);
 }
 
