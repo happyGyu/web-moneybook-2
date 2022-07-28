@@ -16,9 +16,9 @@ const transactionHistoryModel = {
     const [[transactionHistory]] = await query(
       `SELECT T.id, T.title, T.isIncome, T.amount, T.date, T.paymentMethodId, P.title as paymentMethodTitle, T.categoryId, C.title as categoryTitle, C.color as categoryColor
       FROM TransactionHistory as T
-      INNER JOIN PaymentMethod as P
+      LEFT JOIN PaymentMethod as P
       ON T.paymentMethodId = P.id
-      INNER JOIN Category as C
+      LEFT JOIN Category as C
       ON T.categoryId = C.id
       WHERE T.id = ?
       LIMIT 1;`,
@@ -31,9 +31,9 @@ const transactionHistoryModel = {
     const [transactionHistories] = await query(
       `SELECT T.id, T.title, T.isIncome, T.amount, T.date, T.paymentMethodId, P.title as paymentMethodTitle, T.categoryId, C.title as categoryTitle, C.color as categoryColor
       FROM TransactionHistory as T
-      INNER JOIN PaymentMethod as P
+      LEFT JOIN PaymentMethod as P
       ON T.paymentMethodId = P.id
-      INNER JOIN Category as C
+      LEFT JOIN Category as C
       ON T.categoryId = C.id
       WHERE T.date BETWEEN ? AND ?;`,
       [startDate, endDate],
@@ -48,7 +48,7 @@ const transactionHistoryModel = {
       FROM (
         SELECT DATE_FORMAT(T.date, '%Y-%m') AS historyDate, SUM(T.amount) AS totalSpent
         FROM TransactionHistory as T
-        INNER JOIN Category as C
+        LEFT JOIN Category as C
         ON T.categoryId = C.id
         WHERE T.isIncome = 0 AND C.title = ?
         GROUP BY historyDate
