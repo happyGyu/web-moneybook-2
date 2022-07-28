@@ -40,6 +40,7 @@ async function initStore() {
   const inputBarState = DEFAULT_INPUT_BAR_STATE;
   const isInputBarValid = false;
   const filterOptions = DEFAULT_FILTER_OPTIONS;
+  const categoryChartData = null;
 
   const initialData = {
     currentHeaderDate,
@@ -50,6 +51,7 @@ async function initStore() {
     inputBarState,
     isInputBarValid,
     filterOptions,
+    categoryChartData,
   };
   store.initStore(initialData);
 }

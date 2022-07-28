@@ -42,7 +42,6 @@ const transactionHistoryModel = {
   },
 
   async getTotalSpentByCategoryInPeriod(currentDate, range, category) {
-    console.log(currentDate, range, category);
     const [totalSpentByCategory] = await query(
       `
       SELECT B.currentDate as date, IFNULL(A.totalSpent, 0) as totalSpent
