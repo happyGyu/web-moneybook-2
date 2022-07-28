@@ -11,6 +11,14 @@ export default async function feed(pool) {
     { title: '문화/여가', color: '#D092E2', isIncome: false },
     { title: '미분류', color: '#817DCE', isIncome: false },
   ];
+
+  const PAYMENT_METHODS = [
+    { title: '배민페이' },
+    { title: '우리은행' },
+    { title: '토스뱅크' },
+    { title: '카카오뱅크' },
+  ];
+
   const connection = await pool.getConnection();
   await Promise.all(
     CATEGORIES.map(({ title, color, isIncome }) => {
@@ -25,6 +33,21 @@ export default async function feed(pool) {
       );
     }),
   );
+
+  await Promise.all(
+    PAYMENT_METHODS.map(({ title }) => {
+      connection.query(
+        `
+        INSERT INTO PaymentMethod ( title )
+        SELECT * FROM ( SELECT ? ) AS Temp
+        WHERE NOT EXISTS (
+            SELECT title FROM PaymentMethod WHERE title = ?
+        ) LIMIT 1;`,
+        [title, title],
+      );
+    }),
+  );
+
   console.log('DB: INSERT DATA');
   connection.release();
 }
