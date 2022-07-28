@@ -6,7 +6,7 @@ export default class DoughnutChart extends Chart {
     const radius = this.canvas.width / 2;
     const totalValue = this.getTotalValue();
 
-    let prevAngle = 0;
+    let prevAngle = this.options.doughnutChartStartAngle;
     for (const data of this.dataset) {
       const { value, color } = this.getData(data);
       const currentAngle = prevAngle + (value / totalValue) * 2 * Math.PI * t;

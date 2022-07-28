@@ -29,7 +29,9 @@ export default class ListItemCell extends Component {
     this.currentNode.innerHTML = `
       <div class="transaction-history-item__category" style="background: ${categoryColor}">${categoryTitle}</div>
       <span class="transaction-history-item__title">${title}</span>
-      <span class="transaction-history-item__payment-method">${paymentMethodTitle}</span>
+      <span class="transaction-history-item__payment-method">${
+        paymentMethodTitle || ''
+      }</span>
       <span class="transaction-history-item__money">${
         isIncome ? '' : '-'
       }${amount.toLocaleString()}원</span>

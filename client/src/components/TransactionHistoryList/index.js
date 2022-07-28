@@ -1,7 +1,7 @@
+import './index.css';
 import Component from '@/base/component';
 import ListHeader from './ListHeader';
 import { STORE_KEYS } from '@/constants/keys';
-import './index.css';
 import ListContent from './ListContent';
 import { calculateTotalAmount } from '@/utils/transaction-history-util';
 

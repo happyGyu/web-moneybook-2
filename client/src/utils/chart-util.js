@@ -1,5 +1,5 @@
 export function easeOut(value) {
-  return -(value ** 2) + 2 * value;
+  return (2 * value - value ** 2) ** (1 / 2);
 }
 
 export function easeInOut(value) {

@@ -4,8 +4,10 @@ import CategoryList from './CategoryList';
 import chevronDown from '@/assets/chevron-down.svg';
 
 export default class CategoryInput extends Component {
-  constructor(parentNode, categoryTitle) {
-    super(parentNode, 'div', { class: 'input-box' }, categoryTitle);
+  constructor(parentNode, categoryTitle, isIncome) {
+    super(parentNode, 'div', { class: 'input-box' }, categoryTitle, {
+      isIncome,
+    });
     this.activate();
   }
 
@@ -19,7 +21,7 @@ export default class CategoryInput extends Component {
         <div class="dropdown-input__icon">${chevronDown}</div>
       </div>
     `;
-    new Dropdown(this.currentNode, CategoryList);
+    new Dropdown(this.currentNode, CategoryList, this.props);
   }
 
   activate() {
