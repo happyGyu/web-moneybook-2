@@ -48,8 +48,10 @@ export default class ListItemHeader extends Component {
     const totalSpentText = totalSpentAmount
       ? `지출 ${totalSpentAmount.toLocaleString()}`
       : '';
-    return `<span class="transaction-history-item__total-amount">${
-      totalIncomeText + totalSpentText
-    }</span>`;
+    return `
+      <div class="transaction-history-item__total-amount">
+        <span>${totalIncomeText}</span>
+        <span>${totalSpentText}</span>
+      </div>`;
   }
 }

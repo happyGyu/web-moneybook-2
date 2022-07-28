@@ -17,7 +17,7 @@ export default class EditingOverlay extends Component {
     if (!inputBarState?.isEditing) return '';
     const { top, left } = this.calLayerPosition(inputBarState);
     return `
-      <div class="editing-overlay__highligter" style="top:${top}px; left:${left}px;">
+      <div class="editing-overlay__highligter" style="top:${top}px; left:${left}px; right:${left}px;">
         <button type="button" class="overlay__btn overlay__cancel-editing-btn">수정 취소</button>
         <button type="button" class="overlay__btn overlay__delete-btn">내역 삭제</button>
       </div>
@@ -33,7 +33,11 @@ export default class EditingOverlay extends Component {
       editingHistoryCell.getBoundingClientRect();
     const { top: containerTop, left: containerLeft } =
       this.parentNode.getBoundingClientRect();
-    return { top: clientTop - containerTop, left: clientLeft - containerLeft };
+
+    return {
+      top: clientTop - containerTop,
+      left: clientLeft - containerLeft,
+    };
   }
 
   activate() {

@@ -1,3 +1,8 @@
+.transaction-history-list {
+  width: 100%;
+  position: relative;
+}
+
 .transaction-history-list-container {
   width: 100%;
   max-height: 100%;
@@ -11,6 +16,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  line-height: 1.5rem;
 }
 
 .transaction-history-list__title {
@@ -57,19 +63,14 @@
   background-color: var(--colors-primary);
 }
 
-.transaction-history-list {
-  width: 100%;
-  position: relative;
-}
-
 .transaction-history-item {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .transaction-history-item__header {
   display: flex;
   justify-content: space-between;
-  padding: 0 0.75rem 1.25rem 0;
+  padding: 1rem 0.25rem;
   border-bottom: 1px solid var(--colors-placeholder);
 }
 
@@ -80,53 +81,67 @@
 }
 
 .transaction-history-item__day-name {
-  margin-left: 0.5rem;
+  margin-left: 0.25rem;
   color: var(--colors-body);
 }
 
 .transaction-history-item__total-amount {
-  color: var(--colors-body);
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  color: var(--colors-label);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .transaction-history-item__cell {
   width: 100%;
+
   display: flex;
-  justify-content: space-between;
-  gap: 0.625rem;
   align-items: center;
-  font-size: 1.125rem;
+  justify-content: space-between;
+  gap: 1.5rem;
   padding: 1.25rem 0.75rem;
-  color: var(--colors-text-active);
   border-bottom: 1px solid var(--colors-placeholder);
+
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.transaction-history-item__cell:hover {
+  background-color: var(--colors-background);
 }
 
 .transaction-history-item__category {
-  color: #fff;
-  width: 5.75rem;
-  height: 1.875rem;
-  display: flex;
+  min-width: 6rem;
+  height: 2rem;
+  padding: 0 1rem;
+  border-radius: 9999px;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 3rem;
   font-size: 0.875rem;
+  color: var(--colors-off-white);
 }
 
 .transaction-history-item__title {
-  width: 36%;
-  font-weight: 400;
+  flex: 1;
 }
 
 .transaction-history-item__payment-method {
-  flex-grow: 1;
-  font-weight: 400;
+  flex: 1;
   color: var(--colors-body);
+}
+
+.transaction-history-item__money {
+  flex: 0.4;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .editing-overlay__highligter {
   position: absolute;
-  width: 100%;
   height: 4.375rem;
   display: flex;
   align-items: center;

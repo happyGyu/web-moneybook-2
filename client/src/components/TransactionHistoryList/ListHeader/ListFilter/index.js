@@ -24,14 +24,14 @@ export default class ListFilter extends Component {
         class="filter-input" ${filterOptions.income ? 'checked' : ''}/>
       <label for="income-checkbox" class="filter-label">
         <div class="filter-label__checkbox">${checkIcon}</div>
-        <span class="filter-label__text">수입 ${totalIncomeAmount.toLocaleString()}</span>
+        <span class="filter-label__text">수입 ${totalIncomeAmount.toLocaleString()}원</span>
       </label>
 
       <input hidden type="checkbox" id="spent-checkbox"
         class="filter-input" ${filterOptions.spent ? 'checked' : ''}/>
       <label for="spent-checkbox" class="filter-label">
         <div class="filter-label__checkbox">${checkIcon}</div>
-        <span class="filter-label__text">지출 ${totalSpentAmount.toLocaleString()}</span>
+        <span class="filter-label__text">지출 ${totalSpentAmount.toLocaleString()}원</span>
       </label>
     `;
   }
