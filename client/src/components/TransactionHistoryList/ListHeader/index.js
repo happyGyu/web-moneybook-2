@@ -7,7 +7,7 @@ export default class ListHeader extends Component {
     super(
       parentNode,
       'div',
-      { class: 'transaction-history-list__header' },
+      { class: 'transaction-history-list__header container' },
       null,
       { ...listHeaderData },
     );

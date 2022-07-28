@@ -29,6 +29,7 @@ export default class Router {
   render(pathname) {
     this.removePage();
     this.renderPage(pathname);
+    document.body.classList.toggle('overflow-hidden', pathname === '/');
   }
 
   onPopState() {

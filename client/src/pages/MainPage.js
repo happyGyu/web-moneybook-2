@@ -4,8 +4,8 @@ import TransactionHistoryList from '@/components/TransactionHistoryList';
 import controller from '@/controller';
 export default class MainPage extends Component {
   constructor(parentNode) {
-    super(parentNode, 'main');
-    this.activate();
+    super(parentNode, 'main', { class: 'main-page' });
+    this.activate()
   }
 
   render() {
