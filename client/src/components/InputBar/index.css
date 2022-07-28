@@ -1,7 +1,6 @@
 .input-bar {
-  position: absolute;
-  top: -2rem;
   max-width: 60rem;
+  margin: -2.5rem auto 0 auto;
   padding: 1.25rem 1.5rem;
   border-radius: 0.625rem;
 

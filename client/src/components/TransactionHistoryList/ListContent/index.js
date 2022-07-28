@@ -6,9 +6,15 @@ import { STORE_KEYS } from '@/constants/keys';
 
 export default class ListContent extends Component {
   constructor(parentNode, transactionHistories) {
-    super(parentNode, 'ul', { class: 'transaction-history-list' }, null, {
-      transactionHistories,
-    });
+    super(
+      parentNode,
+      'ul',
+      { class: 'container transaction-history-list' },
+      null,
+      {
+        transactionHistories,
+      },
+    );
     this.activate();
   }
 

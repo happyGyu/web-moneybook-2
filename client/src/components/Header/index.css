@@ -1,8 +1,4 @@
 .header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 12rem;
   color: var(--colors-off-white);
   background-color: var(--colors-primary);
