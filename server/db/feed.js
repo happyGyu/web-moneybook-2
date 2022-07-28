@@ -15,9 +15,13 @@ export default async function feed(pool) {
   await Promise.all(
     CATEGORIES.map(({ title, color, isIncome }) => {
       connection.query(
-        `REPLACE INTO Category (title, color, isIncome)
-        VALUES (?, ?, ?);`,
-        [title, color, isIncome],
+        `
+        INSERT INTO Category (title, color, isIncome)
+        SELECT * FROM (SELECT ?, ?, ?) AS Temp
+        WHERE NOT EXISTS (
+            SELECT title FROM Category WHERE title = ?
+        ) LIMIT 1;`,
+        [title, color, isIncome, title],
       );
     }),
   );
