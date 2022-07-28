@@ -3,8 +3,10 @@ import Dropdown from '../Dropdown';
 import CategoryList from './CategoryList';
 
 export default class CategoryInput extends Component {
-  constructor(parentNode, categoryTitle) {
-    super(parentNode, 'div', { class: 'input-box' }, categoryTitle);
+  constructor(parentNode, categoryTitle, isIncome) {
+    super(parentNode, 'div', { class: 'input-box' }, categoryTitle, {
+      isIncome,
+    });
     this.activate();
   }
 
@@ -15,7 +17,7 @@ export default class CategoryInput extends Component {
         name="category" type="text" placeholder="선택하세요"
         value="${categoryTitle || ''}" readonly />        
     `;
-    new Dropdown(this.currentNode, CategoryList);
+    new Dropdown(this.currentNode, CategoryList, this.props);
   }
 
   activate() {

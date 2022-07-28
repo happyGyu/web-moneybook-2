@@ -3,19 +3,22 @@ import Component from '@/base/component';
 import { STORE_KEYS, INPUT_BAR_KEYS } from '@/constants/keys';
 
 export default class CategoryList extends Component {
-  constructor(parentNode) {
-    super(parentNode, 'ul', { class: 'dropdown__list' });
+  constructor(parentNode, options) {
+    super(parentNode, 'ul', { class: 'dropdown__list' }, null, { options });
     this.activate();
   }
 
   render(categoryListData) {
     if (!categoryListData) return;
+    const { isIncome: currentInputBarIsIncome } = this.props.options;
     this.currentNode.innerHTML = `
       ${categoryListData
-        .map(
-          ({ id, title }) =>
-            `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`,
-        )
+        .map(({ id, title, isIncome }) => {
+          // category데이터는 서버로부터 응답 온 것이고, mysql에서는 true/false를 1/0으로 저장하기 때문에 === 비교가 불가
+          return isIncome == currentInputBarIsIncome
+            ? `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`
+            : '';
+        })
         .join('')}
     `;
   }

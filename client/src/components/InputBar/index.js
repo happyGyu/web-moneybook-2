@@ -20,7 +20,7 @@ export default class InputBar extends Component {
       inputBarData;
     this.currentNode.innerHTML = '';
     new DateInput(this.currentNode, date);
-    new CategoryInput(this.currentNode, categoryTitle);
+    new CategoryInput(this.currentNode, categoryTitle, isIncome);
     new TitleInput(this.currentNode, title);
     new PaymentMethodInput(this.currentNode, paymentMethodTitle);
     new MoneyInput(this.currentNode, { isIncome, amount });
