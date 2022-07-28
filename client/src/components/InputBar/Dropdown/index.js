@@ -19,6 +19,6 @@ export default class Dropdown extends Component {
   }
 
   onCloseDropdown() {
-    this.currentNode.classList.toggle('closed');
+    this.parentNode.classList.toggle('is-open-dropdown');
   }
 }

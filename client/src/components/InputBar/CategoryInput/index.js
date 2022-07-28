@@ -1,6 +1,7 @@
 import Component from '@/base/component';
 import Dropdown from '../Dropdown';
 import CategoryList from './CategoryList';
+import chevronDown from '@/assets/chevron-down.svg';
 
 export default class CategoryInput extends Component {
   constructor(parentNode, categoryTitle) {
@@ -11,21 +12,23 @@ export default class CategoryInput extends Component {
   render(categoryTitle) {
     this.currentNode.innerHTML = `
       <label for="inputbar-category" class="input__label">분류</label>
-      <input id="inputbar-category" class="input input__category"
-        name="category" type="text" placeholder="선택하세요"
-        value="${categoryTitle || ''}" readonly />        
+      <div class="dropdown-input">
+        <input id="inputbar-category" class="input input__category"
+          name="category" type="text" placeholder="선택하세요"
+          value="${categoryTitle || ''}" readonly />
+        <div class="dropdown-input__icon">${chevronDown}</div>
+      </div>
     `;
     new Dropdown(this.currentNode, CategoryList);
   }
 
   activate() {
-    this.addEvent('click', '.input__category', (event) =>
+    this.addEvent('click', '.dropdown-input', (event) =>
       this.toggleDropDown(event),
     );
   }
 
-  toggleDropDown(event) {
-    const dropdown = this.currentNode.querySelector('.dropdown');
-    dropdown.classList.toggle('closed');
+  toggleDropDown() {
+    this.currentNode.classList.toggle('is-open-dropdown');
   }
 }

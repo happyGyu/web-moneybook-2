@@ -40,7 +40,7 @@
 
 .input__category,
 .input__payment-methods {
-  max-width: 7.5rem;
+  max-width: 10rem;
   cursor: pointer;
 }
 
@@ -110,11 +110,46 @@ input[type='date']::-webkit-calendar-picker-indicator {
   width: 100%;
 }
 
+.dropdown-input {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown-input__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-input__icon > svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--colors-body);
+}
+
 .dropdown {
+  visibility: hidden;
   position: absolute;
   top: 4.25rem;
   left: 0;
   right: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: var(--z-index-dropdown);
+  animation: fadeOut 0.2s ease-in-out;
+}
+
+.input-box.is-open-dropdown .dropdown {
+  visibility: visible;
+  opacity: 1;
+}
+
+.input-box.is-open-dropdown .dropdown-input__icon {
+  transform: rotate(180deg);
 }
 
 .dropdown__list {
@@ -122,7 +157,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border: 1px solid var(--colors-line);
   border-radius: 0.625rem;
   background-color: var(--colors-off-white);
-  z-index: var(--z-index-dropdown);
   box-shadow: var(--shadow-default);
 }
 
@@ -132,7 +166,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: calc(var(--z-index-dropdown) - 10);
 }
 
 .dropdown__item {
@@ -218,8 +251,4 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .submit-button > svg {
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.closed {
-  visibility: hidden;
 }
