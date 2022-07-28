@@ -49,7 +49,7 @@ export function getAllDatesForCalendar(dateObj) {
   const calendarDates = [];
   const currentDate = getFirstDateOfCalendar(dateObj);
   while (
-    currentDate.getMonth() <= dateObj.getMonth() ||
+    currentDate <= getLastDateOfMonth(dateObj) ||
     calendarDates.length % 7 !== 0
   ) {
     calendarDates.push({

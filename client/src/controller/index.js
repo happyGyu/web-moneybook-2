@@ -139,14 +139,14 @@ function changeFilterOptions(filterOption, isFiltered) {
   store.setData(STORE_KEYS.FILTER_OPTIONS, updatedFilterOptions);
 }
 
-function changeHeaderMonth(increment) {
+async function changeHeaderMonth(increment) {
   const headerDate = store.getData(STORE_KEYS.CURRENT_HEADER_DATE);
   headerDate.setDate(1);
   headerDate.setMonth(headerDate.getMonth() + increment);
+  await setCurrentMonthTransactionHistories(headerDate);
   store.setData(STORE_KEYS.CURRENT_HEADER_DATE, headerDate);
   store.setData(STORE_KEYS.CATEGORY_CHART_DATA, null);
   changeInputData([{ dataKey: INPUT_BAR_KEYS.DATE, value: headerDate }]);
-  setCurrentMonthTransactionHistories(headerDate);
   changeInputData(INPUT_BAR_KEYS.DATE, headerDate);
 }
 
