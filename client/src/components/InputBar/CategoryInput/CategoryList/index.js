@@ -10,17 +10,17 @@ export default class CategoryList extends Component {
 
   render(categoryListData) {
     if (!categoryListData) return;
+    this.currentNode.innerHTML = categoryListData
+      .map(this.makeCategoryTemplate.bind(this))
+      .join('');
+  }
+
+  makeCategoryTemplate(categoryData) {
     const { isIncome: currentInputBarIsIncome } = this.props.options;
-    this.currentNode.innerHTML = `
-      ${categoryListData
-        .map(({ id, title, isIncome }) => {
-          // category데이터는 서버로부터 응답 온 것이고, mysql에서는 true/false를 1/0으로 저장하기 때문에 === 비교가 불가
-          return isIncome == currentInputBarIsIncome
-            ? `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`
-            : '';
-        })
-        .join('')}
-    `;
+    const { id, title, isIncome } = categoryData;
+    return isIncome == currentInputBarIsIncome
+      ? `<li class="dropdown__item category__item" data-id="${id}" data-title="${title}">${title}</li>`
+      : '';
   }
 
   activate() {
