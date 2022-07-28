@@ -44,6 +44,10 @@
   border-bottom: 1px solid var(--colors-placeholder);
 }
 
+.spent-list-item:hover {
+  background-color: var(--colors-background);
+}
+
 .spent-list-item__category {
   color: #fff;
   width: 5.75rem;
@@ -53,6 +57,7 @@
   align-items: center;
   border-radius: 3rem;
   font-size: 0.875rem;
+  cursor: pointer;
 }
 
 .spent-list-item__ratio {

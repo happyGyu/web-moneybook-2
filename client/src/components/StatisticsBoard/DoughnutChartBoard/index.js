@@ -1,4 +1,3 @@
-import store from '@/store';
 import Component from '@/base/component';
 import SpentList from './SpentList';
 import DoughnutChart from './DoughnutChart';
@@ -7,28 +6,28 @@ import { getTotalSpentAmounts } from '@/utils/transaction-history-util';
 import { easeInOut } from '@/utils/chart-util';
 
 export default class DoughnutChartBoard extends Component {
-  constructor(parentNode, initialData) {
-    super(
-      parentNode,
-      'section',
-      { class: 'doughnut-chart-board' },
-      initialData,
-    );
+  constructor(parentNode, transactionHistories) {
+    super(parentNode, 'section', { class: 'doughnut-chart-board' }, null, {
+      transactionHistories,
+    });
     this.activate();
   }
 
-  render(transactionHistories) {
+  render(categories) {
+    if (!categories) return;
+    const { transactionHistories } = this.props;
     this.currentNode.innerHTML = `
       <div class="doughnut-chart-board__chart">
         <canvas class="doughnut-chart"></canvas>
       </div>
       <div class="doughnut-chart-board__list"></div>
     `;
-
-    const categories = store.getData(STORE_KEYS.CATEGORIES);
+    const incomeCategories = categories.filter(
+      (category) => !category.isIncome,
+    );
     const totalSpentAmounts = getTotalSpentAmounts(
       transactionHistories,
-      categories,
+      incomeCategories,
     );
     const key = {
       label: 'category',
@@ -43,5 +42,9 @@ export default class DoughnutChartBoard extends Component {
       innerRadius: 0.5,
     }).startDraw(0.025, easeInOut);
     new SpentList(list, totalSpentAmounts);
+  }
+
+  activate() {
+    this.subscribe(STORE_KEYS.CATEGORIES);
   }
 }

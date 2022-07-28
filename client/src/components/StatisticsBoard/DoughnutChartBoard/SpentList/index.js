@@ -24,9 +24,10 @@ export default class SpentList extends Component {
 
   getListItemTemplate(totalSpentAmountData, monthTotalSpentAmount) {
     const { id, title, color, totalSpentAmount } = totalSpentAmountData;
-    const spentPercentage = monthTotalSpentAmount
-      ? Math.round(totalSpentAmount / monthTotalSpentAmount) * 100
-      : 0;
+    const spentPercentage =
+      monthTotalSpentAmount !== 0
+        ? Math.round((totalSpentAmount / monthTotalSpentAmount) * 100)
+        : 0;
     return `
       <li class="spent-list-item" data-id="${id}" data-title="${title}">
         <div class="spent-list-item__category" style="background: ${color}">${title}</div>
