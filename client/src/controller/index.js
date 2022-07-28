@@ -104,11 +104,15 @@ function setInputBarEditMode(historyData) {
   });
 }
 
-function unsetInputBarEditMode() {
+function resetInputBarState() {
   store.setData(STORE_KEYS.INPUT_BAR_STATE, {
     isEditing: false,
     editingId: null,
   });
+}
+
+function unsetInputBarEditMode() {
+  resetInputBarState();
   clearInputBar();
 }
 
