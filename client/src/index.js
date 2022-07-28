@@ -9,6 +9,7 @@ import CalendarPage from '@/pages/CalendarPage';
 import StatisticsPage from '@/pages/StatisticsPage';
 import store from '@/store';
 import request from '@/utils/api-util';
+import { PAGE_URL } from '@/constants/page';
 import {
   DEFAULT_INPUT_BAR_DATA,
   DEFAULT_INPUT_BAR_STATE,
@@ -18,9 +19,9 @@ import {
 (async function () {
   const app = document.getElementById('app');
   const routes = {
-    '/': () => new MainPage(app),
-    '/calendar': () => new CalendarPage(app),
-    '/statistics': () => new StatisticsPage(app),
+    [PAGE_URL.MAIN]: () => new MainPage(app),
+    [PAGE_URL.CALENDAR]: () => new CalendarPage(app),
+    [PAGE_URL.STATISTICS]: () => new StatisticsPage(app),
     '*': () => new NotFoundPage(app),
   };
 
