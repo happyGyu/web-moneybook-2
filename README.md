@@ -4,11 +4,13 @@
 
 ![우아한 가계부](./contents/woowa-moneybook.png)
 
+<br>
+
 ## 🙋‍♂️ Members
 
 안녕하세요👋
 
-우아한 가계부 2팀 상<small style="opacity: 0.5;">림</small>태<small style="opacity: 0.5;">규</small>관리입니다.
+우아한 가계부 2팀 **상태관리**입니다.
 
 <table>
   <tbody>
